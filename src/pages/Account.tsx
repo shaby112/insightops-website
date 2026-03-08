@@ -53,7 +53,7 @@ export default function Account() {
           </CardHeader>
           <CardContent className="space-y-2 text-sm">
             <p>Email: {user?.primaryEmailAddress?.emailAddress || "-"}</p>
-            <p>Clerk ID: {user?.id || "-"}</p>
+            <p>Identity ID: {user?.id || "-"}</p>
             <p>Backend User ID: {backendIdentity?.id || "Syncing..."}</p>
           </CardContent>
         </Card>

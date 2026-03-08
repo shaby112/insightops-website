@@ -30,7 +30,7 @@ export function BackendUserSync() {
         syncedUser.current = userId;
       }
     })().catch((error) => {
-      console.error("Failed to sync Clerk user to backend:", error);
+      console.error("Failed to sync signed-in user to backend:", error);
     });
 
     return () => {

@@ -223,7 +223,7 @@ export default function Landing() {
             <div className="flex flex-col gap-2 text-sm text-muted-foreground">
               <div className="flex items-center gap-2">
                 <CheckCircle2 className="h-4 w-4 text-primary" />
-                Clerk-based identity and backend user provisioning
+                Secure identity and backend user provisioning
               </div>
               <div className="flex items-center gap-2">
                 <CheckCircle2 className="h-4 w-4 text-primary" />
