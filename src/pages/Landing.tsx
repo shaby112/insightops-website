@@ -1,5 +1,7 @@
 import { Link } from "react-router-dom";
 import { SignedIn, SignedOut, useUser, UserButton } from "@clerk/clerk-react";
+import { motion, useScroll, useTransform } from "framer-motion";
+import { useRef } from "react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { ThemeToggle } from "@/components/ThemeToggle";
@@ -26,6 +28,22 @@ const valueCards = [
 
 export default function Landing() {
   const { user } = useUser();
+  const scrollRef = useRef<HTMLDivElement | null>(null);
+  const { scrollYProgress } = useScroll({
+    target: scrollRef,
+    offset: ["start start", "end end"],
+  });
+
+  const pipelineScale = useTransform(scrollYProgress, [0, 0.5, 1], [0.9, 1, 1.08]);
+  const pipelineY = useTransform(scrollYProgress, [0, 1], [36, -24]);
+
+  const leftX = useTransform(scrollYProgress, [0, 0.35, 0.7, 1], [-60, 0, 0, -12]);
+  const rightX = useTransform(scrollYProgress, [0, 0.35, 0.7, 1], [60, 0, 0, 12]);
+  const rightOpacity = useTransform(scrollYProgress, [0, 0.15, 1], [0.3, 1, 1]);
+
+  const step1Opacity = useTransform(scrollYProgress, [0, 0.17, 0.32], [1, 1, 0.2]);
+  const step2Opacity = useTransform(scrollYProgress, [0.24, 0.45, 0.66], [0.25, 1, 0.25]);
+  const step3Opacity = useTransform(scrollYProgress, [0.58, 0.78, 1], [0.25, 1, 1]);
 
   return (
     <main className="min-h-screen bg-[radial-gradient(circle_at_top,hsl(var(--primary)/0.11),hsl(var(--background)_42%))] text-foreground">
@@ -106,6 +124,70 @@ export default function Landing() {
                 View Pricing
               </Button>
             </Link>
+          </div>
+        </div>
+      </section>
+
+      <section className="mx-auto w-full max-w-6xl px-6 pb-24">
+        <div className="mb-6">
+          <p className="text-xs font-semibold uppercase tracking-[0.16em] text-primary">Scroll Story</p>
+          <h2 className="mt-2 text-2xl font-semibold md:text-3xl">How InsightOps turns source data into shared decisions</h2>
+          <p className="mt-2 max-w-3xl text-muted-foreground">
+            Scroll down to walk through the same pipeline flow seen in the hero visual. The sequence animates from source ingestion to model-driven analytics and team-ready output.
+          </p>
+        </div>
+
+        <div ref={scrollRef} className="relative h-[210vh]">
+          <div className="sticky top-20 rounded-3xl border border-border/70 bg-card/85 p-4 shadow-[0_24px_80px_-48px_rgba(71,98,233,0.7)] backdrop-blur-sm md:p-6">
+            <div className="grid gap-4 lg:grid-cols-[1fr_minmax(0,1.35fr)_1fr]">
+              <div className="space-y-3">
+                <motion.div style={{ opacity: step1Opacity, x: leftX }} className="rounded-xl border border-border/70 bg-background/80 p-4">
+                  <p className="text-xs font-semibold uppercase tracking-[0.12em] text-primary">Step 1</p>
+                  <h3 className="mt-2 font-semibold">Source Ingestion</h3>
+                  <p className="mt-1 text-sm text-muted-foreground">Databases, files, and APIs are mapped into your workspace with metadata and health checks.</p>
+                </motion.div>
+                <motion.div style={{ opacity: step2Opacity, x: leftX }} className="rounded-xl border border-border/70 bg-background/80 p-4">
+                  <p className="text-xs font-semibold uppercase tracking-[0.12em] text-primary">Step 2</p>
+                  <h3 className="mt-2 font-semibold">Semantic Modeling</h3>
+                  <p className="mt-1 text-sm text-muted-foreground">The model layer resolves relationships so AI can generate accurate joins and metrics.</p>
+                </motion.div>
+                <motion.div style={{ opacity: step3Opacity, x: leftX }} className="rounded-xl border border-border/70 bg-background/80 p-4">
+                  <p className="text-xs font-semibold uppercase tracking-[0.12em] text-primary">Step 3</p>
+                  <h3 className="mt-2 font-semibold">Insight Delivery</h3>
+                  <p className="mt-1 text-sm text-muted-foreground">Dashboards, reports, and assistant answers are delivered with traceable SQL and context.</p>
+                </motion.div>
+              </div>
+
+              <motion.div style={{ scale: pipelineScale, y: pipelineY }} className="self-center">
+                <LuminaPipeline />
+              </motion.div>
+
+              <motion.div style={{ x: rightX, opacity: rightOpacity }} className="space-y-3">
+                <div className="rounded-xl border border-border/70 bg-background/80 p-4">
+                  <p className="text-xs font-semibold uppercase tracking-[0.12em] text-primary">Live KPI</p>
+                  <p className="mt-2 text-3xl font-semibold">$2.25k</p>
+                  <p className="text-xs text-muted-foreground">Current period pipeline value</p>
+                </div>
+                <div className="rounded-xl border border-border/70 bg-background/80 p-4">
+                  <p className="text-xs font-semibold uppercase tracking-[0.12em] text-primary">Accuracy</p>
+                  <p className="mt-2 text-3xl font-semibold">99%</p>
+                  <p className="text-xs text-muted-foreground">Validated model-driven query confidence</p>
+                </div>
+                <div className="rounded-xl border border-border/70 bg-background/80 p-4">
+                  <p className="text-xs font-semibold uppercase tracking-[0.12em] text-primary">Outcome</p>
+                  <p className="mt-2 text-sm text-muted-foreground">
+                    Teams can act immediately on metrics, trends, and anomaly alerts from one place.
+                  </p>
+                </div>
+              </motion.div>
+            </div>
+
+            <div className="mt-4 h-1.5 overflow-hidden rounded-full bg-muted/60">
+              <motion.div
+                className="h-full origin-left bg-gradient-to-r from-blue-500 to-indigo-500"
+                style={{ scaleX: scrollYProgress }}
+              />
+            </div>
           </div>
         </div>
       </section>

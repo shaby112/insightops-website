@@ -4,7 +4,10 @@ import { ClerkProvider } from "@clerk/clerk-react";
 import App from "./App.tsx";
 import "./index.css";
 
-const PUBLISHABLE_KEY = (import.meta as any).env?.VITE_CLERK_PUBLISHABLE_KEY;
+const DEFAULT_PUBLISHABLE_KEY =
+  "pk_test_Z29yZ2VvdXMtZ29yaWxsYS01OC5jbGVyay5hY2NvdW50cy5kZXYk";
+const PUBLISHABLE_KEY =
+  (import.meta as any).env?.VITE_CLERK_PUBLISHABLE_KEY || DEFAULT_PUBLISHABLE_KEY;
 
 function MissingConfig() {
   return (
