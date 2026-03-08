@@ -5,6 +5,7 @@ import { useRef } from "react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { ThemeToggle } from "@/components/ThemeToggle";
+import { Logo } from "@/components/Logo";
 import { LuminaPipeline } from "@/components/graphics/LuminaPipeline";
 import { ArrowRight, CheckCircle2, Database, Gauge, Share2 } from "lucide-react";
 
@@ -49,9 +50,8 @@ export default function Landing() {
     <main className="min-h-screen bg-[radial-gradient(circle_at_top,hsl(var(--primary)/0.11),hsl(var(--background)_42%))] text-foreground">
       <header className="sticky top-0 z-50 border-b border-border/70 bg-background/85 backdrop-blur-md">
         <div className="mx-auto flex h-16 w-full max-w-6xl items-center justify-between px-6">
-          <Link to="/" className="flex items-center gap-3">
-            <div className="h-7 w-7 rounded-md bg-gradient-to-br from-blue-500 to-indigo-600 shadow-sm" />
-            <span className="text-xl font-semibold tracking-tight">InsightOps</span>
+          <Link to="/" className="flex items-center">
+            <Logo size="sm" />
           </Link>
 
           <nav className="hidden items-center gap-7 text-sm text-muted-foreground md:flex">
@@ -96,6 +96,9 @@ export default function Landing() {
           </div>
 
           <div className="mt-6 text-center">
+            <div className="mb-6 flex justify-center">
+              <Logo size="lg" inverted />
+            </div>
             <h1 className="text-4xl font-semibold leading-tight md:text-6xl">
               From Data to Decision.
             </h1>
