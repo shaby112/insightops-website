@@ -6,11 +6,11 @@ const THEME_STORAGE_KEY = "insightops-theme";
 
 export function ThemeToggle() {
   const [isDark, setIsDark] = useState<boolean>(() => {
-    if (typeof window === "undefined") return false;
+    if (typeof window === "undefined") return true;
     const savedTheme = window.localStorage.getItem(THEME_STORAGE_KEY);
     if (savedTheme === "dark") return true;
     if (savedTheme === "light") return false;
-    return false;
+    return true; // default dark
   });
 
   useEffect(() => {

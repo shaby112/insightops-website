@@ -1,112 +1,275 @@
 export function LuminaPipeline() {
   return (
-    <div className="relative w-full overflow-hidden rounded-2xl border border-indigo-200/40 bg-[#050A1C] p-4 shadow-[0_30px_80px_-40px_rgba(53,103,255,0.7)]">
-      <svg viewBox="0 0 1200 460" className="w-full h-auto" role="img" aria-label="Messy data sources transformed into structured insights">
+    <div className="relative w-full overflow-hidden rounded-2xl border border-white/[0.07] bg-[#040A18]">
+      <svg
+        viewBox="0 0 1200 420"
+        className="w-full h-auto"
+        role="img"
+        aria-label="Data sources flowing through the InsightOps prism into structured insights"
+      >
         <defs>
-          <linearGradient id="leftFlow" x1="0%" y1="0%" x2="100%" y2="0%">
-            <stop offset="0%" stopColor="#8CA6FF" stopOpacity="0.2" />
-            <stop offset="100%" stopColor="#70E5FF" stopOpacity="0.9" />
-          </linearGradient>
-          <linearGradient id="rightFlow" x1="0%" y1="0%" x2="100%" y2="0%">
-            <stop offset="0%" stopColor="#928AFF" stopOpacity="0.95" />
-            <stop offset="100%" stopColor="#8FE7FF" stopOpacity="0.3" />
-          </linearGradient>
-          <linearGradient id="prismFront" x1="0%" y1="0%" x2="100%" y2="100%">
-            <stop offset="0%" stopColor="#B59CFF" />
-            <stop offset="100%" stopColor="#695CFF" />
-          </linearGradient>
-          <linearGradient id="prismSide" x1="100%" y1="0%" x2="0%" y2="100%">
-            <stop offset="0%" stopColor="#A8ECFF" />
-            <stop offset="100%" stopColor="#4B6BDB" />
-          </linearGradient>
-          <linearGradient id="prismBase" x1="0%" y1="0%" x2="100%" y2="0%">
-            <stop offset="0%" stopColor="#5E3AC7" />
-            <stop offset="100%" stopColor="#5A6BFF" />
-          </linearGradient>
-          <filter id="heroGlow">
-            <feGaussianBlur stdDeviation="9" result="blur" />
+          {/* ── Glow filters ── */}
+          <filter id="megaGlow" x="-150%" y="-150%" width="400%" height="400%">
+            <feGaussianBlur stdDeviation="45" />
+          </filter>
+          <filter id="prismGlow" x="-80%" y="-80%" width="260%" height="260%">
+            <feGaussianBlur stdDeviation="16" result="blur" />
             <feMerge>
               <feMergeNode in="blur" />
               <feMergeNode in="SourceGraphic" />
             </feMerge>
           </filter>
+          <filter id="lineGlow" x="-10%" y="-300%" width="120%" height="700%">
+            <feGaussianBlur stdDeviation="5" result="blur" />
+            <feMerge>
+              <feMergeNode in="blur" />
+              <feMergeNode in="SourceGraphic" />
+            </feMerge>
+          </filter>
+          <filter id="softBlur" x="-20%" y="-20%" width="140%" height="140%">
+            <feGaussianBlur stdDeviation="3" />
+          </filter>
+          <filter id="iconGlow" x="-30%" y="-30%" width="160%" height="160%">
+            <feGaussianBlur stdDeviation="4" result="blur" />
+            <feMerge>
+              <feMergeNode in="blur" />
+              <feMergeNode in="SourceGraphic" />
+            </feMerge>
+          </filter>
+
+          {/* ── Prism gradients ── */}
+          <linearGradient id="prismFront" x1="50%" y1="0%" x2="50%" y2="100%">
+            <stop offset="0%" stopColor="#FF70FF" />
+            <stop offset="30%" stopColor="#CC40EE" />
+            <stop offset="70%" stopColor="#7030BB" />
+            <stop offset="100%" stopColor="#3A1888" />
+          </linearGradient>
+          <linearGradient id="prismRight" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" stopColor="#B0DEFF" stopOpacity="0.6" />
+            <stop offset="100%" stopColor="#2848AA" stopOpacity="0.5" />
+          </linearGradient>
+
+          {/* ── Line gradients ── */}
+          <linearGradient id="lineL" x1="0%" y1="0%" x2="100%" y2="0%">
+            <stop offset="0%" stopColor="#1880CC" stopOpacity="0.2" />
+            <stop offset="50%" stopColor="#28AAFF" stopOpacity="0.7" />
+            <stop offset="100%" stopColor="#40C8FF" stopOpacity="0.95" />
+          </linearGradient>
+          <linearGradient id="lineR" x1="0%" y1="0%" x2="100%" y2="0%">
+            <stop offset="0%" stopColor="#40C0FF" stopOpacity="0.95" />
+            <stop offset="50%" stopColor="#28A0FF" stopOpacity="0.6" />
+            <stop offset="100%" stopColor="#1870CC" stopOpacity="0.15" />
+          </linearGradient>
+
+          {/* ── Card fill ── */}
+          <linearGradient id="cardFill" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" stopColor="#0E1A30" />
+            <stop offset="100%" stopColor="#081220" />
+          </linearGradient>
+          <linearGradient id="iconBg" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" stopColor="#121E38" />
+            <stop offset="100%" stopColor="#0A1428" />
+          </linearGradient>
         </defs>
 
-        <rect x="0" y="0" width="1200" height="460" fill="#050A1C" />
-        <ellipse cx="600" cy="230" rx="320" ry="160" fill="#4358FF" opacity="0.14" />
+        {/* Background */}
+        <rect x="0" y="0" width="1200" height="420" fill="#040A18" />
 
-        <text x="56" y="44" fill="#BFC8E8" fontSize="15" letterSpacing="2.5">RAW SOURCES</text>
-        <text x="958" y="44" fill="#BFC8E8" fontSize="15" letterSpacing="2.5">INSIGHTS</text>
+        {/* Ambient center glow — large diffuse pink/purple */}
+        <ellipse cx="590" cy="210" rx="220" ry="160" fill="#CC30EE" filter="url(#megaGlow)" opacity="0.55" />
+        <ellipse cx="590" cy="210" rx="100" ry="80" fill="#EE50FF" filter="url(#megaGlow)" opacity="0.35" />
 
-        <g opacity="0.95">
-          <rect x="54" y="74" width="60" height="46" rx="10" fill="#121D36" stroke="#5A6B96" />
-          <ellipse cx="84" cy="87" rx="14" ry="4.5" fill="#8FC7FF" opacity="0.75" />
-          <line x1="70" y1="92" x2="98" y2="92" stroke="#8FC7FF" opacity="0.8" />
-          <ellipse cx="84" cy="102" rx="14" ry="4.5" fill="#8FC7FF" opacity="0.75" />
-        </g>
-        <g opacity="0.95">
-          <rect x="60" y="166" width="50" height="40" rx="10" fill="#1A2746" stroke="#5F6F9A" />
-          <circle cx="79" cy="186" r="7" fill="#95E2FF" opacity="0.8" />
-          <circle cx="92" cy="186" r="4" fill="#6E7BFF" opacity="0.9" />
-        </g>
-        <g opacity="0.95">
-          <rect x="58" y="248" width="58" height="46" rx="10" fill="#141E37" stroke="#5A6B96" />
-          <path d="M73 281 L73 262 L83 271 L92 258 L101 267" stroke="#8FE7FF" strokeWidth="2" fill="none" />
-        </g>
-        <g opacity="0.95">
-          <rect x="62" y="335" width="52" height="38" rx="10" fill="#1A2642" stroke="#6476A6" />
-          <rect x="72" y="346" width="6" height="18" rx="2" fill="#7BA4FF" />
-          <rect x="82" y="352" width="6" height="12" rx="2" fill="#8EE8FF" />
-          <rect x="92" y="341" width="6" height="23" rx="2" fill="#6F76FF" />
+        {/* ════════════════════════════════════════
+            LEFT COLUMN A — Large source icons
+            ════════════════════════════════════════ */}
+        {/* Icon 1 — Database */}
+        <g>
+          <rect x="42" y="62" width="68" height="56" rx="12" fill="url(#iconBg)" stroke="#1E3055" strokeWidth="1" />
+          <ellipse cx="76" cy="78" rx="18" ry="6" fill="none" stroke="#3A78CC" strokeWidth="1.5" opacity="0.8" />
+          <rect x="58" y="78" width="36" height="20" fill="none" stroke="#3A78CC" strokeWidth="1.5" opacity="0.5" />
+          <ellipse cx="76" cy="98" rx="18" ry="6" fill="none" stroke="#3A78CC" strokeWidth="1.5" opacity="0.7" />
         </g>
 
-        {[96, 182, 270, 354].map((y) => (
-          <g key={`left-tag-${y}`}>
-            <rect x="156" y={y - 18} width="132" height="36" rx="8" fill="#111C33" stroke="#4A5A84" opacity="0.9" />
-            <circle cx="174" cy={y} r="3.5" fill="#89D7FF" />
-            <rect x="184" y={y - 2} width="38" height="4" rx="2" fill="#89D7FF" opacity="0.7" />
-            <rect x="226" y={y - 2} width="24" height="4" rx="2" fill="#7477FF" opacity="0.8" />
+        {/* Icon 2 — Server/cloud */}
+        <g>
+          <rect x="46" y="152" width="62" height="50" rx="12" fill="url(#iconBg)" stroke="#1E3055" strokeWidth="1" />
+          <rect x="56" y="162" width="42" height="12" rx="4" fill="none" stroke="#4A88DD" strokeWidth="1.5" opacity="0.7" />
+          <rect x="56" y="178" width="42" height="12" rx="4" fill="none" stroke="#4A88DD" strokeWidth="1.5" opacity="0.5" />
+          <circle cx="64" cy="168" r="3" fill="#50A0FF" opacity="0.9" />
+          <circle cx="64" cy="184" r="3" fill="#50A0FF" opacity="0.7" />
+        </g>
+
+        {/* Icon 3 — Chart/analytics */}
+        <g>
+          <rect x="44" y="244" width="64" height="50" rx="12" fill="url(#iconBg)" stroke="#1E3055" strokeWidth="1" />
+          <polyline points="54,286 62,272 70,279 79,264 88,271 98,260" stroke="#4AB0FF" strokeWidth="2" fill="none" strokeLinejoin="round" strokeLinecap="round" />
+          <line x1="54" y1="288" x2="98" y2="288" stroke="#243A5A" strokeWidth="1" />
+        </g>
+
+        {/* Icon 4 — API/code */}
+        <g>
+          <rect x="46" y="330" width="60" height="46" rx="12" fill="url(#iconBg)" stroke="#1E3055" strokeWidth="1" />
+          <text x="56" y="359" fill="#5068EE" fontSize="16" fontFamily="monospace" fontWeight="700" opacity="0.9">{`</>`}</text>
+        </g>
+
+        {/* ════════════════════════════════════════
+            SHORT DOTTED LINES: Col A → Col B
+            ════════════════════════════════════════ */}
+        {[90, 177, 269, 353].map((y) => (
+          <line key={`dot-${y}`} x1="112" y1={y} x2="152" y2={y}
+            stroke="#2A4878" strokeWidth="1.5" strokeDasharray="4 3" opacity="0.8" />
+        ))}
+
+        {/* ════════════════════════════════════════
+            LEFT COLUMN B — Mini dashboard cards
+            ════════════════════════════════════════ */}
+        {[
+          { y: 62, icon: "bars" },
+          { y: 152, icon: "bars2" },
+          { y: 244, icon: "line" },
+          { y: 330, icon: "bars3" },
+        ].map(({ y, icon }) => (
+          <g key={`card-${y}`}>
+            <rect x="152" y={y} width="96" height="52" rx="10" fill="url(#iconBg)" stroke="#1C2E4A" strokeWidth="1" opacity="0.95" />
+            {/* Mini bar chart in card */}
+            <rect x="162" y={y + 20} width="7" height="18" rx="2" fill="#3A88EE" opacity="0.8" />
+            <rect x="173" y={y + 14} width="7" height="24" rx="2" fill="#28A0FF" opacity="0.9" />
+            <rect x="184" y={y + 24} width="7" height="14" rx="2" fill="#3A88EE" opacity="0.75" />
+            <rect x="195" y={y + 10} width="7" height="28" rx="2" fill="#60C0FF" opacity="0.85" />
+            <line x1="162" y1={y + 40} x2="207" y2={y + 40} stroke="#1A2E48" strokeWidth="1" />
+            {/* Subtle glow on active bar */}
+            <rect x="195" y={y + 10} width="7" height="28" rx="2" fill="#60C0FF" filter="url(#softBlur)" opacity="0.5" />
           </g>
         ))}
 
-        <path d="M290 96 C 365 64, 430 108, 520 220" stroke="url(#leftFlow)" strokeWidth="2.4" fill="none" />
-        <path d="M290 180 C 380 165, 448 176, 520 220" stroke="url(#leftFlow)" strokeWidth="2.8" fill="none" />
-        <path d="M290 270 C 375 292, 448 240, 520 220" stroke="url(#leftFlow)" strokeWidth="2.2" fill="none" strokeDasharray="5 5" />
-        <path d="M290 354 C 390 390, 450 302, 520 220" stroke="url(#leftFlow)" strokeWidth="2.6" fill="none" />
+        {/* ════════════════════════════════════════
+            THICK FLOWING LINES: Col B → Prism
+            ════════════════════════════════════════ */}
+        {/* Line 1 — top source → prism top-left */}
+        <path d="M250 88 C 320 88, 390 64, 460 180"
+          stroke="url(#lineL)" strokeWidth="5" fill="none" filter="url(#lineGlow)" opacity="0.85" />
+        <path d="M250 88 C 320 88, 390 64, 460 180"
+          stroke="#50C8FF" strokeWidth="1.5" fill="none" opacity="0.9" />
 
-        <polygon points="600,78 660,246 540,246" fill="url(#prismFront)" filter="url(#heroGlow)" />
-        <polygon points="600,78 724,246 660,246" fill="url(#prismSide)" opacity="0.92" />
-        <polygon points="540,246 660,246 600,356" fill="url(#prismBase)" opacity="0.95" />
-        <line x1="600" y1="78" x2="600" y2="356" stroke="#DFD5FF" opacity="0.45" />
-        <line x1="600" y1="78" x2="540" y2="246" stroke="#DFD5FF" opacity="0.28" />
-        <line x1="600" y1="78" x2="660" y2="246" stroke="#DFD5FF" opacity="0.28" />
+        {/* Line 2 — upper-mid */}
+        <path d="M250 178 C 326 178, 394 160, 460 192"
+          stroke="url(#lineL)" strokeWidth="5.5" fill="none" filter="url(#lineGlow)" opacity="0.9" strokeDasharray="none" />
+        <path d="M250 178 C 326 178, 394 160, 460 192"
+          stroke="#40C0FF" strokeWidth="1.5" fill="none" opacity="0.95" />
 
-        <path d="M682 220 C 760 160, 820 118, 930 106" stroke="url(#rightFlow)" strokeWidth="2.6" fill="none" />
-        <path d="M682 220 C 758 216, 840 208, 930 204" stroke="url(#rightFlow)" strokeWidth="2.6" fill="none" />
-        <path d="M682 220 C 772 280, 844 300, 930 322" stroke="url(#rightFlow)" strokeWidth="2.6" fill="none" />
+        {/* Line 3 — lower-mid */}
+        <path d="M250 270 C 334 270, 396 230, 460 208"
+          stroke="url(#lineL)" strokeWidth="5" fill="none" filter="url(#lineGlow)" opacity="0.85" />
+        <path d="M250 270 C 334 270, 396 230, 460 208"
+          stroke="#38BCFF" strokeWidth="1.5" fill="none" opacity="0.9" />
 
-        <g>
-          <rect x="938" y="76" width="214" height="86" rx="14" fill="#121A2F" stroke="#4B5D89" />
-          <text x="964" y="106" fill="#A8B9E6" fontSize="13" letterSpacing="1.4">KPI SNAPSHOT</text>
-          <text x="964" y="138" fill="#FFFFFF" fontSize="30" fontWeight="700">$2.25K</text>
-          <text x="1086" y="138" fill="#8FE8FF" fontSize="20" fontWeight="700">99%</text>
-        </g>
+        {/* Line 4 — bottom source → prism bottom-left */}
+        <path d="M250 353 C 336 353, 400 300, 460 222"
+          stroke="url(#lineL)" strokeWidth="4" fill="none" filter="url(#lineGlow)" opacity="0.8" strokeDasharray="10 4" />
+        <path d="M250 353 C 336 353, 400 300, 460 222"
+          stroke="#30B8FF" strokeWidth="1.2" fill="none" opacity="0.85" strokeDasharray="10 4" />
 
-        <g>
-          <rect x="938" y="177" width="214" height="78" rx="14" fill="#11192D" stroke="#4B5D89" />
-          <circle cx="978" cy="216" r="20" fill="none" stroke="#6D72FF" strokeWidth="10" />
-          <path d="M978 196 A 20 20 0 0 1 995 228" stroke="#8FE8FF" strokeWidth="10" fill="none" />
-          <rect x="1022" y="198" width="16" height="36" rx="3" fill="#8FE8FF" />
-          <rect x="1044" y="190" width="16" height="44" rx="3" fill="#6E71FF" />
-          <rect x="1066" y="204" width="16" height="30" rx="3" fill="#7EA6FF" />
-          <rect x="1088" y="184" width="16" height="50" rx="3" fill="#A4A1FF" />
-        </g>
+        {/* ════════════════════════════════════
+            PRISM — the glowing hero
+            ════════════════════════════════════ */}
+        {/* Large diffuse pink halo (behind the prism shape) */}
+        <ellipse cx="590" cy="195" rx="135" ry="110" fill="#EE50FF" filter="url(#prismGlow)" opacity="0.45" />
 
-        <g>
-          <rect x="938" y="270" width="214" height="96" rx="14" fill="#121A2F" stroke="#4B5D89" />
-          <text x="962" y="300" fill="#A8B9E6" fontSize="13" letterSpacing="1.2">ACTIONABLE INSIGHT</text>
-          <text x="962" y="326" fill="#EAF2FF" fontSize="15">Revenue up 18% after model</text>
-          <text x="962" y="348" fill="#EAF2FF" fontSize="15">identified conversion bottleneck.</text>
+        {/* Prism — front-left face (bright pink/magenta) */}
+        <polygon
+          points="590,60 455,305 660,305"
+          fill="url(#prismFront)"
+          filter="url(#prismGlow)"
+          opacity="0.96"
+        />
+
+        {/* Prism — right face (blue-silver, 3D depth) */}
+        <polygon
+          points="590,60 660,305 740,305"
+          fill="url(#prismRight)"
+          opacity="0.75"
+        />
+
+        {/* Edge lines for crisp 3D geometry */}
+        <line x1="590" y1="60" x2="455" y2="305" stroke="#F0C0FF" strokeOpacity="0.35" strokeWidth="1" />
+        <line x1="590" y1="60" x2="660" y2="305" stroke="#F0C0FF" strokeOpacity="0.25" strokeWidth="0.8" />
+        <line x1="590" y1="60" x2="740" y2="305" stroke="#C0D8FF" strokeOpacity="0.2" strokeWidth="0.8" />
+
+        {/* Bright apex highlight */}
+        <circle cx="590" cy="60" r="5" fill="#FFAAFF" filter="url(#iconGlow)" opacity="0.9" />
+
+        {/* ════════════════════════════════════
+            CLEAN FLOW LINES: Prism → Output
+            ════════════════════════════════════ */}
+        {/* Top output line */}
+        <path d="M680 165 C 740 140, 800 110, 860 95"
+          stroke="url(#lineR)" strokeWidth="4.5" fill="none" filter="url(#lineGlow)" opacity="0.9" />
+        <path d="M680 165 C 740 140, 800 110, 860 95"
+          stroke="#50C8FF" strokeWidth="1.5" fill="none" opacity="0.95" />
+
+        {/* Mid output line */}
+        <path d="M686 200 C 754 198, 808 196, 860 194"
+          stroke="url(#lineR)" strokeWidth="5" fill="none" filter="url(#lineGlow)" opacity="0.9" />
+        <path d="M686 200 C 754 198, 808 196, 860 194"
+          stroke="#48C4FF" strokeWidth="1.5" fill="none" opacity="0.95" />
+
+        {/* Bottom output line */}
+        <path d="M686 235 C 756 268, 806 300, 860 330"
+          stroke="url(#lineR)" strokeWidth="4" fill="none" filter="url(#lineGlow)" opacity="0.85" />
+        <path d="M686 235 C 756 268, 806 300, 860 330"
+          stroke="#38B8FF" strokeWidth="1.2" fill="none" opacity="0.9" />
+
+        {/* ════════════════════════════════════
+            RIGHT — small output cards (mid-tier)
+            ════════════════════════════════════ */}
+        {[
+          { y: 68, label: "→" },
+          { y: 170, label: "→" },
+          { y: 306, label: "→" },
+        ].map(({ y }, i) => (
+          <g key={`rcrd-${i}`}>
+            <rect x="860" y={y} width="68" height="46" rx="9" fill="url(#cardFill)" stroke="#1A2E4A" strokeWidth="1" />
+            {/* Horizontal dashed lines inside */}
+            <line x1="870" y1={y + 14} x2="918" y2={y + 14} stroke="#2A4060" strokeWidth="1.5" strokeDasharray="5 3" />
+            <line x1="870" y1={y + 22} x2="908" y2={y + 22} stroke="#2A4060" strokeWidth="1.5" strokeDasharray="5 3" />
+            <line x1="870" y1={y + 30} x2="914" y2={y + 30} stroke="#2A4060" strokeWidth="1.5" strokeDasharray="5 3" />
+            {/* Arrow */}
+            <text x="928" y={y + 27} fill="#3A7ACC" fontSize="16" fontWeight="600">›</text>
+          </g>
+        ))}
+
+        {/* ════════════════════════════════════
+            RIGHT — KPI output cards (far right)
+            ════════════════════════════════════ */}
+        {/* Card 1: Numbers */}
+        <rect x="956" y="48" width="228" height="82" rx="13" fill="url(#cardFill)" stroke="#1A2E4A" strokeWidth="1" />
+        <text x="974" y="76" fill="#3A5880" fontSize="10" letterSpacing="2.5" fontFamily="'Space Grotesk',sans-serif" fontWeight="600">KPI SNAPSHOT</text>
+        <text x="974" y="112" fill="#FFFFFF" fontSize="30" fontWeight="700" fontFamily="'Space Grotesk',sans-serif">$2.4K</text>
+        <text x="1096" y="112" fill="#60DCFF" fontSize="22" fontWeight="700" fontFamily="'Space Grotesk',sans-serif">97%</text>
+
+        {/* Card 2: Donut + Bars */}
+        <rect x="956" y="152" width="228" height="76" rx="13" fill="url(#cardFill)" stroke="#1A2E4A" strokeWidth="1" />
+        <circle cx="990" cy="190" r="23" fill="none" stroke="#2A30AA" strokeWidth="9" opacity="0.55" />
+        <path d="M990 167 A 23 23 0 0 1 1010 225" stroke="#50DCFF" strokeWidth="9" fill="none" strokeLinecap="round" />
+        <rect x="1034" y="182" width="13" height="28" rx="3" fill="#50DCFF" opacity="0.75" />
+        <rect x="1053" y="173" width="13" height="37" rx="3" fill="#4858FF" opacity="0.75" />
+        <rect x="1072" y="186" width="13" height="24" rx="3" fill="#58AAFF" opacity="0.75" />
+        <rect x="1091" y="170" width="13" height="40" rx="3" fill="#8060FF" opacity="0.75" />
+        <rect x="1110" y="179" width="13" height="31" rx="3" fill="#48AAFF" opacity="0.75" />
+        <rect x="1129" y="193" width="13" height="17" rx="3" fill="#60D8FF" opacity="0.75" />
+        <line x1="1034" y1="220" x2="1155" y2="220" stroke="#1C2E48" strokeWidth="1" />
+
+        {/* Card 3: Insight text */}
+        <rect x="956" y="252" width="228" height="86" rx="13" fill="url(#cardFill)" stroke="#1A2E4A" strokeWidth="1" />
+        <text x="974" y="278" fill="#3A5880" fontSize="10" letterSpacing="2.5" fontFamily="'Space Grotesk',sans-serif" fontWeight="600">ACTIONABLE INSIGHT</text>
+        <text x="974" y="304" fill="#B8D0F0" fontSize="13" fontFamily="'Space Grotesk',sans-serif">Revenue +18% after model</text>
+        <text x="974" y="324" fill="#B8D0F0" fontSize="13" fontFamily="'Space Grotesk',sans-serif">identified key bottleneck.</text>
+
+        {/* ── Subtle sparkle accents ── */}
+        <g filter="url(#iconGlow)" opacity="0.6">
+          <polygon points="500,130 502,124 504,130 498,127 506,127" fill="#F0C0FF" />
+          <polygon points="668,142 670,136 672,142 666,139 674,139" fill="#A0E4FF" />
+          <polygon points="568,358 570,352 572,358 566,355 574,355" fill="#D0A8FF" />
         </g>
       </svg>
     </div>

@@ -1,4 +1,4 @@
-import { SignedIn, SignedOut, RedirectToSignIn, SignIn, SignUp } from "@clerk/clerk-react";
+import { SignedIn, SignedOut, RedirectToSignIn } from "@clerk/clerk-react";
 import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
@@ -12,6 +12,8 @@ import Pricing from "./pages/Pricing";
 import Downloads from "./pages/Downloads";
 import Account from "./pages/Account";
 import Install from "./pages/Install";
+import SignInPage from "./pages/SignInPage";
+import SignUpPage from "./pages/SignUpPage";
 
 const queryClient = new QueryClient();
 
@@ -41,10 +43,10 @@ const App = () => (
           <Route path="/pricing" element={<Pricing />} />
           <Route path="/install" element={<Install />} />
 
-          <Route path="/sign-in/*" element={<SignIn routing="path" path="/sign-in" />} />
-          <Route path="/sign-up/*" element={<SignUp routing="path" path="/sign-up" />} />
-          <Route path="/signin/*" element={<SignIn routing="path" path="/signin" />} />
-          <Route path="/signup/*" element={<SignUp routing="path" path="/signup" />} />
+          <Route path="/sign-in/*" element={<SignInPage />} />
+          <Route path="/sign-up/*" element={<SignUpPage />} />
+          <Route path="/signin/*" element={<SignInPage />} />
+          <Route path="/signup/*" element={<SignUpPage />} />
 
           <Route element={<ProtectedRoute />}>
             <Route path="/downloads" element={<Downloads />} />

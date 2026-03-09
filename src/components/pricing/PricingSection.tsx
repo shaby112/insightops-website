@@ -1,11 +1,6 @@
 import type { ElementType } from "react";
-import { ArrowRight, ArrowUpRight, Building2, Check, DollarSign, FileText } from "lucide-react";
+import { ArrowRight, Building2, Check, FileText, Zap } from "lucide-react";
 import { cn } from "@/lib/utils";
-
-interface PlanFeature {
-  text: string;
-  included: boolean;
-}
 
 interface Plan {
   id: string;
@@ -14,171 +9,200 @@ interface Plan {
   price: string;
   priceNote?: string;
   buttonText: string;
-  buttonVariant: "primary" | "secondary";
+  buttonHref: string;
   popular?: boolean;
   icon: ElementType;
+  iconBg: string;
   iconColor: string;
-  gradientColor: string;
   accentColor: string;
+  borderColor: string;
+  glowColor: string;
+  badgeText?: string;
   featuresTitle: string;
-  features: PlanFeature[];
+  features: string[];
 }
 
 const plans: Plan[] = [
   {
-    id: "standard",
+    id: "starter",
     name: "Starter",
-    description: "Pay-as-you-go for early-stage teams",
-    price: "$299/mo",
-    priceNote: "Ideal for first production teams",
+    description: "For early-stage teams getting started with self-hosted BI.",
+    price: "$299",
+    priceNote: "per month",
     buttonText: "Get started",
-    buttonVariant: "primary",
+    buttonHref: "/sign-up",
     icon: FileText,
-    iconColor: "text-blue-500",
-    gradientColor: "from-blue-50/80 via-blue-50/30 to-transparent",
-    accentColor: "text-blue-600",
-    featuresTitle: "CORE FUNCTIONALITY",
+    iconBg: "bg-blue-500/15",
+    iconColor: "text-blue-400",
+    accentColor: "text-blue-400",
+    borderColor: "border-white/[0.08]",
+    glowColor: "group-hover:shadow-blue-900/20",
+    featuresTitle: "Core functionality",
     features: [
-      { text: "Connect up to 3 data sources", included: true },
-      { text: "Automated semantic model generation", included: true },
-      { text: "AI-assisted SQL exploration", included: true },
-      { text: "Dashboard generation with templates", included: true },
-      { text: "Modeling studio and relationship suggestions", included: true },
-      { text: "Self-hosted deployment in Docker", included: true },
-      { text: "Community support channel", included: true },
+      "Connect up to 3 data sources",
+      "Automated semantic model generation",
+      "AI-assisted SQL exploration",
+      "Dashboard generation with templates",
+      "Modeling studio with relationship suggestions",
+      "Self-hosted Docker deployment",
+      "Community support channel",
     ],
   },
   {
     id: "growth",
     name: "Growth",
-    description: "Built for scaling teams",
-    price: "$999/mo",
+    description: "For scaling teams that need more power and collaboration.",
+    price: "$999",
+    priceNote: "per month",
     buttonText: "Get started",
-    buttonVariant: "primary",
+    buttonHref: "/sign-up",
     popular: true,
-    icon: ArrowUpRight,
-    iconColor: "text-lime-600",
-    gradientColor: "from-lime-50/80 via-lime-50/30 to-transparent",
-    accentColor: "text-lime-700",
-    featuresTitle: "EVERYTHING IN STARTER, PLUS:",
+    badgeText: "Most Popular",
+    icon: Zap,
+    iconBg: "bg-violet-500/15",
+    iconColor: "text-violet-400",
+    accentColor: "text-violet-400",
+    borderColor: "border-violet-500/30",
+    glowColor: "group-hover:shadow-violet-900/30",
+    featuresTitle: "Everything in Starter, plus:",
     features: [
-      { text: "Unlimited data sources", included: true },
-      { text: "Higher sync throughput and concurrency", included: true },
-      { text: "Advanced relationship validation controls", included: true },
-      { text: "Team collaboration and dashboard sharing", included: true },
-      { text: "Priority issue support", included: true },
-      { text: "Expanded query history and insights", included: true },
-      { text: "Custom deployment assistance", included: true },
-      { text: "Expanded usage limits", included: true },
+      "Unlimited data sources",
+      "Higher sync throughput and concurrency",
+      "Advanced relationship validation controls",
+      "Team collaboration and dashboard sharing",
+      "Priority issue support",
+      "Expanded query history and insights",
+      "Custom deployment assistance",
+      "Expanded usage limits",
     ],
   },
   {
     id: "enterprise",
     name: "Enterprise",
-    description: "Built for full control and custom needs",
-    price: "Custom pricing",
+    description: "For organizations that need full control and custom terms.",
+    price: "Custom",
+    priceNote: "contact us",
     buttonText: "Contact sales",
-    buttonVariant: "secondary",
+    buttonHref: "mailto:hello@insightops.io",
     icon: Building2,
-    iconColor: "text-fuchsia-600",
-    gradientColor: "from-fuchsia-50/80 via-fuchsia-50/30 to-transparent",
-    accentColor: "text-fuchsia-700",
-    featuresTitle: "EVERYTHING IN GROWTH, PLUS:",
+    iconBg: "bg-cyan-500/15",
+    iconColor: "text-cyan-400",
+    accentColor: "text-cyan-400",
+    borderColor: "border-white/[0.08]",
+    glowColor: "group-hover:shadow-cyan-900/20",
+    featuresTitle: "Everything in Growth, plus:",
     features: [
-      { text: "Private network and on-prem deployment options", included: true },
-      { text: "Custom MSA and SLA terms", included: true },
-      { text: "Dedicated onboarding and architecture review", included: true },
-      { text: "Custom throughput and workload tuning", included: true },
-      { text: "Managed rollout strategy", included: true },
-      { text: "Dedicated on-call escalation path", included: true },
-      { text: "Advanced access controls and SSO", included: true },
-      { text: "Roadmap alignment and feature workshops", included: true },
+      "Private network and on-prem deployment",
+      "Custom MSA and SLA terms",
+      "Dedicated onboarding and architecture review",
+      "Custom throughput and workload tuning",
+      "Managed rollout strategy",
+      "Dedicated on-call escalation",
+      "Advanced access controls and SSO",
+      "Roadmap alignment and feature workshops",
     ],
   },
 ];
 
 export function PricingSection() {
   return (
-    <section className="w-full bg-[#FAF9F6] py-16 px-4 md:px-8 font-sans selection:bg-purple-100 selection:text-purple-900">
-      <div className="max-w-7xl mx-auto">
-        <div className="text-center mb-16 space-y-6">
-          <div className="inline-flex items-center gap-2 text-sm font-medium text-[#65a30d]">
-            <span className="flex items-center justify-center w-4 h-4 rounded-full border border-[#65a30d] text-[10px]">
-              <DollarSign size={10} />
-            </span>
-            Flexible plans
-          </div>
+    <section className="w-full py-20 px-6">
+      {/* Heading */}
+      <div className="mx-auto max-w-3xl text-center mb-16">
+        <p className="text-xs font-semibold uppercase tracking-[0.18em] text-violet-400 mb-4">Pricing</p>
+        <h1 className="text-4xl font-bold leading-tight tracking-tight md:text-5xl">
+          Simple, transparent pricing
+        </h1>
+        <p className="mt-4 text-base text-white/50 leading-relaxed">
+          Choose the plan that fits your team. Upgrade anytime as you scale.
+        </p>
+      </div>
 
-          <h1 className="font-serif text-5xl md:text-7xl text-[#1a1a1a] leading-[1.1] max-w-4xl mx-auto tracking-tight">
-            Choose the plan <br />
-            that <span className="text-[#6366f1] italic px-1 font-serif">best fits</span> your <br />
-            needs
-          </h1>
-        </div>
+      {/* Cards */}
+      <div className="mx-auto max-w-6xl grid grid-cols-1 gap-5 md:grid-cols-3">
+        {plans.map((plan) => (
+          <div
+            key={plan.id}
+            className={cn(
+              "group relative flex flex-col overflow-hidden rounded-2xl border bg-white/[0.03] transition-all duration-300",
+              "hover:bg-white/[0.05] hover:shadow-2xl",
+              plan.glowColor,
+              plan.borderColor,
+              plan.popular && "ring-1 ring-violet-500/40"
+            )}
+          >
+            {/* Popular badge */}
+            {plan.popular && (
+              <div className="absolute top-5 right-5">
+                <span className="rounded-full bg-violet-500/20 border border-violet-500/30 px-3 py-1 text-xs font-medium text-violet-300">
+                  {plan.badgeText}
+                </span>
+              </div>
+            )}
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-7xl mx-auto">
-          {plans.map((plan) => (
-            <div
-              key={plan.id}
-              className="relative flex flex-col bg-white border border-gray-200 rounded-lg overflow-hidden transition-all duration-300 hover:shadow-lg hover:border-gray-300"
-            >
-              <div className={cn("absolute top-0 left-0 right-0 h-32 bg-gradient-to-b opacity-60", plan.gradientColor)} />
+            {/* Subtle gradient glow top */}
+            {plan.popular && (
+              <div className="pointer-events-none absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-violet-500/60 to-transparent" />
+            )}
 
-              {plan.popular && (
-                <div className="absolute top-6 right-6 bg-[#d9f99d] text-[#3f6212] text-xs font-medium px-3 py-1 rounded-full">
-                  Most Popular
-                </div>
-              )}
+            <div className="flex flex-col h-full p-8">
+              {/* Icon */}
+              <span className={cn("inline-flex h-10 w-10 items-center justify-center rounded-xl mb-5", plan.iconBg, plan.iconColor)}>
+                <plan.icon className="h-5 w-5" />
+              </span>
 
-              <div className="relative p-8 flex flex-col h-full">
-                <div className={cn("mb-6", plan.iconColor)}>
-                  <plan.icon size={28} strokeWidth={1.5} />
-                </div>
+              {/* Name + description */}
+              <h3 className="text-xl font-bold text-white mb-1">{plan.name}</h3>
+              <p className="text-sm text-white/45 leading-relaxed mb-7">{plan.description}</p>
 
-                <div className="mb-8">
-                  <h3 className="font-serif text-3xl text-[#1a1a1a] mb-2">{plan.name}</h3>
-                  <p className="text-gray-500 text-sm">{plan.description}</p>
-                </div>
+              {/* Price */}
+              <div className="mb-7 flex items-baseline gap-2">
+                <span className="text-4xl font-bold text-white">{plan.price}</span>
+                {plan.priceNote && (
+                  <span className="text-sm text-white/40">{plan.priceNote}</span>
+                )}
+              </div>
 
-                <div className="mb-8 flex items-baseline gap-2 flex-wrap">
-                  <span className="text-2xl font-medium text-[#1a1a1a]">{plan.price}</span>
-                  {plan.priceNote && (
-                    <span className="text-gray-500 text-sm ml-auto">{plan.priceNote}</span>
-                  )}
-                </div>
+              {/* CTA */}
+              <a
+                href={plan.buttonHref}
+                className={cn(
+                  "mb-8 flex w-full items-center justify-center gap-2 rounded-xl py-3 text-sm font-medium transition-all duration-200",
+                  plan.popular
+                    ? "bg-violet-600 hover:bg-violet-500 text-white shadow-lg shadow-violet-900/40"
+                    : "bg-white/[0.07] hover:bg-white/[0.12] text-white/80 hover:text-white border border-white/[0.1]"
+                )}
+              >
+                {plan.buttonText}
+                <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5" />
+              </a>
 
-                <button
-                  className={cn(
-                    "w-full py-3 px-6 rounded text-sm font-medium transition-colors mb-10 flex items-center justify-center gap-2 group",
-                    plan.buttonVariant === "primary"
-                      ? "bg-[#4a4a4a] hover:bg-[#333333] text-white"
-                      : "bg-[#f5f5f5] hover:bg-[#e5e5e5] text-[#1a1a1a] border border-gray-200"
-                  )}
-                >
-                  {plan.buttonText}
-                  {plan.buttonVariant === "secondary" && (
-                    <ArrowRight size={16} className="transition-transform group-hover:translate-x-1" />
-                  )}
-                </button>
+              {/* Divider */}
+              <div className="mb-6 h-px bg-white/[0.07]" />
 
-                <div className="mt-auto">
-                  <p className={cn("text-xs font-semibold tracking-wider uppercase mb-6", plan.accentColor)}>
-                    {plan.featuresTitle}
-                  </p>
-                  <ul className="space-y-4">
-                    {plan.features.map((feature, idx) => (
-                      <li key={idx} className="flex items-start gap-3 text-sm text-gray-700">
-                        <Check size={16} className="shrink-0 mt-0.5" />
-                        <span className="leading-snug">{feature.text}</span>
-                      </li>
-                    ))}
-                  </ul>
-                </div>
+              {/* Features */}
+              <div className="mt-auto">
+                <p className={cn("text-xs font-semibold uppercase tracking-wider mb-5", plan.accentColor)}>
+                  {plan.featuresTitle}
+                </p>
+                <ul className="space-y-3.5">
+                  {plan.features.map((feature) => (
+                    <li key={feature} className="flex items-start gap-3 text-sm text-white/60">
+                      <Check className="mt-0.5 h-4 w-4 shrink-0 text-white/40" />
+                      <span className="leading-snug">{feature}</span>
+                    </li>
+                  ))}
+                </ul>
               </div>
             </div>
-          ))}
-        </div>
+          </div>
+        ))}
       </div>
+
+      {/* Bottom note */}
+      <p className="mx-auto mt-12 max-w-lg text-center text-sm text-white/30">
+        All plans include self-hosted Docker deployment. No vendor lock-in. Cancel anytime.
+      </p>
     </section>
   );
 }
