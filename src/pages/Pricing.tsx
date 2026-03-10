@@ -25,6 +25,7 @@ export default function Pricing() {
 
             <nav className="hidden items-center gap-8 text-sm text-white/55 md:flex">
               <Link to="/features" className="hover:text-white transition-colors duration-200">Product</Link>
+              <Link to="/blog" className="hover:text-white transition-colors duration-200">Blog</Link>
               <Link to="/install" className="hover:text-white transition-colors duration-200">Install</Link>
               <Link to="/pricing" className="text-white font-medium">Pricing</Link>
             </nav>
