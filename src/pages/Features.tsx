@@ -1,3 +1,4 @@
+import { Helmet } from "react-helmet-async";
 import { Link } from "react-router-dom";
 import { SignedIn, SignedOut, UserButton, useUser } from "@clerk/clerk-react";
 import { Button } from "@/components/ui/button";
@@ -169,6 +170,11 @@ export default function Features() {
   const { user } = useUser();
   return (
     <div className="min-h-screen bg-background overflow-hidden">
+      <Helmet>
+        <title>Features | InsightOps</title>
+        <meta name="description" content="Explore the full feature set of InsightOps. Chat-to-data, semantic modeling, fast DuckDB engine, and more." />
+      </Helmet>
+
       {/* Floating Background */}
       <div className="fixed inset-0 overflow-hidden pointer-events-none">
         <div className="absolute top-1/3 left-1/4 w-96 h-96 bg-primary/5 rounded-full blur-3xl animate-float" />

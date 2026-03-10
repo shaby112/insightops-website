@@ -57,7 +57,7 @@ export default function Pricing() {
 
         {/* Background glow */}
         <div className="pointer-events-none fixed inset-0 -z-10">
-          <div className="absolute left-1/2 top-0 h-[400px] w-[800px] -translate-x-1/2 rounded-full bg-violet-600/8 blur-[100px]" />
+          <div className="absolute left-1/2 top-0 h-[400px] w-[800px] -translate-x-1/2 bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-violet-600/10 via-transparent to-transparent" />
         </div>
 
         <PricingSection />

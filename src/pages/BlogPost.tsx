@@ -1,3 +1,4 @@
+import { useMemo } from "react";
 import { Helmet } from "react-helmet-async";
 import { useParams, Link } from "react-router-dom";
 import { getPostBySlug } from "@/lib/blog";
@@ -8,7 +9,7 @@ import { ArrowLeft, Calendar, User } from "lucide-react";
 
 export default function BlogPost() {
   const { slug } = useParams<{ slug: string }>();
-  const post = getPostBySlug(slug || "");
+  const post = useMemo(() => getPostBySlug(slug || ""), [slug]);
 
   if (!post) {
     return (

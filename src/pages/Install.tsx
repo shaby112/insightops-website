@@ -1,6 +1,12 @@
+import { Helmet } from "react-helmet-async";
 export default function Install() {
   return (
     <main className="min-h-screen bg-background px-6 py-12">
+      <Helmet>
+        <title>Install | InsightOps</title>
+        <meta name="description" content="Quick start instructions for self-hosted InsightOps deployment using Docker Compose." />
+      </Helmet>
+
       <section className="mx-auto max-w-4xl space-y-6">
         <header>
           <h1 className="text-3xl font-bold">Installation Guide</h1>

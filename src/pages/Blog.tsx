@@ -1,3 +1,4 @@
+import { useMemo } from "react";
 import { Helmet } from "react-helmet-async";
 import { Link } from "react-router-dom";
 import { getAllPosts } from "@/lib/blog";
@@ -5,7 +6,7 @@ import { format } from "date-fns";
 import { Calendar, User } from "lucide-react";
 
 export default function Blog() {
-  const posts = getAllPosts();
+  const posts = useMemo(() => getAllPosts(), []);
 
   return (
     <div className="min-h-screen bg-[#050914] text-white pt-24 pb-12 px-6">

@@ -1,3 +1,4 @@
+import { Helmet } from "react-helmet-async";
 import { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
@@ -81,6 +82,11 @@ export default function SignUp() {
 
   return (
     <div className="min-h-screen bg-background flex">
+      <Helmet>
+        <title>Sign Up | InsightOps</title>
+        <meta name="description" content="Create a new InsightOps account and start analyzing your data instantly." />
+      </Helmet>
+
       {/* Floating Background */}
       <div className="fixed inset-0 overflow-hidden pointer-events-none">
         <div className="absolute top-1/4 right-1/4 w-96 h-96 bg-primary/5 rounded-full blur-3xl animate-float" />

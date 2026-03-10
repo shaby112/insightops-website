@@ -1,3 +1,4 @@
+import { Helmet } from "react-helmet-async";
 import { SignIn } from "@clerk/clerk-react";
 import { Link } from "react-router-dom";
 import { Logo } from "@/components/Logo";
@@ -41,6 +42,11 @@ const clerkAppearance = {
 export default function SignInPage() {
   return (
     <div className="dark">
+      <Helmet>
+        <title>Sign In | InsightOps</title>
+        <meta name="description" content="Sign in to your InsightOps account to access your dashboards and data models." />
+      </Helmet>
+
       <div className="min-h-screen bg-[#030C1A] text-white font-sans flex flex-col">
         {/* Background glow */}
         <div className="pointer-events-none fixed inset-0 -z-10">

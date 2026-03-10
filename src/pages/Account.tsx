@@ -1,3 +1,4 @@
+import { Helmet } from "react-helmet-async";
 import { useAuth, useUser, UserButton } from "@clerk/clerk-react";
 import { useEffect, useState } from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
@@ -38,6 +39,11 @@ export default function Account() {
 
   return (
     <main className="min-h-screen bg-background px-6 py-12">
+      <Helmet>
+        <title>Account | InsightOps</title>
+        <meta name="description" content="Manage your InsightOps account settings and identity." />
+      </Helmet>
+
       <section className="mx-auto max-w-3xl space-y-6">
         <header className="flex items-center justify-between">
           <div>

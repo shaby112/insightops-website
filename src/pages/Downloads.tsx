@@ -1,3 +1,4 @@
+import { Helmet } from "react-helmet-async";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 
@@ -10,6 +11,11 @@ const downloads = [
 export default function Downloads() {
   return (
     <main className="min-h-screen bg-background px-6 py-12">
+      <Helmet>
+        <title>Downloads | InsightOps</title>
+        <meta name="description" content="Download installers for self-hosted InsightOps deployments for macOS, Linux, and Windows." />
+      </Helmet>
+
       <section className="mx-auto max-w-4xl space-y-6">
         <header>
           <h1 className="text-3xl font-bold">Downloads</h1>

@@ -1,3 +1,4 @@
+import { Helmet } from "react-helmet-async";
 import { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
@@ -43,6 +44,11 @@ export default function SignIn() {
 
   return (
     <div className="min-h-screen bg-background flex">
+      <Helmet>
+        <title>Sign In | InsightOps</title>
+        <meta name="description" content="Sign in to your InsightOps account to access your dashboards and data models." />
+      </Helmet>
+
       <div className="flex-1 flex flex-col justify-center px-8 md:px-16 lg:px-24 relative z-10">
         <motion.div
           initial={{ opacity: 0, x: -20 }}

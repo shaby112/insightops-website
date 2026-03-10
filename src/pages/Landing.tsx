@@ -1,3 +1,4 @@
+import { useMemo } from "react";
 import { Link } from "react-router-dom";
 import { SignedIn, SignedOut, useUser, UserButton } from "@clerk/clerk-react";
 import { motion } from "framer-motion";
@@ -43,7 +44,7 @@ const valueCards = [
 
 export default function Landing() {
   const { user } = useUser();
-  const latestPosts = getAllPosts().slice(0, 3);
+  const latestPosts = useMemo(() => getAllPosts().slice(0, 3), []);
 
   return (
     <div className="dark">
