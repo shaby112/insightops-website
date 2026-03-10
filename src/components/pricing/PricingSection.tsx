@@ -83,7 +83,7 @@ const plans: Plan[] = [
     price: "Custom",
     priceNote: "contact us",
     buttonText: "Contact sales",
-    buttonHref: "mailto:hello@insightops.io",
+    buttonHref: "mailto:hello@kuantra.io",
     icon: Building2,
     iconBg: "bg-cyan-500/15",
     iconColor: "text-cyan-400",

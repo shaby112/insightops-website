@@ -1,3 +1,4 @@
+import { Helmet } from "react-helmet-async";
 import { SignUp } from "@clerk/clerk-react";
 import { Link } from "react-router-dom";
 import { Logo } from "@/components/Logo";
@@ -41,6 +42,11 @@ const clerkAppearance = {
 export default function SignUpPage() {
   return (
     <div className="dark">
+      <Helmet>
+        <title>Sign Up | Kuantra</title>
+        <meta name="description" content="Create a new Kuantra account and start analyzing your data instantly." />
+      </Helmet>
+
       <div className="min-h-screen bg-[#030C1A] text-white font-sans flex flex-col">
         {/* Background glow */}
         <div className="pointer-events-none fixed inset-0 -z-10">
@@ -51,7 +57,7 @@ export default function SignUpPage() {
         <header className="flex h-16 items-center justify-between border-b border-white/[0.07] px-6">
           <Link to="/" className="flex items-center gap-3">
             <Logo size="sm" showText={false} />
-            <span className="text-[17px] font-semibold tracking-tight text-white">InsightOps</span>
+            <span className="text-[17px] font-semibold tracking-tight text-white">Kuantra</span>
           </Link>
           <Link to="/sign-in" className="text-sm text-white/40 hover:text-white/70 transition-colors">
             Already have an account? <span className="text-violet-400 hover:text-violet-300">Sign in</span>
@@ -65,7 +71,7 @@ export default function SignUpPage() {
             <div className="mb-5 flex flex-col items-center text-center">
               <Logo size="sm" showText={false} className="mb-3" />
               <h1 className="text-xl font-bold text-white">Create your account</h1>
-              <p className="mt-1 text-sm text-white/40">Get started with InsightOps for free</p>
+              <p className="mt-1 text-sm text-white/40">Get started with Kuantra for free</p>
             </div>
 
             <SignUp

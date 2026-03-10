@@ -8,7 +8,7 @@ const DEFAULT_PUBLISHABLE_KEY =
   "pk_test_Z29yZ2VvdXMtZ29yaWxsYS01OC5jbGVyay5hY2NvdW50cy5kZXYk";
 const PUBLISHABLE_KEY =
   (import.meta as any).env?.VITE_CLERK_PUBLISHABLE_KEY || DEFAULT_PUBLISHABLE_KEY;
-const CHUNK_RELOAD_KEY = "__insightops_chunk_reload__";
+const CHUNK_RELOAD_KEY = "__kuantra_chunk_reload__";
 
 function extractErrorMessage(errorLike: unknown): string {
   if (!errorLike) return "";

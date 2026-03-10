@@ -1,3 +1,4 @@
+import { Helmet } from "react-helmet-async";
 import { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
@@ -81,6 +82,11 @@ export default function SignUp() {
 
   return (
     <div className="min-h-screen bg-background flex">
+      <Helmet>
+        <title>Sign Up | Kuantra</title>
+        <meta name="description" content="Create a new Kuantra account and start analyzing your data instantly." />
+      </Helmet>
+
       {/* Floating Background */}
       <div className="fixed inset-0 overflow-hidden pointer-events-none">
         <div className="absolute top-1/4 right-1/4 w-96 h-96 bg-primary/5 rounded-full blur-3xl animate-float" />
@@ -257,7 +263,7 @@ export default function SignUp() {
               Your data, <span className="text-gradient-primary">your way</span>
             </h2>
             <p className="text-muted-foreground text-lg max-w-md">
-              Join thousands of teams who've transformed their data workflow with InsightOps.
+              Join thousands of teams who've transformed their data workflow with Kuantra.
             </p>
           </div>
 
@@ -287,7 +293,7 @@ export default function SignUp() {
             className="p-6 rounded-2xl bg-card/50 border border-border backdrop-blur-sm"
           >
             <p className="text-foreground italic mb-4">
-              "InsightOps cut our reporting time from hours to minutes. The natural language interface
+              "Kuantra cut our reporting time from hours to minutes. The natural language interface
               means our entire team can access insights, not just analysts."
             </p>
             <div className="flex items-center gap-3">

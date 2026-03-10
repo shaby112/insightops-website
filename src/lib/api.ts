@@ -8,7 +8,7 @@ function inferApiBaseUrl(): string {
     const isLocalHost = host === "localhost" || host === "127.0.0.1";
     if (!isLocalHost) {
       // Safe production fallback to avoid accidentally calling localhost from deployed frontend.
-      return "https://insightops-v1-backend.vercel.app";
+      return "https://kuantra-v1-backend.vercel.app";
     }
   }
 

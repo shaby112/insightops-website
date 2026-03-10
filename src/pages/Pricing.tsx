@@ -20,7 +20,7 @@ export default function Pricing() {
           <div className="mx-auto flex h-16 w-full max-w-7xl items-center justify-between px-6">
             <Link to="/" className="flex items-center gap-3">
               <Logo size="sm" showText={false} />
-              <span className="text-[17px] font-semibold tracking-tight text-white">InsightOps</span>
+              <span className="text-[17px] font-semibold tracking-tight text-white">Kuantra</span>
             </Link>
 
             <nav className="hidden items-center gap-8 text-sm text-white/55 md:flex">
@@ -57,7 +57,7 @@ export default function Pricing() {
 
         {/* Background glow */}
         <div className="pointer-events-none fixed inset-0 -z-10">
-          <div className="absolute left-1/2 top-0 h-[400px] w-[800px] -translate-x-1/2 rounded-full bg-violet-600/8 blur-[100px]" />
+          <div className="absolute left-1/2 top-0 h-[400px] w-[800px] -translate-x-1/2 bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-violet-600/10 via-transparent to-transparent" />
         </div>
 
         <PricingSection />
@@ -67,7 +67,7 @@ export default function Pricing() {
           <div className="mx-auto flex max-w-7xl flex-col items-center justify-between gap-3 px-6 text-xs text-white/30 sm:flex-row">
             <div className="flex items-center gap-2">
               <Logo size="sm" showText={false} />
-              <span>InsightOps · Data Intel. &amp; Modeling</span>
+              <span>Kuantra · Data Intel. &amp; Modeling</span>
             </div>
             <div className="flex items-center gap-5">
               <Link to="/" className="hover:text-white/60 transition-colors">Back to home</Link>

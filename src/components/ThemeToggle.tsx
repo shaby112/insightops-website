@@ -2,7 +2,7 @@ import { Moon, Sun } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useEffect, useState } from "react";
 
-const THEME_STORAGE_KEY = "insightops-theme";
+const THEME_STORAGE_KEY = "kuantra-theme";
 
 export function ThemeToggle() {
   const [isDark, setIsDark] = useState<boolean>(() => {

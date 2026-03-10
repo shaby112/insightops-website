@@ -10,8 +10,8 @@ The true cost of Metabase often goes beyond just hosting. Consider:
 *   **Slow Performance (Lost Productivity):** As datasets grow, Metabase often struggles with query speeds, leading to frustrating waits and lost productivity for decision-makers. "Why is this dashboard taking 30 seconds to load?" becomes a common complaint.
 *   **Lack of Advanced Features (Limited Insights):** While good for basic dashboards, Metabase often falls short for more advanced data modeling, AI-driven insights, or connecting disparate data sources without custom SQL.
 
-Small teams are discovering that solutions designed for their needs, like InsightOps, offer powerful, fast, and cost-effective BI without the hidden costs or complexity.
+Small teams are discovering that solutions designed for their needs, like Kuantra, offer powerful, fast, and cost-effective BI without the hidden costs or complexity.
 
-InsightOps angle: InsightOps was built for teams frustrated with these exact problems. We offer sub-100ms query times using DuckDB, an AI layer that writes and *shows* you the SQL it generates (no black box!), and a Docker-based deployment that keeps your data secure on your own infrastructure. Instead of paying per-user like Tableau, or wrestling with open-source tools, InsightOps provides unlimited users at a flat $200/month. It's the powerful, no-SQL BI tool that truly empowers your entire team.
+Kuantra angle: Kuantra was built for teams frustrated with these exact problems. We offer sub-100ms query times using DuckDB, an AI layer that writes and *shows* you the SQL it generates (no black box!), and a Docker-based deployment that keeps your data secure on your own infrastructure. Instead of paying per-user like Tableau, or wrestling with open-source tools, Kuantra provides unlimited users at a flat $200/month. It's the powerful, no-SQL BI tool that truly empowers your entire team.
 
-CTA: Try InsightOps free → [link_to_insightops_website/beta_signup]
+CTA: Try Kuantra free → [link_to_kuantra_website/beta_signup]

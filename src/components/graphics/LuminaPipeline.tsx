@@ -5,7 +5,7 @@ export function LuminaPipeline() {
         viewBox="0 0 1200 420"
         className="w-full h-auto"
         role="img"
-        aria-label="Data sources flowing through the InsightOps prism into structured insights"
+        aria-label="Data sources flowing through the Kuantra prism into structured insights"
       >
         <defs>
           {/* ── Glow filters ── */}

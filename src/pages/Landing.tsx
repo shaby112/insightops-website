@@ -1,3 +1,4 @@
+import { useMemo } from "react";
 import { Link } from "react-router-dom";
 import { SignedIn, SignedOut, useUser, UserButton } from "@clerk/clerk-react";
 import { motion } from "framer-motion";
@@ -43,7 +44,7 @@ const valueCards = [
 
 export default function Landing() {
   const { user } = useUser();
-  const latestPosts = getAllPosts().slice(0, 3);
+  const latestPosts = useMemo(() => getAllPosts().slice(0, 3), []);
 
   return (
     <div className="dark">
@@ -52,7 +53,7 @@ export default function Landing() {
           <div className="mx-auto flex h-16 w-full max-w-7xl items-center justify-between px-6">
             <Link to="/" className="flex items-center gap-3">
               <Logo size="sm" showText={false} />
-              <span className="text-[17px] font-semibold tracking-tight text-white">InsightOps</span>
+              <span className="text-[17px] font-semibold tracking-tight text-white">Kuantra</span>
             </Link>
 
             <nav className="hidden items-center gap-8 text-sm text-white/55 md:flex">
@@ -209,7 +210,7 @@ export default function Landing() {
                 </div>
                 <h2 className="text-xl font-bold md:text-2xl">Built for private deployment</h2>
                 <p className="mt-2 text-sm text-white/60">
-                  Run InsightOps in your own environment with configurable AI egress and audit-friendly architecture.
+                  Run Kuantra in your own environment with configurable AI egress and audit-friendly architecture.
                 </p>
               </div>
               <div className="flex flex-col gap-3 text-sm">
@@ -288,7 +289,7 @@ export default function Landing() {
           <div className="mx-auto flex max-w-7xl flex-col items-center justify-between gap-3 px-6 text-xs text-white/35 sm:flex-row">
             <div className="flex items-center gap-2">
               <Logo size="sm" showText={false} />
-              <span>InsightOps · Data Intel. &amp; Modeling</span>
+              <span>Kuantra · Data Intel. &amp; Modeling</span>
             </div>
             <div className="flex items-center gap-5">
               <Link to="/pricing" className="hover:text-white/70 transition-colors">

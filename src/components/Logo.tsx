@@ -32,7 +32,7 @@ function PrismMark({ size }: { size: "sm" | "md" | "lg" }) {
       viewBox="0 0 120 120"
       className={cn(markSizes[size], "shrink-0")}
       role="img"
-      aria-label="InsightOps prism logo"
+      aria-label="Kuantra prism logo"
     >
       <defs>
         <linearGradient id="logoA" x1="0%" y1="0%" x2="100%" y2="100%">
@@ -82,7 +82,7 @@ export function Logo({
       <PrismMark size={size} />
       {showText && (
         <div className="leading-none">
-          <div className={cn("font-semibold", textSizes[size], inverted ? "text-white" : "text-foreground")}>InsightOps</div>
+          <div className={cn("font-semibold", textSizes[size], inverted ? "text-white" : "text-foreground")}>Kuantra</div>
           {shouldShowSubtitle && (
             <div
               className={cn(

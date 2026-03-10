@@ -1,3 +1,4 @@
+import { useMemo } from "react";
 import { Helmet } from "react-helmet-async";
 import { useParams, Link } from "react-router-dom";
 import { getPostBySlug } from "@/lib/blog";
@@ -8,7 +9,7 @@ import { ArrowLeft, Calendar, User } from "lucide-react";
 
 export default function BlogPost() {
   const { slug } = useParams<{ slug: string }>();
-  const post = getPostBySlug(slug || "");
+  const post = useMemo(() => getPostBySlug(slug || ""), [slug]);
 
   if (!post) {
     return (
@@ -27,7 +28,7 @@ export default function BlogPost() {
   return (
     <div className="min-h-screen bg-[#050914] text-white pt-24 pb-24 px-6">
       <Helmet>
-        <title>{post.meta.title} | InsightOps</title>
+        <title>{post.meta.title} | Kuantra</title>
         <meta name="description" content={post.meta.description} />
         <meta property="og:title" content={post.meta.title} />
         <meta property="og:description" content={post.meta.description} />

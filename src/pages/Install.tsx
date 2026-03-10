@@ -1,16 +1,22 @@
+import { Helmet } from "react-helmet-async";
 export default function Install() {
   return (
     <main className="min-h-screen bg-background px-6 py-12">
+      <Helmet>
+        <title>Install | Kuantra</title>
+        <meta name="description" content="Quick start instructions for self-hosted Kuantra deployment using Docker Compose." />
+      </Helmet>
+
       <section className="mx-auto max-w-4xl space-y-6">
         <header>
           <h1 className="text-3xl font-bold">Installation Guide</h1>
-          <p className="text-muted-foreground">Quick start instructions for self-hosted InsightOps.</p>
+          <p className="text-muted-foreground">Quick start instructions for self-hosted Kuantra.</p>
         </header>
 
         <div className="rounded-xl border border-border/60 bg-card/40 p-5">
           <h2 className="font-semibold">1. Download release files</h2>
           <pre className="mt-2 overflow-x-auto rounded bg-muted p-3 text-xs">
-{`curl -sL https://releases.insightops.dev/latest/docker-compose.yml -o docker-compose.yml\ncurl -sL https://releases.insightops.dev/latest/.env.example -o .env.example`}
+{`curl -sL https://releases.kuantra.dev/latest/docker-compose.yml -o docker-compose.yml\ncurl -sL https://releases.kuantra.dev/latest/.env.example -o .env.example`}
           </pre>
         </div>
 
