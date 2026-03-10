@@ -47,7 +47,7 @@ export default function Blog() {
                 <div className="flex items-center gap-6 text-sm text-white/50">
                   <span className="flex items-center gap-2">
                     <Calendar className="w-4 h-4" /> 
-                    {format(new Date(post.meta.date), "MMMM d, yyyy")}
+                    {post.meta.date ? format(new Date(post.meta.date), "MMMM d, yyyy") : "Draft"}
                   </span>
                   <span className="flex items-center gap-2">
                     <User className="w-4 h-4" /> 

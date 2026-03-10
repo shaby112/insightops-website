@@ -257,7 +257,7 @@ export default function Landing() {
                     <div className="mb-5 flex items-center gap-4 text-xs font-medium text-white/40">
                       <span className="flex items-center gap-1.5 text-violet-200/50">
                         <Calendar className="h-3.5 w-3.5" /> 
-                        {format(new Date(post.meta.date), "MMM d, yyyy")}
+                        {post.meta.date ? format(new Date(post.meta.date), "MMM d, yyyy") : "Draft"}
                       </span>
                       <span className="flex items-center gap-1.5">
                         <User className="h-3.5 w-3.5" /> 

@@ -50,7 +50,7 @@ export default function BlogPost() {
           <div className="flex items-center gap-6 text-white/50 text-sm font-medium">
             <span className="flex items-center gap-2 bg-white/5 px-3 py-1.5 rounded-full border border-white/10">
               <Calendar className="w-4 h-4" /> 
-              {format(new Date(post.meta.date), "MMMM d, yyyy")}
+              {post.meta.date ? format(new Date(post.meta.date), "MMMM d, yyyy") : "Draft"}
             </span>
             <span className="flex items-center gap-2 bg-white/5 px-3 py-1.5 rounded-full border border-white/10">
               <User className="w-4 h-4" /> 
