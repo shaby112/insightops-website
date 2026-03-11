@@ -2,43 +2,36 @@ import { useMemo } from "react";
 import { Link } from "react-router-dom";
 import { useUser } from "@clerk/clerk-react";
 import { motion } from "framer-motion";
-import { ArrowRight, Calendar, Database, Gauge, Layers3, Sparkles, User } from "lucide-react";
+import { ArrowRight, Calendar, User, Zap, Shield, Database, Gauge, Lock } from "lucide-react";
 import { format } from "date-fns";
 
 import { getAllPosts } from "@/lib/blog";
 import { Button } from "@/components/ui/button";
 import { Logo } from "@/components/Logo";
+import { Card } from "@/components/ui/card";
 
-const bentoItems = [
+const antiCompetitor = [
   {
-    title: "Direct-to-database engine",
-    body: "No middle warehouse copy. Kuantra pushes optimized queries where your data already lives.",
-    icon: Database,
-    metric: "0 ETL hops",
-    className: "md:col-span-2",
-  },
-  {
-    title: "Query latency",
-    body: "Sub-100ms dashboard interactions powered by DuckDB acceleration.",
-    icon: Gauge,
+    title: "No JVM wait times",
+    body: "DuckDB-native execution keeps interactions instant and predictable.",
+    icon: Zap,
     metric: "<100ms",
-    className: "md:col-span-1",
   },
   {
-    title: "AI Text-to-SQL",
-    body: "Schema-aware prompts generate production-safe SQL for analysts and operators.",
-    icon: Sparkles,
-    metric: "NL → SQL",
-    className: "md:col-span-1",
+    title: "Private by default",
+    body: "Self-hosted Docker deployment with zero forced data egress.",
+    icon: Shield,
+    metric: "On your infra",
   },
   {
-    title: "Composable dashboard blocks",
-    body: "Build once, reuse everywhere with a block system designed for high signal BI UX.",
-    icon: Layers3,
-    metric: "Bento UI",
-    className: "md:col-span-2",
+    title: "Zero-config setup",
+    body: "Connect your DB and start querying without dbt/warehouse ceremony.",
+    icon: Database,
+    metric: "Minutes, not weeks",
   },
 ];
+
+const stackLogos = ["DuckDB", "Docker", "Apache Arrow", "FastAPI", "React", "TypeScript"];
 
 export default function Landing() {
   const { user } = useUser();
@@ -46,6 +39,24 @@ export default function Landing() {
 
   return (
     <div className="dark">
+      <style>{`
+        @keyframes heroGlow {
+          0%,100% { opacity: .20; transform: translateY(0px); }
+          50% { opacity: .32; transform: translateY(-4px); }
+        }
+        @keyframes marquee {
+          0% { transform: translateX(0); }
+          100% { transform: translateX(-50%); }
+        }
+        @keyframes typeReveal {
+          from { clip-path: inset(0 100% 0 0); }
+          to { clip-path: inset(0 0 0 0); }
+        }
+        .hero-glow { animation: heroGlow 8s ease-in-out infinite; }
+        .logo-marquee { animation: marquee 24s linear infinite; }
+        .type-reveal { animation: typeReveal 900ms ease-out both; }
+      `}</style>
+
       <main
         className="min-h-screen text-white"
         style={{
@@ -54,14 +65,14 @@ export default function Landing() {
         }}
       >
         <section className="relative overflow-hidden border-b border-white/10">
-          <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_25%_5%,rgba(0,229,153,0.16),transparent_34%),radial-gradient(circle_at_80%_0%,rgba(0,229,153,0.12),transparent_28%)]" />
-          <div className="pointer-events-none absolute inset-0 opacity-40 [background-image:linear-gradient(to_right,rgba(255,255,255,0.06)_1px,transparent_1px),linear-gradient(to_bottom,rgba(255,255,255,0.06)_1px,transparent_1px)] [background-size:54px_54px]" />
+          <div className="hero-glow pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_20%_0%,rgba(0,229,153,0.18),transparent_38%),radial-gradient(circle_at_80%_0%,rgba(0,229,153,0.10),transparent_30%)]" />
+          <div className="pointer-events-none absolute inset-0 opacity-30 [background-image:linear-gradient(to_right,rgba(255,255,255,0.05)_1px,transparent_1px),linear-gradient(to_bottom,rgba(255,255,255,0.05)_1px,transparent_1px)] [background-size:56px_56px]" />
 
-          <div className="relative mx-auto flex w-full max-w-7xl flex-col px-6 pb-20 pt-24 md:pt-28">
+          <div className="relative mx-auto flex w-full max-w-7xl flex-col px-6 pb-16 pt-24 md:pt-28">
             <motion.div
               initial={{ opacity: 0, y: 12 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.4 }}
+              transition={{ duration: 0.45 }}
               className="max-w-4xl"
             >
               <span className="inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/5 px-4 py-1.5 text-xs font-medium tracking-wide text-white/80">
@@ -69,7 +80,7 @@ export default function Landing() {
                 {user ? `Welcome back, ${user.firstName || user.username || "Operator"}` : "Kuantra for modern data teams"}
               </span>
 
-              <h1 className="mt-6 text-4xl font-semibold leading-[1.03] tracking-[-0.02em] text-white md:text-7xl">
+              <h1 className="type-reveal mt-6 text-4xl font-semibold leading-[1.03] tracking-[-0.02em] text-white md:text-7xl">
                 Zero-Config BI. Sub-100ms Queries.
               </h1>
 
@@ -98,19 +109,28 @@ export default function Landing() {
               </div>
             </motion.div>
 
+            <div className="mt-12 overflow-hidden rounded-xl border border-white/10 bg-[#171717]/70">
+              <div className="logo-marquee flex min-w-max gap-8 px-6 py-4 text-sm text-white/45" style={{ fontFamily: "'JetBrains Mono', ui-monospace, monospace" }}>
+                {[...stackLogos, ...stackLogos].map((logo, i) => (
+                  <span key={`${logo}-${i}`} className="whitespace-nowrap grayscale">
+                    {logo}
+                  </span>
+                ))}
+              </div>
+            </div>
+
             <motion.div
               initial={{ opacity: 0, y: 14 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.45, delay: 0.12 }}
-              className="mt-14 grid gap-4 md:grid-cols-3"
+              className="mt-12 grid gap-4 md:grid-cols-3"
             >
-              {bentoItems.map((item) => (
-                <article
+              {antiCompetitor.map((item) => (
+                <Card
                   key={item.title}
-                  className={`group relative overflow-hidden rounded-2xl border border-white/10 p-6 transition-colors hover:border-white/20 ${item.className}`}
-                  style={{ backgroundColor: "#171717" }}
+                  className="group relative overflow-hidden rounded-2xl border border-white/15 bg-[#171717] p-6 text-white"
                 >
-                  <div className="pointer-events-none absolute inset-0 opacity-0 transition-opacity duration-300 group-hover:opacity-100" style={{ background: "radial-gradient(circle at 20% 0%, rgba(0,229,153,0.15), transparent 45%)" }} />
+                  <div className="pointer-events-none absolute inset-0 opacity-0 transition-opacity duration-300 group-hover:opacity-100" style={{ background: "radial-gradient(circle at 20% 0%, rgba(0,229,153,0.12), transparent 45%)" }} />
                   <div className="relative">
                     <div className="flex items-start justify-between gap-4">
                       <span className="inline-flex h-10 w-10 items-center justify-center rounded-xl border border-white/10 bg-black/30">
@@ -123,7 +143,7 @@ export default function Landing() {
                     <h3 className="mt-6 text-lg font-semibold text-white">{item.title}</h3>
                     <p className="mt-2 text-sm leading-relaxed text-white/65">{item.body}</p>
                   </div>
-                </article>
+                </Card>
               ))}
             </motion.div>
           </div>
