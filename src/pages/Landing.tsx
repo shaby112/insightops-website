@@ -49,63 +49,7 @@ export default function Landing() {
   return (
     <div className="dark">
       <main className="min-h-screen bg-[#050914] text-white font-sans">
-        <header className="sticky top-0 z-50 border-b border-white/[0.08] bg-[#050914]/85 backdrop-blur-xl">
-          <div className="mx-auto flex h-16 w-full max-w-7xl items-center justify-between px-6">
-            <Link to="/" className="flex items-center gap-3">
-              <Logo size="sm" showText={false} />
-              <span className="text-[17px] font-semibold tracking-tight text-white">Kuantra</span>
-            </Link>
-
-            <nav className="hidden items-center gap-8 text-sm text-white/55 md:flex">
-              <Link to="/features" className="hover:text-white transition-colors duration-200">
-                Product
-              </Link>
-              <Link to="/blog" className="hover:text-white transition-colors duration-200">
-                Blog
-              </Link>
-              <Link to="/install" className="hover:text-white transition-colors duration-200">
-                Install
-              </Link>
-              <Link to="/pricing" className="hover:text-white transition-colors duration-200">
-                Pricing
-              </Link>
-            </nav>
-
-            <div className="flex items-center gap-2">
-              <ThemeToggle />
-              <SignedOut>
-                <Link to="/sign-in">
-                  <Button
-                    variant="ghost"
-                    size="sm"
-                    className="text-white/70 hover:text-white hover:bg-white/10"
-                  >
-                    Log In
-                  </Button>
-                </Link>
-                <Link to="/sign-up">
-                  <Button
-                    size="sm"
-                    className="bg-violet-600 hover:bg-violet-500 text-white border-0 shadow-lg shadow-violet-900/40"
-                  >
-                    Get Started
-                  </Button>
-                </Link>
-              </SignedOut>
-              <SignedIn>
-                <Link to="/downloads">
-                  <Button
-                    size="sm"
-                    className="bg-violet-600 hover:bg-violet-500 text-white border-0 shadow-lg shadow-violet-900/40 mr-1"
-                  >
-                    Downloads
-                  </Button>
-                </Link>
-                <UserButton afterSignOutUrl="/" appearance={clerkUserButtonAppearance} />
-              </SignedIn>
-            </div>
-          </div>
-        </header>
+        
 
         <section className="relative isolate overflow-hidden">
           <div className="absolute inset-0 z-0">

@@ -7,6 +7,7 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Outlet, Route, Routes } from "react-router-dom";
 import { HelmetProvider } from "react-helmet-async";
 import { BackendUserSync } from "@/components/BackendUserSync";
+import { AppHeader } from "@/components/AppHeader";
 
 const Landing = lazy(() => import("./pages/Landing"));
 const Features = lazy(() => import("./pages/Features"));
@@ -59,6 +60,7 @@ const App = () => (
         <Toaster />
         <Sonner />
         <BrowserRouter>
+          <AppHeader />
           <Routes>
             <Route path="/" element={<Page component={Landing} />} />
             <Route path="/features" element={<Page component={Features} />} />

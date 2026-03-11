@@ -53,16 +53,7 @@ export default function SignInPage() {
           <div className="absolute left-1/2 top-0 h-[500px] w-[700px] -translate-x-1/2 rounded-full bg-violet-600/10 blur-[120px]" />
         </div>
 
-        {/* Top bar */}
-        <header className="flex h-16 items-center justify-between border-b border-white/[0.07] px-6">
-          <Link to="/" className="flex items-center gap-3">
-            <Logo size="sm" showText={false} />
-            <span className="text-[17px] font-semibold tracking-tight text-white">Kuantra</span>
-          </Link>
-          <Link to="/sign-up" className="text-sm text-white/40 hover:text-white/70 transition-colors">
-            Don't have an account? <span className="text-violet-400 hover:text-violet-300">Sign up</span>
-          </Link>
-        </header>
+        
 
         {/* Centered Clerk component */}
         <div className="flex flex-1 items-center justify-center px-6 py-6">
