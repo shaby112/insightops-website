@@ -15,6 +15,10 @@ const NotFound = () => {
         <title>404 Not Found | Kuantra</title>
         <meta name="description" content="The page you are looking for could not be found." />
       </Helmet>
+            <Helmet>
+        <title>404 Not Found | InsightOps</title>
+        <meta name="description" content="The page you are looking for could not be found." />
+      </Helmet>
       <div className="text-center">
         <h1 className="mb-4 text-4xl font-bold">404</h1>
         <p className="mb-4 text-xl text-muted-foreground">Oops! Page not found</p>

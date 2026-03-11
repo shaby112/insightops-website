@@ -19,18 +19,18 @@ export default async function handler(req, res) {
 
   try {
     const postDate = date || new Date().toISOString().split('T')[0];
-    const markdown = \`---
-title: \${title}
-description: \${description}
-date: \${postDate}
-author: \${author}
+    const markdown = `---
+title: ${title}
+description: ${description}
+date: ${postDate}
+author: ${author}
 ---
 
-\${content}
-\`;
+${content}
+`;
 
     const repo = "shaby112/kuantra-website";
-    const path = \`src/content/blog/\${slug}.md\`;
+    const path = `src/content/blog/${slug}.md`;
 
     // Check if file exists first
 
@@ -47,14 +47,14 @@ author: \${author}
     }
 
     // Push to GitHub API
-    const response = await fetch(\`https://api.github.com/repos/\${repo}/contents/\${path}\`, {
+    const response = await fetch(`https://api.github.com/repos/${repo}/contents/${path}`, {
       method: "PUT",
       headers: {
-        "Authorization": \`Bearer \${GITHUB_TOKEN}\`,
+        "Authorization": `Bearer ${GITHUB_TOKEN}`,
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        message: \`docs: add new blog post \${slug}\`,
+        message: `docs: add new blog post ${slug}`,
         content: Buffer.from(markdown).toString("base64"),
         branch: "main"
       })

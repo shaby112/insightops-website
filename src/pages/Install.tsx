@@ -4,17 +4,18 @@ export default function Install() {
   return (
     <main className="min-h-screen bg-background px-6 py-12">
       <Helmet>
+        <title>Install | InsightOps</title>
+        <meta name="description" content="Quick start instructions for self-hosted InsightOps deployment using Docker Compose." />
+      </Helmet>
+
+      <Helmet>
         <title>Install | Kuantra</title>
         <meta name="description" content="Quick start instructions for self-hosted Kuantra deployment using Docker Compose." />
       </Helmet>
 
       <section className="mx-auto max-w-4xl space-y-6">
 
-      <header className="mb-8 flex items-center border-b border-border/50 pb-6">
-        <Link to="/" className="flex items-center gap-2 hover:opacity-80 transition-opacity">
-          <span className="font-bold text-xl tracking-tight text-primary">Kuantra</span>
-        </Link>
-      </header>
+      
         <header>
           <h1 className="text-3xl font-bold">Installation Guide</h1>
           <p className="text-muted-foreground">Quick start instructions for self-hosted Kuantra.</p>

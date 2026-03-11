@@ -83,6 +83,11 @@ export default function SignUp() {
   return (
     <div className="min-h-screen bg-background flex">
       <Helmet>
+        <title>Sign Up | InsightOps</title>
+        <meta name="description" content="Create a new InsightOps account and start analyzing your data instantly." />
+      </Helmet>
+
+      <Helmet>
         <title>Sign Up | Kuantra</title>
         <meta name="description" content="Create a new Kuantra account and start analyzing your data instantly." />
       </Helmet>

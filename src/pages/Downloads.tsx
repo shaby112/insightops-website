@@ -13,17 +13,18 @@ export default function Downloads() {
   return (
     <main className="min-h-screen bg-background px-6 py-12">
       <Helmet>
+        <title>Downloads | InsightOps</title>
+        <meta name="description" content="Download installers for self-hosted InsightOps deployments for macOS, Linux, and Windows." />
+      </Helmet>
+
+      <Helmet>
         <title>Downloads | Kuantra</title>
         <meta name="description" content="Download installers for self-hosted Kuantra deployments for macOS, Linux, and Windows." />
       </Helmet>
 
       <section className="mx-auto max-w-4xl space-y-6">
 
-      <header className="mb-8 flex items-center border-b border-border/50 pb-6">
-        <Link to="/" className="flex items-center gap-2 hover:opacity-80 transition-opacity">
-          <span className="font-bold text-xl tracking-tight text-primary">Kuantra</span>
-        </Link>
-      </header>
+      
         <header>
           <h1 className="text-3xl font-bold">Downloads</h1>
           <p className="text-muted-foreground">Download installers for self-hosted Kuantra deployments.</p>
