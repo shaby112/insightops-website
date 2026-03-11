@@ -32,6 +32,20 @@ author: \${author}
     const repo = "shaby112/kuantra-website";
     const path = \`src/content/blog/\${slug}.md\`;
 
+    // Check if file exists first
+
+    const checkResponse = await fetch(`https://api.github.com/repos/${repo}/contents/${path}?ref=main`, {
+      method: "GET",
+      headers: {
+        "Authorization": `Bearer ${GITHUB_TOKEN}`,
+        "Content-Type": "application/json",
+      }
+    });
+
+    if (checkResponse.ok) {
+      return res.status(409).json({ error: `Blog post with slug '${slug}' already exists.` });
+    }
+
     // Push to GitHub API
     const response = await fetch(\`https://api.github.com/repos/\${repo}/contents/\${path}\`, {
       method: "PUT",
