@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import { Helmet } from "react-helmet-async";
 export default function Install() {
   return (
@@ -8,6 +9,12 @@ export default function Install() {
       </Helmet>
 
       <section className="mx-auto max-w-4xl space-y-6">
+
+      <header className="mb-8 flex items-center border-b border-border/50 pb-6">
+        <Link to="/" className="flex items-center gap-2 hover:opacity-80 transition-opacity">
+          <span className="font-bold text-xl tracking-tight text-primary">Kuantra</span>
+        </Link>
+      </header>
         <header>
           <h1 className="text-3xl font-bold">Installation Guide</h1>
           <p className="text-muted-foreground">Quick start instructions for self-hosted Kuantra.</p>

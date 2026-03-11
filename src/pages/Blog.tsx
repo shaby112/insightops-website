@@ -17,6 +17,12 @@ export default function Blog() {
       </Helmet>
       
       <div className="max-w-4xl mx-auto">
+
+      <header className="mb-8 flex items-center border-b border-border/50 pb-6">
+        <Link to="/" className="flex items-center gap-2 hover:opacity-80 transition-opacity">
+          <span className="font-bold text-xl tracking-tight text-primary">Kuantra</span>
+        </Link>
+      </header>
         <header className="mb-16">
           <h1 className="text-4xl md:text-5xl font-bold tracking-tight mb-4 text-white">
             Kuantra Blog
