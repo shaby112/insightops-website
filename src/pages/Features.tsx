@@ -171,6 +171,11 @@ export default function Features() {
   return (
     <div className="min-h-screen bg-background overflow-hidden">
       <Helmet>
+        <title>Features | InsightOps</title>
+        <meta name="description" content="Explore the full feature set of InsightOps. Chat-to-data, semantic modeling, fast DuckDB engine, and more." />
+      </Helmet>
+
+      <Helmet>
         <title>Features | Kuantra</title>
         <meta name="description" content="Explore the full feature set of Kuantra. Chat-to-data, semantic modeling, fast DuckDB engine, and more." />
       </Helmet>
@@ -289,7 +294,7 @@ export default function Features() {
             <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
               <Link to="/sign-up">
                 <Button size="lg" className="h-14 px-10 text-lg bg-gradient-primary hover:opacity-90 glow-primary">
-                  Start Free Trial
+                  Get Started
                   <ArrowRight className="w-5 h-5 ml-2" />
                 </Button>
               </Link>

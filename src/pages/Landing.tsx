@@ -104,7 +104,7 @@ export default function Landing() {
                     size="lg"
                     className="h-12 px-8 bg-violet-600 hover:bg-violet-500 text-white shadow-xl shadow-violet-900/45 border-0"
                   >
-                    Start Free Trial <ArrowRight className="ml-2 h-4 w-4" />
+                    Get Started <ArrowRight className="ml-2 h-4 w-4" />
                   </Button>
                 </Link>
                 <Link to="/pricing">
@@ -233,7 +233,7 @@ export default function Landing() {
           <div className="mx-auto flex max-w-7xl flex-col items-center justify-between gap-3 px-6 text-xs text-white/35 sm:flex-row">
             <div className="flex items-center gap-2">
               <Logo size="sm" showText={false} />
-              <span>Kuantra · Data Intel. &amp; Modeling</span>
+              <span>Kuantra</span>
             </div>
             <div className="flex items-center gap-5">
               <Link to="/pricing" className="hover:text-white/70 transition-colors">

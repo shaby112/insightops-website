@@ -29,7 +29,7 @@ export default function Pricing() {
           <div className="mx-auto flex max-w-7xl flex-col items-center justify-between gap-3 px-6 text-xs text-white/30 sm:flex-row">
             <div className="flex items-center gap-2">
               <Logo size="sm" showText={false} />
-              <span>Kuantra · Data Intel. &amp; Modeling</span>
+              <span>Kuantra</span>
             </div>
             <div className="flex items-center gap-5">
               <Link to="/" className="hover:text-white/60 transition-colors">Back to home</Link>

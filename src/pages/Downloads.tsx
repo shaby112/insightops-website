@@ -13,6 +13,11 @@ export default function Downloads() {
   return (
     <main className="min-h-screen bg-background px-6 py-12">
       <Helmet>
+        <title>Downloads | InsightOps</title>
+        <meta name="description" content="Download installers for self-hosted InsightOps deployments for macOS, Linux, and Windows." />
+      </Helmet>
+
+      <Helmet>
         <title>Downloads | Kuantra</title>
         <meta name="description" content="Download installers for self-hosted Kuantra deployments for macOS, Linux, and Windows." />
       </Helmet>

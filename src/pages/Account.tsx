@@ -40,6 +40,11 @@ export default function Account() {
   return (
     <main className="min-h-screen bg-background px-6 py-12">
       <Helmet>
+        <title>Account | InsightOps</title>
+        <meta name="description" content="Manage your InsightOps account settings and identity." />
+      </Helmet>
+
+      <Helmet>
         <title>Account | Kuantra</title>
         <meta name="description" content="Manage your Kuantra account settings and identity." />
       </Helmet>

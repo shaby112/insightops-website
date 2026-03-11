@@ -43,6 +43,11 @@ export default function SignInPage() {
   return (
     <div className="dark">
       <Helmet>
+        <title>Sign In | InsightOps</title>
+        <meta name="description" content="Sign in to your InsightOps account to access your dashboards and data models." />
+      </Helmet>
+
+      <Helmet>
         <title>Sign In | Kuantra</title>
         <meta name="description" content="Sign in to your Kuantra account to access your dashboards and data models." />
       </Helmet>

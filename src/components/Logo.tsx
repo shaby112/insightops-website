@@ -20,12 +20,6 @@ const textSizes = {
   lg: "text-3xl",
 };
 
-const subTextSizes = {
-  sm: "text-[9px] tracking-[0.24em]",
-  md: "text-[10px] tracking-[0.26em]",
-  lg: "text-xs tracking-[0.28em]",
-};
-
 function PrismMark({ size }: { size: "sm" | "md" | "lg" }) {
   return (
     <svg
@@ -70,30 +64,16 @@ function PrismMark({ size }: { size: "sm" | "md" | "lg" }) {
 
 export function Logo({
   showText = true,
-  showSubtitle = true,
   size = "md",
   inverted = false,
   className,
 }: LogoProps) {
-  const shouldShowSubtitle = showSubtitle && size !== "sm";
-
   return (
     <div className={cn("inline-flex items-center gap-3", className)}>
       <PrismMark size={size} />
       {showText && (
-        <div className="leading-none">
-          <div className={cn("font-semibold", textSizes[size], inverted ? "text-white" : "text-foreground")}>Kuantra</div>
-          {shouldShowSubtitle && (
-            <div
-              className={cn(
-                "mt-1 uppercase",
-                subTextSizes[size],
-                inverted ? "text-indigo-100/75" : "text-muted-foreground",
-              )}
-            >
-              Data Intel. &amp; Modeling
-            </div>
-          )}
+        <div className={cn("font-semibold leading-none", textSizes[size], inverted ? "text-white" : "text-foreground")}>
+          Kuantra
         </div>
       )}
     </div>
