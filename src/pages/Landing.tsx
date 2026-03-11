@@ -31,7 +31,6 @@ const antiCompetitor = [
   },
 ];
 
-const stackLogos = ["DuckDB", "Docker", "Apache Arrow", "FastAPI", "React", "TypeScript"];
 
 export default function Landing() {
   const { user } = useUser();
@@ -44,16 +43,11 @@ export default function Landing() {
           0%,100% { opacity: .20; transform: translateY(0px); }
           50% { opacity: .32; transform: translateY(-4px); }
         }
-        @keyframes marquee {
-          0% { transform: translateX(0); }
-          100% { transform: translateX(-50%); }
-        }
         @keyframes typeReveal {
           from { clip-path: inset(0 100% 0 0); }
           to { clip-path: inset(0 0 0 0); }
         }
         .hero-glow { animation: heroGlow 8s ease-in-out infinite; }
-        .logo-marquee { animation: marquee 24s linear infinite; }
         .type-reveal { animation: typeReveal 900ms ease-out both; }
       `}</style>
 
@@ -65,7 +59,7 @@ export default function Landing() {
         }}
       >
         <section className="relative overflow-hidden border-b border-white/10">
-          <div className="hero-glow pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_20%_0%,rgba(0,229,153,0.18),transparent_38%),radial-gradient(circle_at_80%_0%,rgba(0,229,153,0.10),transparent_30%)]" />
+          <div className="hero-glow pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_20%_0%,rgba(139,92,246,0.20),transparent_38%),radial-gradient(circle_at_80%_0%,rgba(34,211,238,0.14),transparent_30%)]" />
           <div className="pointer-events-none absolute inset-0 opacity-30 [background-image:linear-gradient(to_right,rgba(255,255,255,0.05)_1px,transparent_1px),linear-gradient(to_bottom,rgba(255,255,255,0.05)_1px,transparent_1px)] [background-size:56px_56px]" />
 
           <div className="relative mx-auto flex w-full max-w-7xl flex-col px-6 pb-16 pt-24 md:pt-28">
@@ -76,7 +70,7 @@ export default function Landing() {
               className="max-w-4xl"
             >
               <span className="inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/5 px-4 py-1.5 text-xs font-medium tracking-wide text-white/80">
-                <span className="h-1.5 w-1.5 rounded-full" style={{ backgroundColor: "#00E599" }} />
+                <span className="h-1.5 w-1.5 rounded-full bg-violet-400" />
                 {user ? `Welcome back, ${user.firstName || user.username || "Operator"}` : "Kuantra for modern data teams"}
               </span>
 
@@ -92,11 +86,7 @@ export default function Landing() {
                 <Link to="/install">
                   <Button
                     size="lg"
-                    className="h-12 border-0 px-8 font-medium text-black transition-all hover:opacity-95"
-                    style={{
-                      backgroundColor: "#00E599",
-                      boxShadow: "0 0 0 1px rgba(0,229,153,0.35), 0 0 44px rgba(0,229,153,0.38)",
-                    }}
+                    className="h-12 border-0 bg-violet-600 px-8 font-medium text-white shadow-[0_0_0_1px_rgba(139,92,246,0.35),0_0_44px_rgba(139,92,246,0.35)] transition-all hover:bg-violet-500"
                   >
                     Deploy via Docker
                     <ArrowRight className="ml-2 h-4 w-4" />
@@ -109,16 +99,6 @@ export default function Landing() {
               </div>
             </motion.div>
 
-            <div className="mt-12 overflow-hidden rounded-xl border border-white/10 bg-[#171717]/70">
-              <div className="logo-marquee flex min-w-max gap-8 px-6 py-4 text-sm text-white/45" style={{ fontFamily: "'JetBrains Mono', ui-monospace, monospace" }}>
-                {[...stackLogos, ...stackLogos].map((logo, i) => (
-                  <span key={`${logo}-${i}`} className="whitespace-nowrap grayscale">
-                    {logo}
-                  </span>
-                ))}
-              </div>
-            </div>
-
             <motion.div
               initial={{ opacity: 0, y: 14 }}
               animate={{ opacity: 1, y: 0 }}
@@ -130,11 +110,11 @@ export default function Landing() {
                   key={item.title}
                   className="group relative overflow-hidden rounded-2xl border border-white/15 bg-[#171717] p-6 text-white"
                 >
-                  <div className="pointer-events-none absolute inset-0 opacity-0 transition-opacity duration-300 group-hover:opacity-100" style={{ background: "radial-gradient(circle at 20% 0%, rgba(0,229,153,0.12), transparent 45%)" }} />
+                  <div className="pointer-events-none absolute inset-0 opacity-0 transition-opacity duration-300 group-hover:opacity-100" style={{ background: "radial-gradient(circle at 20% 0%, rgba(139,92,246,0.14), transparent 45%)" }} />
                   <div className="relative">
                     <div className="flex items-start justify-between gap-4">
                       <span className="inline-flex h-10 w-10 items-center justify-center rounded-xl border border-white/10 bg-black/30">
-                        <item.icon className="h-5 w-5" style={{ color: "#00E599" }} />
+                        <item.icon className="h-5 w-5 text-violet-400" />
                       </span>
                       <span className="text-xs uppercase tracking-[0.22em] text-white/50" style={{ fontFamily: "'JetBrains Mono', ui-monospace, monospace" }}>
                         {item.metric}

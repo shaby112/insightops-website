@@ -1,6 +1,5 @@
 import { Link, useLocation } from "react-router-dom";
 import { SignedIn, SignedOut, useUser, UserButton } from "@clerk/clerk-react";
-import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { ThemeToggle } from "@/components/ThemeToggle";
 import { Logo } from "@/components/Logo";
@@ -24,7 +23,7 @@ export function AppHeader() {
   ];
 
   return (
-    <header className="sticky top-0 z-50 border-b border-white/[0.08] bg-[#050914]/85 backdrop-blur-xl font-sans">
+    <header className="sticky top-0 z-50 border-b border-white/[0.08] bg-[#0A0A0A]/90 backdrop-blur-xl font-sans">
       <div className="mx-auto flex h-16 w-full max-w-7xl items-center justify-between px-6">
         <Link to="/" className="flex items-center gap-3 hover:opacity-80 transition-opacity">
           <Logo size="sm" showText={false} />
