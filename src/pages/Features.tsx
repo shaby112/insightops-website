@@ -181,53 +181,7 @@ export default function Features() {
         <div className="absolute bottom-1/4 right-1/4 w-80 h-80 bg-primary/10 rounded-full blur-3xl animate-float-delayed" />
       </div>
 
-      {/* Header */}
-      <motion.header
-        initial={{ opacity: 0, y: -20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.5 }}
-        className="fixed top-0 left-0 right-0 z-50 glass-effect border-b border-border/50"
-      >
-        <div className="container mx-auto px-4 h-16 flex items-center justify-between">
-          <Link to="/">
-            <Logo size="md" />
-          </Link>
-                      <nav className="hidden items-center gap-8 text-sm text-foreground/60 md:flex">
-              <Link to="/features" className="text-foreground font-medium">Product</Link>
-              <Link to="/blog" className="hover:text-foreground transition-colors duration-200">Blog</Link>
-              <Link to="/pricing" className="hover:text-foreground transition-colors duration-200">Pricing</Link>
-            </nav>
-          <div className="flex items-center gap-3">
-            <ThemeToggle />
-            <SignedOut>
-              <Link to="/sign-up">
-                <Button variant="outline" size="sm" className="border-primary/30 hover:bg-primary/5">
-                  Sign Up
-                </Button>
-              </Link>
-              <Link to="/sign-in">
-                <Button variant="ghost" size="sm">
-                  Sign In
-                </Button>
-              </Link>
-            </SignedOut>
-            <SignedIn>
-              <div className="flex items-center gap-4 pl-2 border-l border-border/50">
-                <div className="hidden lg:flex flex-col items-end leading-tight">
-                  <span className="text-[10px] text-muted-foreground uppercase font-bold tracking-wider">Account</span>
-                  <span className="text-sm font-bold text-foreground">{user?.username || user?.firstName || "User"}</span>
-                </div>
-                <Link to="/downloads">
-                  <Button size="sm" className="bg-gradient-primary hover:opacity-90 h-9">
-                    Downloads
-                  </Button>
-                </Link>
-                <UserButton afterSignOutUrl="/" />
-              </div>
-            </SignedIn>
-          </div>
-        </div>
-      </motion.header>
+      
 
       {/* Hero */}
       <section className="pt-32 pb-20 md:pt-44 md:pb-28 relative">

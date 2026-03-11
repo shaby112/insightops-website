@@ -19,11 +19,7 @@ export default function Downloads() {
 
       <section className="mx-auto max-w-4xl space-y-6">
 
-      <header className="mb-8 flex items-center border-b border-border/50 pb-6">
-        <Link to="/" className="flex items-center gap-2 hover:opacity-80 transition-opacity">
-          <span className="font-bold text-xl tracking-tight text-primary">Kuantra</span>
-        </Link>
-      </header>
+      
         <header>
           <h1 className="text-3xl font-bold">Downloads</h1>
           <p className="text-muted-foreground">Download installers for self-hosted Kuantra deployments.</p>
