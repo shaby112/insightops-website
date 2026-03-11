@@ -27,8 +27,7 @@ const plans: Plan[] = [
     id: "starter",
     name: "Starter",
     description: "For early-stage teams getting started with self-hosted BI.",
-    price: "$299",
-    priceNote: "per month",
+    price: "$0",
     buttonText: "Get started",
     buttonHref: "/sign-up",
     icon: FileText,
@@ -39,20 +38,18 @@ const plans: Plan[] = [
     glowColor: "group-hover:shadow-blue-900/20",
     featuresTitle: "Core functionality",
     features: [
-      "Connect up to 3 data sources",
+      "Connect up to 2 data sources",
       "Automated semantic model generation",
-      "AI-assisted SQL exploration",
-      "Dashboard generation with templates",
-      "Modeling studio with relationship suggestions",
       "Self-hosted Docker deployment",
       "Community support channel",
+      "No AI features included",
     ],
   },
   {
-    id: "growth",
-    name: "Growth",
-    description: "For scaling teams that need more power and collaboration.",
-    price: "$999",
+    id: "pro",
+    name: "Pro",
+    description: "For scaling teams that need AI power and unlimited collaboration.",
+    price: "$200",
     priceNote: "per month",
     buttonText: "Get started",
     buttonHref: "/sign-up",
@@ -66,14 +63,34 @@ const plans: Plan[] = [
     glowColor: "group-hover:shadow-violet-900/30",
     featuresTitle: "Everything in Starter, plus:",
     features: [
+      "Unlimited users",
       "Unlimited data sources",
-      "Higher sync throughput and concurrency",
-      "Advanced relationship validation controls",
-      "Team collaboration and dashboard sharing",
+      "AI Text-to-SQL unlocked",
+      "Dashboard generation with templates",
+      "Modeling studio with AI suggestions",
+      "Email support",
+    ],
+  },
+  {
+    id: "scale",
+    name: "Scale",
+    description: "For larger organizations that need advanced security.",
+    price: "$400",
+    priceNote: "per month",
+    buttonText: "Get started",
+    buttonHref: "/sign-up",
+    icon: Building2,
+    iconBg: "bg-indigo-500/15",
+    iconColor: "text-indigo-400",
+    accentColor: "text-indigo-400",
+    borderColor: "border-white/[0.08]",
+    glowColor: "group-hover:shadow-indigo-900/20",
+    featuresTitle: "Everything in Pro, plus:",
+    features: [
+      "Open-source SSO/SAML",
+      "Role-Based Access Control (RBAC)",
+      "Comprehensive Audit logs",
       "Priority issue support",
-      "Expanded query history and insights",
-      "Custom deployment assistance",
-      "Expanded usage limits",
     ],
   },
   {
@@ -90,16 +107,12 @@ const plans: Plan[] = [
     accentColor: "text-cyan-400",
     borderColor: "border-white/[0.08]",
     glowColor: "group-hover:shadow-cyan-900/20",
-    featuresTitle: "Everything in Growth, plus:",
+    featuresTitle: "Everything in Scale, plus:",
     features: [
-      "Private network and on-prem deployment",
-      "Custom MSA and SLA terms",
       "Dedicated onboarding and architecture review",
-      "Custom throughput and workload tuning",
-      "Managed rollout strategy",
-      "Dedicated on-call escalation",
-      "Advanced access controls and SSO",
-      "Roadmap alignment and feature workshops",
+      "Dedicated support escalation",
+      "White-labeling capabilities",
+      "Custom MSA and SLA terms",
     ],
   },
 ];
@@ -119,7 +132,7 @@ export function PricingSection() {
       </div>
 
       {/* Cards */}
-      <div className="mx-auto max-w-6xl grid grid-cols-1 gap-5 md:grid-cols-3">
+      <div className="mx-auto max-w-6xl grid grid-cols-1 gap-5 lg:grid-cols-4 md:grid-cols-2">
         {plans.map((plan) => (
           <div
             key={plan.id}
@@ -201,7 +214,7 @@ export function PricingSection() {
 
       {/* Bottom note */}
       <p className="mx-auto mt-12 max-w-lg text-center text-sm text-white/30">
-        All plans include self-hosted Docker deployment. No vendor lock-in. Cancel anytime.
+        All plans include self-hosted Docker deployment. Payments securely processed via Paddle. Cancel anytime.
       </p>
     </section>
   );

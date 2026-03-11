@@ -192,6 +192,11 @@ export default function Features() {
           <Link to="/">
             <Logo size="md" />
           </Link>
+                      <nav className="hidden items-center gap-8 text-sm text-foreground/60 md:flex">
+              <Link to="/features" className="text-foreground font-medium">Product</Link>
+              <Link to="/blog" className="hover:text-foreground transition-colors duration-200">Blog</Link>
+              <Link to="/pricing" className="hover:text-foreground transition-colors duration-200">Pricing</Link>
+            </nav>
           <div className="flex items-center gap-3">
             <ThemeToggle />
             <SignedOut>
