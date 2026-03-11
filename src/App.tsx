@@ -60,8 +60,17 @@ const App = () => (
         <Toaster />
         <Sonner />
         <BrowserRouter>
-          <AppHeader />
-          <Routes>
+          <div
+            className="min-h-screen text-white"
+            style={{
+              backgroundColor: "#0A0A0A",
+              fontFamily: "Geist, Inter, ui-sans-serif, system-ui, sans-serif",
+            }}
+          >
+            <div className="pointer-events-none fixed inset-0 z-0 opacity-30 [background-image:linear-gradient(to_right,rgba(255,255,255,0.05)_1px,transparent_1px),linear-gradient(to_bottom,rgba(255,255,255,0.05)_1px,transparent_1px)] [background-size:56px_56px]" />
+            <div className="relative z-10">
+              <AppHeader />
+              <Routes>
             <Route path="/" element={<Page component={Landing} />} />
             <Route path="/features" element={<Page component={Features} />} />
             <Route path="/pricing" element={<Page component={Pricing} />} />
@@ -81,6 +90,8 @@ const App = () => (
 
           <Route path="*" element={<Page component={NotFound} />} />
         </Routes>
+            </div>
+          </div>
       </BrowserRouter>
     </TooltipProvider>
   </QueryClientProvider>

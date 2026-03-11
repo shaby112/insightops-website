@@ -169,7 +169,7 @@ const features = [
 export default function Features() {
   const { user } = useUser();
   return (
-    <div className="min-h-screen bg-background overflow-hidden">
+    <div className="min-h-screen overflow-hidden">
       <Helmet>
         <title>Features | InsightOps</title>
         <meta name="description" content="Explore the full feature set of InsightOps. Chat-to-data, semantic modeling, fast DuckDB engine, and more." />
@@ -293,7 +293,7 @@ export default function Features() {
             </p>
             <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
               <Link to="/sign-up">
-                <Button size="lg" className="h-14 px-10 text-lg bg-gradient-primary hover:opacity-90 glow-primary">
+                <Button size="lg" className="relative overflow-hidden rounded-lg bg-white/5 px-10 py-3 text-lg font-medium text-white backdrop-blur-xl border border-white/10 shadow-[inset_0_1px_1px_rgba(255,255,255,0.15)] transition-all hover:bg-white/10 hover:border-white/20 before:absolute before:-inset-1 before:-z-10 before:bg-gradient-to-r before:from-indigo-500/30 before:via-purple-500/30 before:to-emerald-500/30 before:opacity-50 before:blur-md">
                   Get Started
                   <ArrowRight className="w-5 h-5 ml-2" />
                 </Button>

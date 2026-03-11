@@ -14,7 +14,7 @@ const clerkUserButtonAppearance = {
 export default function Pricing() {
   return (
     <div className="dark">
-      <main className="min-h-screen bg-[#030C1A] text-white font-sans">
+      <main className="min-h-screen text-white font-sans">
         
 
         {/* Background glow */}
