@@ -9,6 +9,10 @@ import { getAllPosts } from "@/lib/blog";
 import { Button } from "@/components/ui/button";
 import { Logo } from "@/components/Logo";
 import { Card } from "@/components/ui/card";
+import { HeroAnimation } from "@/components/landing/HeroAnimation";
+import { LogoMarquee } from "@/components/landing/LogoMarquee";
+import { BenchmarkTable } from "@/components/landing/BenchmarkTable";
+import { FoundersLetter } from "@/components/landing/FoundersLetter";
 
 const antiCompetitor = [
   {
@@ -69,47 +73,58 @@ export default function Landing() {
           <div className="pointer-events-none absolute inset-0 opacity-30 [background-image:linear-gradient(to_right,rgba(255,255,255,0.05)_1px,transparent_1px),linear-gradient(to_bottom,rgba(255,255,255,0.05)_1px,transparent_1px)] [background-size:56px_56px]" />
 
           <div className="relative mx-auto flex w-full max-w-7xl flex-col px-6 pb-16 pt-24 md:pt-28">
-            <motion.div
-              initial={{ opacity: 0, y: 12 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.45 }}
-              className="max-w-4xl"
-            >
-              <span className="inline-flex items-center gap-2 px-3 py-1 text-xs font-medium text-zinc-300 rounded-full border border-white/10 bg-white/5 backdrop-blur-md shadow-[inset_0_1px_1px_rgba(255,255,255,0.1)]">
-                <span className="h-2 w-2 rounded-full bg-emerald-400 shadow-[0_0_8px_rgba(52,211,153,0.8)]"></span>
-                {user ? `Welcome back, ${user.firstName || user.username || "Operator"}` : "Kuantra for modern data teams"}
-              </span>
+            <div className="flex flex-col lg:flex-row items-center gap-16 lg:gap-8">
+              <motion.div
+                initial={{ opacity: 0, y: 12 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.45 }}
+                className="max-w-3xl flex-1"
+              >
+                <span className="inline-flex items-center gap-2 px-3 py-1 text-xs font-medium text-zinc-300 rounded-full border border-white/10 bg-white/5 backdrop-blur-md shadow-[inset_0_1px_1px_rgba(255,255,255,0.1)]">
+                  <span className="h-2 w-2 rounded-full bg-emerald-400 shadow-[0_0_8px_rgba(52,211,153,0.8)]"></span>
+                  {user ? `Welcome back, ${user.firstName || user.username || "Operator"}` : "Kuantra for modern data teams"}
+                </span>
 
-              <h1 className="type-reveal mt-6 text-4xl font-semibold leading-[1.03] tracking-[-0.02em] text-white md:text-7xl">
-                Zero-Config BI. Sub-100ms Queries.
-              </h1>
+                <h1 className="type-reveal mt-6 text-4xl font-semibold leading-[1.03] tracking-[-0.02em] text-white md:text-7xl">
+                  Zero-Config BI.<br/>Sub-100ms Queries.
+                </h1>
 
-              <p className="mt-6 max-w-3xl text-base leading-relaxed text-white/70 md:text-lg">
-                Stop fighting dbt and waiting on slow JVM engines. Kuantra connects directly to your database and delivers instant AI Text-to-SQL dashboards via DuckDB.
-              </p>
+                <p className="mt-6 max-w-2xl text-base leading-relaxed text-white/70 md:text-lg">
+                  Stop fighting dbt and waiting on slow JVM engines. Kuantra connects directly to your database and delivers instant AI Text-to-SQL dashboards via DuckDB.
+                </p>
 
-              <div className="mt-10 flex flex-col items-start gap-4 sm:flex-row sm:items-center">
-                <Link to="/install">
-                  <Button
-                    size="lg"
-                    className="relative overflow-hidden rounded-lg bg-white/5 px-6 py-3 font-medium text-white backdrop-blur-xl border border-white/10 shadow-[inset_0_1px_1px_rgba(255,255,255,0.15)] transition-all hover:bg-white/10 hover:border-white/20 before:absolute before:-inset-1 before:-z-10 before:bg-gradient-to-r before:from-indigo-500/30 before:via-purple-500/30 before:to-emerald-500/30 before:opacity-50 before:blur-md"
-                  >
-                    Deploy via Docker
-                    <ArrowRight className="ml-2 h-4 w-4" />
-                  </Button>
-                </Link>
+                <div className="mt-10 flex flex-col items-start gap-4 sm:flex-row sm:items-center">
+                  <Link to="/install">
+                    <Button
+                      size="lg"
+                      className="relative overflow-hidden rounded-lg bg-white/5 px-6 py-3 font-medium text-white backdrop-blur-xl border border-white/10 shadow-[inset_0_1px_1px_rgba(255,255,255,0.15)] transition-all hover:bg-white/10 hover:border-white/20 before:absolute before:-inset-1 before:-z-10 before:bg-gradient-to-r before:from-indigo-500/30 before:via-purple-500/30 before:to-emerald-500/30 before:opacity-50 before:blur-md"
+                    >
+                      Deploy via Docker
+                      <ArrowRight className="ml-2 h-4 w-4" />
+                    </Button>
+                  </Link>
 
-                <Link to="/features" className="text-sm font-medium text-white/70 transition-colors hover:text-white">
-                  Explore product architecture <ArrowRight className="ml-1 inline h-4 w-4" />
-                </Link>
-              </div>
-            </motion.div>
+                  <Link to="/features" className="text-sm font-medium text-white/70 transition-colors hover:text-white">
+                    Explore product architecture <ArrowRight className="ml-1 inline h-4 w-4" />
+                  </Link>
+                </div>
+              </motion.div>
+              
+              <motion.div
+                initial={{ opacity: 0, scale: 0.95 }}
+                animate={{ opacity: 1, scale: 1 }}
+                transition={{ duration: 0.5, delay: 0.2 }}
+                className="flex-1 w-full lg:w-auto"
+              >
+                <HeroAnimation />
+              </motion.div>
+            </div>
 
             <motion.div
               initial={{ opacity: 0, y: 14 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.45, delay: 0.12 }}
-              className="mt-12 grid gap-4 md:grid-cols-3"
+              className="mt-24 grid gap-4 md:grid-cols-3"
             >
               {antiCompetitor.map((item) => (
                 <Card
@@ -134,6 +149,10 @@ export default function Landing() {
             </motion.div>
           </div>
         </section>
+
+        <LogoMarquee />
+        <BenchmarkTable />
+        <FoundersLetter />
 
         {latestPosts.length > 0 && (
           <section className="mx-auto w-full max-w-7xl px-6 py-20">
