@@ -62,7 +62,7 @@ export function AppHeader() {
             <Link to="/sign-up">
               <Button
                 size="sm"
-                className="relative overflow-hidden rounded-lg bg-white/5 px-4 py-2 font-medium text-white backdrop-blur-xl border border-white/10 shadow-[inset_0_1px_1px_rgba(255,255,255,0.15)] transition-all hover:bg-white/10 hover:border-white/20 before:absolute before:-inset-1 before:-z-10 before:bg-gradient-to-r before:from-indigo-500/30 before:via-purple-500/30 before:to-violet-500/30 before:opacity-50 before:blur-md"
+                className="relative overflow-hidden rounded-lg bg-white/5 px-6 py-3 font-medium text-white backdrop-blur-xl border border-white/10 shadow-[inset_0_1px_1px_rgba(255,255,255,0.15)] transition-all hover:bg-white/10 hover:border-white/20 before:absolute before:-inset-1 before:-z-10 before:bg-gradient-to-r before:from-indigo-500/30 before:via-purple-500/30 before:to-emerald-500/30 before:opacity-50 before:blur-md"
               >
                 Get Started
               </Button>

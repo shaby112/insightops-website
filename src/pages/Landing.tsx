@@ -92,7 +92,7 @@ export default function Landing() {
                 <Link to="/install">
                   <Button
                     size="lg"
-                    className="relative h-12 overflow-hidden rounded-lg border border-white/10 bg-white/5 px-8 py-3 font-medium text-white backdrop-blur-xl shadow-[inset_0_1px_1px_rgba(255,255,255,0.15)] transition-all hover:bg-white/10 hover:border-white/20 before:absolute before:-inset-1 before:-z-10 before:bg-gradient-to-r before:from-indigo-500/30 before:via-purple-500/30 before:to-violet-500/30 before:opacity-50 before:blur-md"
+                    className="relative overflow-hidden rounded-lg bg-white/5 px-6 py-3 font-medium text-white backdrop-blur-xl border border-white/10 shadow-[inset_0_1px_1px_rgba(255,255,255,0.15)] transition-all hover:bg-white/10 hover:border-white/20 before:absolute before:-inset-1 before:-z-10 before:bg-gradient-to-r before:from-indigo-500/30 before:via-purple-500/30 before:to-emerald-500/30 before:opacity-50 before:blur-md"
                   >
                     Deploy via Docker
                     <ArrowRight className="ml-2 h-4 w-4" />
@@ -114,7 +114,7 @@ export default function Landing() {
               {antiCompetitor.map((item) => (
                 <Card
                   key={item.title}
-                  className="group relative flex flex-col rounded-xl border border-white/10 bg-white/[0.02] p-6 text-white backdrop-blur-2xl shadow-[0_8px_32px_0_rgba(0,0,0,0.5)] shadow-[inset_0_1px_0_0_rgba(255,255,255,0.1)] transition-all duration-300 hover:bg-white/[0.04] hover:border-white/20"
+                  className="group relative flex flex-col rounded-xl border border-white/10 bg-white/[0.02] p-6 backdrop-blur-2xl shadow-[0_8px_32px_0_rgba(0,0,0,0.5)] shadow-[inset_0_1px_0_0_rgba(255,255,255,0.1)] transition-all duration-300 hover:bg-white/[0.04] hover:border-white/20"
                 >
                   <div className="pointer-events-none absolute inset-0 opacity-0 transition-opacity duration-300 group-hover:opacity-100" style={{ background: "radial-gradient(circle at 20% 0%, rgba(139,92,246,0.14), transparent 45%)" }} />
                   <div className="relative">
