@@ -3,7 +3,7 @@ import { Database, Terminal, BarChart2 } from "lucide-react";
 
 export function HeroAnimation() {
   return (
-    <div className="relative w-full max-w-lg mx-auto md:max-w-none md:w-[500px] h-[340px] rounded-xl border border-white/10 bg-[#0A0A0A]/80 backdrop-blur-xl shadow-2xl overflow-hidden flex flex-col">
+    <div className="relative w-full max-w-lg mx-auto md:max-w-none md:w-[500px] h-[420px] rounded-xl border border-white/10 bg-[#0A0A0A]/80 backdrop-blur-xl shadow-2xl overflow-hidden flex flex-col">
       {/* Fake window header */}
       <div className="flex items-center px-4 py-3 border-b border-white/5 bg-white/5">
         <div className="flex gap-2">
@@ -17,13 +17,13 @@ export function HeroAnimation() {
         </div>
       </div>
 
-      <div className="flex-1 p-6 relative flex flex-col gap-6">
+      <div className="flex-1 p-6 relative flex flex-col gap-4">
         {/* SQL Input Area */}
         <motion.div 
           initial={{ opacity: 0, y: 10 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5, delay: 0.2 }}
-          className="rounded-lg border border-white/10 bg-black/50 p-4 font-mono text-sm shadow-inner"
+          className="rounded-lg border border-white/10 bg-black/50 p-4 font-mono text-sm shadow-inner min-h-[170px]"
         >
           <div className="flex items-center gap-2 mb-2 text-white/40 text-xs uppercase tracking-wider">
             <Database className="w-3 h-3" />
@@ -55,7 +55,7 @@ export function HeroAnimation() {
           initial={{ opacity: 0, y: 10 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5, delay: 2 }}
-          className="flex-1 rounded-lg border border-white/10 bg-white/5 p-4 relative overflow-hidden"
+          className="flex-1 min-h-[170px] rounded-lg border border-white/10 bg-white/5 p-4 relative overflow-hidden"
         >
           <div className="absolute top-3 left-4 z-10 inline-flex items-center gap-2 rounded-md border border-emerald-400/20 bg-[#0f131f]/85 px-2.5 py-1 text-[11px] font-medium text-emerald-300 backdrop-blur-sm">
             <BarChart2 className="h-3 w-3 text-violet-300" />

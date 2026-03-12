@@ -131,7 +131,7 @@ export default function Landing() {
                       <div className="h-10 w-10 flex items-center justify-center rounded-lg bg-white/5 border border-white/10 backdrop-blur-md text-emerald-400">
                         <item.icon className="h-5 w-5" />
                       </div>
-                      <span className="text-xs uppercase tracking-[0.22em] text-white/50" style={{ fontFamily: "'JetBrains Mono', ui-monospace, monospace" }}>
+                      <span className="text-[11px] font-semibold uppercase tracking-[0.18em] text-emerald-200/90">
                         {item.metric}
                       </span>
                     </div>
