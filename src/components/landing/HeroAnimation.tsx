@@ -55,21 +55,23 @@ export function HeroAnimation() {
           initial={{ opacity: 0, y: 10 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5, delay: 2 }}
-          className="flex-1 rounded-lg border border-white/10 bg-white/5 p-4 flex items-end justify-between gap-2 relative overflow-hidden"
+          className="flex-1 rounded-lg border border-white/10 bg-white/5 p-4 relative overflow-hidden"
         >
-          <div className="absolute top-3 left-4 flex items-center gap-2 text-white/40 text-xs uppercase tracking-wider">
+          <div className="absolute top-3 left-4 z-10 flex items-center gap-2 text-white/40 text-xs uppercase tracking-wider bg-[#0f131f]/70 px-2 py-1 rounded-md backdrop-blur-sm">
             <BarChart2 className="w-3 h-3" />
             Result (23ms)
           </div>
-          {[40, 70, 45, 90, 65, 100].map((height, i) => (
-            <motion.div
-              key={i}
-              initial={{ height: 0 }}
-              animate={{ height: `${height}%` }}
-              transition={{ duration: 0.5, delay: 2.2 + i * 0.1, type: "spring", stiffness: 100 }}
-              className="w-full bg-gradient-to-t from-indigo-500/50 to-purple-400/80 rounded-t-sm border-t border-white/20"
-            />
-          ))}
+          <div className="h-full pt-9 flex items-end justify-between gap-2">
+            {[40, 70, 45, 90, 65, 100].map((height, i) => (
+              <motion.div
+                key={i}
+                initial={{ height: 0 }}
+                animate={{ height: `${height}%` }}
+                transition={{ duration: 0.5, delay: 2.2 + i * 0.1, type: "spring", stiffness: 100 }}
+                className="w-full bg-gradient-to-t from-indigo-500/50 to-purple-400/80 rounded-t-sm"
+              />
+            ))}
+          </div>
         </motion.div>
       </div>
     </div>

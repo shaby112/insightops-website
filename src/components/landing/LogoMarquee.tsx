@@ -1,18 +1,10 @@
 import { motion } from "framer-motion";
 
 const logos = [
-  "DuckDB",
   "PostgreSQL",
   "MySQL",
-  "SQLite",
-  "React",
   "Docker",
-  "TypeScript",
-  "Framer",
-  "Tailwind",
-  "Node.js",
-  "ClickHouse",
-  "Redis"
+  "React"
 ];
 
 export function LogoMarquee() {

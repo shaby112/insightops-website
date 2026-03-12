@@ -26,10 +26,10 @@ export function FoundersLetter() {
             It was slow, expensive, and frankly, overkill for 90% of use cases.
           </p>
           <p>
-            We realized that with the rise of embedded analytical engines like <strong>DuckDB</strong>, the entire "modern data stack" could be collapsed into a single lightweight application. No data movement. No proprietary cloud vendor lock-in. Just point at your database and query.
+            We realized most teams were not asking for more layers — they were asking for fewer moving parts and faster answers. So we designed Kuantra to remove setup drag, keep data where it already lives, and make insight generation feel immediate.
           </p>
           <p>
-            We built Kuantra to be the tool we always wanted: fast, self-hostable, private by default, and immediately useful.
+            Kuantra is built for operators who need clarity, not ceremony: fast to deploy, private by default, and practical from day one.
           </p>
           <div className="mt-8 pt-8 border-t border-white/10">
             <p className="text-sm text-white/50 italic">
