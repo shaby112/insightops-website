@@ -30,16 +30,19 @@ function PrismMark({ size }: { size: "sm" | "md" | "lg" }) {
     >
       <defs>
         <linearGradient id="logoA" x1="0%" y1="0%" x2="100%" y2="100%">
-          <stop offset="0%" stopColor="#B39BFF" />
-          <stop offset="100%" stopColor="#5F5DFF" />
+          <stop offset="0%" stopColor="#7FFFD4" />
+          <stop offset="55%" stopColor="#00E599" />
+          <stop offset="100%" stopColor="#0F766E" />
         </linearGradient>
         <linearGradient id="logoB" x1="100%" y1="0%" x2="0%" y2="100%">
-          <stop offset="0%" stopColor="#9EE3FF" />
-          <stop offset="100%" stopColor="#4D5FD6" />
+          <stop offset="0%" stopColor="#D1FAE5" />
+          <stop offset="65%" stopColor="#14B8A6" />
+          <stop offset="100%" stopColor="#0F172A" />
         </linearGradient>
         <linearGradient id="logoC" x1="0%" y1="100%" x2="100%" y2="0%">
-          <stop offset="0%" stopColor="#6A3CC4" />
-          <stop offset="100%" stopColor="#A67BFF" />
+          <stop offset="0%" stopColor="#1F2937" />
+          <stop offset="55%" stopColor="#0EA5A4" />
+          <stop offset="100%" stopColor="#34D399" />
         </linearGradient>
         <filter id="logoGlow">
           <feGaussianBlur stdDeviation="2.2" result="blur" />
@@ -54,10 +57,10 @@ function PrismMark({ size }: { size: "sm" | "md" | "lg" }) {
       <polygon points="60,8 84,56 58,62" fill="url(#logoB)" opacity="0.92" />
       <polygon points="84,56 112,98 58,62" fill="url(#logoB)" opacity="0.78" />
       <polygon points="8,98 58,62 60,8" fill="url(#logoC)" opacity="0.88" />
-      <polygon points="58,62 112,98 8,98" fill="#4B3FB7" opacity="0.55" />
-      <line x1="60" y1="8" x2="58" y2="62" stroke="#E8DEFF" strokeOpacity="0.58" />
-      <line x1="58" y1="62" x2="8" y2="98" stroke="#E8DEFF" strokeOpacity="0.3" />
-      <line x1="58" y1="62" x2="112" y2="98" stroke="#E8DEFF" strokeOpacity="0.3" />
+      <polygon points="58,62 112,98 8,98" fill="#0F172A" opacity="0.45" />
+      <line x1="60" y1="8" x2="58" y2="62" stroke="#ECFEFF" strokeOpacity="0.62" />
+      <line x1="58" y1="62" x2="8" y2="98" stroke="#ECFEFF" strokeOpacity="0.3" />
+      <line x1="58" y1="62" x2="112" y2="98" stroke="#ECFEFF" strokeOpacity="0.3" />
     </svg>
   );
 }
