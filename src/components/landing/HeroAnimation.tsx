@@ -57,9 +57,9 @@ export function HeroAnimation() {
           transition={{ duration: 0.5, delay: 2 }}
           className="flex-1 rounded-lg border border-white/10 bg-white/5 p-4 relative overflow-hidden"
         >
-          <div className="absolute top-3 left-4 z-10 flex items-center gap-2 text-white/40 text-xs uppercase tracking-wider bg-[#0f131f]/70 px-2 py-1 rounded-md backdrop-blur-sm">
-            <BarChart2 className="w-3 h-3" />
-            Result (23ms)
+          <div className="absolute top-3 left-4 z-10 inline-flex items-center gap-2 rounded-md border border-emerald-400/20 bg-[#0f131f]/85 px-2.5 py-1 text-[11px] font-medium text-emerald-300 backdrop-blur-sm">
+            <BarChart2 className="h-3 w-3 text-violet-300" />
+            Execution complete · 23ms
           </div>
           <div className="h-full pt-9 flex items-end justify-between gap-2">
             {[40, 70, 45, 90, 65, 100].map((height, i) => (

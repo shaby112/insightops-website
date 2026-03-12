@@ -1,6 +1,5 @@
 import { useMemo } from "react";
 import { Link } from "react-router-dom";
-import { useUser } from "@clerk/clerk-react";
 import { motion } from "framer-motion";
 import { ArrowRight, Calendar, User, Zap, Shield, Database, Gauge, Lock } from "lucide-react";
 import { format } from "date-fns";
@@ -37,7 +36,6 @@ const antiCompetitor = [
 
 
 export default function Landing() {
-  const { user } = useUser();
   const latestPosts = useMemo(
     () =>
       getAllPosts()
@@ -80,10 +78,6 @@ export default function Landing() {
                 transition={{ duration: 0.45 }}
                 className="max-w-3xl flex-1"
               >
-                <span className="inline-flex items-center gap-2 px-3 py-1 text-xs font-medium text-zinc-300 rounded-full border border-white/10 bg-white/5 backdrop-blur-md shadow-[inset_0_1px_1px_rgba(255,255,255,0.1)]">
-                  <span className="h-2 w-2 rounded-full bg-emerald-400 shadow-[0_0_8px_rgba(52,211,153,0.8)]"></span>
-                  {user ? `Welcome back, ${user.firstName || user.username || "Operator"}` : "Kuantra for modern data teams"}
-                </span>
 
                 <h1 className="type-reveal mt-6 text-4xl font-semibold leading-[1.03] tracking-[-0.02em] text-white md:text-7xl">
                   Zero-Config BI.<br/>Sub-100ms Queries.
