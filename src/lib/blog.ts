@@ -3,8 +3,9 @@ import fm from 'front-matter';
 export interface BlogPostMeta {
   title: string;
   description: string;
-  date: string;
+  date?: string;
   author: string;
+  draft?: boolean;
   ogImage?: string;
 }
 
@@ -31,8 +32,12 @@ export function getAllPosts(): BlogPost[] {
     };
   });
 
-  // Sort by date descending
-  return posts.sort((a, b) => new Date(b.meta.date).getTime() - new Date(a.meta.date).getTime());
+  // Sort by date descending (undated posts last)
+  return posts.sort((a, b) => {
+    const bt = b.meta.date ? new Date(b.meta.date).getTime() : 0;
+    const at = a.meta.date ? new Date(a.meta.date).getTime() : 0;
+    return bt - at;
+  });
 }
 
 export function getPostBySlug(slug: string): BlogPost | undefined {

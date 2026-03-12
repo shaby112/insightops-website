@@ -4,14 +4,19 @@ import { useEffect, useState } from "react";
 
 const THEME_STORAGE_KEY = "kuantra-theme";
 
+function getStoredDarkMode(): boolean {
+  if (typeof window === "undefined") return true;
+  const savedTheme = window.localStorage.getItem(THEME_STORAGE_KEY);
+  if (savedTheme === "light") return false;
+  return true;
+}
+
+if (typeof document !== "undefined") {
+  document.documentElement.classList.toggle("dark", getStoredDarkMode());
+}
+
 export function ThemeToggle() {
-  const [isDark, setIsDark] = useState<boolean>(() => {
-    if (typeof window === "undefined") return true;
-    const savedTheme = window.localStorage.getItem(THEME_STORAGE_KEY);
-    if (savedTheme === "dark") return true;
-    if (savedTheme === "light") return false;
-    return true; // default dark
-  });
+  const [isDark, setIsDark] = useState<boolean>(getStoredDarkMode);
 
   useEffect(() => {
     const root = document.documentElement;

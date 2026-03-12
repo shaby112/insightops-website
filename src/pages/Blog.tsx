@@ -6,10 +6,10 @@ import { format } from "date-fns";
 import { Calendar, User } from "lucide-react";
 
 export default function Blog() {
-  const posts = useMemo(() => getAllPosts(), []);
+  const posts = useMemo(() => getAllPosts().filter((post) => !post.meta.draft), []);
 
   return (
-    <div className="min-h-screen bg-[#050914] text-white pt-24 pb-12 px-6">
+    <div className="min-h-screen text-white pt-24 pb-12 px-6">
       <Helmet>
         <title>Blog | Kuantra</title>
         <meta name="description" content="Engineering updates, product news, and analytical deep-dives from the Kuantra team." />

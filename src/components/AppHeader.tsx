@@ -1,6 +1,5 @@
 import { Link, useLocation } from "react-router-dom";
 import { SignedIn, SignedOut, useUser, UserButton } from "@clerk/clerk-react";
-import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { ThemeToggle } from "@/components/ThemeToggle";
 import { Logo } from "@/components/Logo";
@@ -24,7 +23,7 @@ export function AppHeader() {
   ];
 
   return (
-    <header className="sticky top-0 z-50 border-b border-white/[0.08] bg-[#050914]/85 backdrop-blur-xl font-sans">
+    <header className="sticky top-0 z-50 border-b border-white/[0.08] bg-[#050914]/95 supports-[backdrop-filter]:bg-[#050914]/85 backdrop-blur-xl font-sans">
       <div className="mx-auto flex h-16 w-full max-w-7xl items-center justify-between px-6">
         <Link to="/" className="flex items-center gap-3 hover:opacity-80 transition-opacity">
           <Logo size="sm" showText={false} />
@@ -63,7 +62,7 @@ export function AppHeader() {
             <Link to="/sign-up">
               <Button
                 size="sm"
-                className="bg-violet-600 hover:bg-violet-500 text-white border-0 shadow-lg shadow-violet-900/40"
+                className="relative overflow-hidden rounded-lg bg-white/5 px-6 py-3 font-medium text-white backdrop-blur-xl border border-white/10 shadow-[inset_0_1px_1px_rgba(255,255,255,0.15)] transition-all hover:bg-white/10 hover:border-white/20 before:absolute before:-inset-1 before:-z-10 before:bg-gradient-to-r before:from-indigo-500/30 before:via-purple-500/30 before:to-emerald-500/30 before:opacity-50 before:blur-md"
               >
                 Get Started
               </Button>
