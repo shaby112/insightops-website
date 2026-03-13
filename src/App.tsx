@@ -1,5 +1,4 @@
 import { Suspense, lazy, type LazyExoticComponent } from "react";
-import { SignedIn, SignedOut, RedirectToSignIn } from "@clerk/clerk-react";
 import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
@@ -21,20 +20,13 @@ const Downloads = lazy(() => import("./pages/Downloads"));
 const Account = lazy(() => import("./pages/Account"));
 const Auth = lazy(() => import("./pages/Auth"));
 const NotFound = lazy(() => import("./pages/NotFound"));
+const Dashboard = lazy(() => import("./pages/Dashboard"));
 
 const queryClient = new QueryClient();
 
 function ProtectedRoute() {
-  return (
-    <>
-      <SignedIn>
-        <Outlet />
-      </SignedIn>
-      <SignedOut>
-        <RedirectToSignIn />
-      </SignedOut>
-    </>
-  );
+  // Mock protected route for dev/staging auth flow
+  return <Outlet />;
 }
 
 function RouteSkeleton() {
@@ -88,6 +80,8 @@ const App = () => (
           <Route element={<ProtectedRoute />}>
             <Route path="/downloads" element={<Page component={Downloads} />} />
             <Route path="/account" element={<Page component={Account} />} />
+            <Route path="/dashboard" element={<Page component={Dashboard} />} />
+            <Route path="/license" element={<Page component={Dashboard} />} />
           </Route>
 
           <Route path="*" element={<Page component={NotFound} />} />

@@ -1,5 +1,4 @@
 import { Link, useLocation } from "react-router-dom";
-import { SignedIn, SignedOut, useUser, UserButton } from "@clerk/clerk-react";
 import { Button } from "@/components/ui/button";
 import { Logo } from "@/components/Logo";
 
@@ -11,8 +10,7 @@ const clerkUserButtonAppearance = {
 };
 
 export function AppHeader() {
-  const { user } = useUser();
-  const location = useLocation();
+    const location = useLocation();
 
   const navItems = [
     { name: "Product", path: "/features" },
@@ -47,8 +45,8 @@ export function AppHeader() {
         </nav>
 
         <div className="flex items-center gap-3">
-          <SignedOut>
-            <Link to="/sign-in">
+          
+            <Link to="/auth">
               <Button
                 variant="ghost"
                 size="sm"
@@ -57,7 +55,7 @@ export function AppHeader() {
                 Log In
               </Button>
             </Link>
-            <Link to="/sign-up">
+            <Link to="/auth">
               <Button
                 size="sm"
                 className="relative overflow-hidden rounded-lg bg-white/5 px-6 py-3 font-medium text-white backdrop-blur-xl border border-white/10 shadow-[inset_0_1px_1px_rgba(255,255,255,0.15)] transition-all hover:bg-white/10 hover:border-white/20 before:absolute before:-inset-1 before:-z-10 before:bg-gradient-to-r before:from-indigo-500/30 before:via-purple-500/30 before:to-emerald-500/30 before:opacity-50 before:blur-md"
@@ -65,24 +63,15 @@ export function AppHeader() {
                 Get Started
               </Button>
             </Link>
-          </SignedOut>
-          <SignedIn>
-            <div className="flex items-center gap-4 pl-2 border-l border-white/10">
-              <div className="hidden lg:flex flex-col items-end leading-tight">
-                <span className="text-[10px] text-white/50 uppercase font-bold tracking-wider">Account</span>
-                <span className="text-sm font-bold text-white">{user?.username || user?.firstName || "User"}</span>
-              </div>
-              <Link to="/downloads">
-                <Button
-                  size="sm"
-                  className="bg-violet-600 hover:bg-violet-500 text-white border-0 shadow-lg shadow-violet-900/40"
-                >
-                  Downloads
-                </Button>
-              </Link>
-              <UserButton afterSignOutUrl="/" appearance={clerkUserButtonAppearance} />
-            </div>
-          </SignedIn>
+          
+            <Link to="/dashboard">
+              <Button
+                size="sm"
+                className="bg-emerald-600 hover:bg-emerald-500 text-white border-0 shadow-lg shadow-emerald-900/40"
+              >
+                Dashboard
+              </Button>
+            </Link>
         </div>
       </div>
     </header>

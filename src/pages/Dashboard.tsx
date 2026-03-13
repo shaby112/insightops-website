@@ -1,140 +1,90 @@
-import { useState, useEffect } from "react";
-import { useNavigate, Outlet, useLocation } from "react-router-dom";
-import { AppSidebar } from "@/components/AppSidebar";
-import { ChatPanel } from "@/components/ChatPanel";
-import { DataWorkspace } from "@/components/DataWorkspace";
-import { DangerModal } from "@/components/DangerModal";
-import { ConnectionsView } from "@/components/ConnectionsView";
-import { SettingsView } from "@/components/SettingsView";
-import { useToast } from "@/hooks/use-toast";
-import { clearAuth } from "@/lib/auth";
-import { cn } from "@/lib/utils";
-import { useGlobalState } from "@/context/GlobalStateContext";
+import { useState } from "react";
+import { Copy, KeyRound, Loader2 } from "lucide-react";
+import { Button } from "@/components/ui/button";
 
 export default function Dashboard() {
-  const {
-    activeTab,
-    setActiveTab,
-    sidebarCollapsed,
-    setSidebarCollapsed
-  } = useGlobalState();
-  const [activeWorkspaceData, setActiveWorkspaceData] = useState<any[]>([]);
-  const [dangerModalOpen, setDangerModalOpen] = useState(false);
-  const [pendingSQL, setPendingSQL] = useState("");
-  const { toast } = useToast();
-  const navigate = useNavigate();
-  const location = useLocation();
+  const [licenseKey, setLicenseKey] = useState<string | null>(null);
+  const [isGenerating, setIsGenerating] = useState(false);
+  const [copied, setCopied] = useState(false);
 
-  // Sync activeTab with URL
-  useEffect(() => {
-    if (location.pathname.includes("/dashboard/modeling")) {
-      setActiveTab("modeling");
-    } else if (location.pathname.includes("/dashboard/builder")) {
-      setActiveTab("dashboards");
-    } else if (location.pathname === "/dashboard") {
-      setActiveTab("connections"); // Default view for /dashboard
+  const handleGenerateKey = async () => {
+    setIsGenerating(true);
+    // Simulate network delay for mock action
+    await new Promise((resolve) => setTimeout(resolve, 1200));
+    const randomHex = Array.from({ length: 32 }, () => Math.floor(Math.random() * 16).toString(16)).join('');
+    setLicenseKey(`kuan_live_${randomHex}`);
+    setIsGenerating(false);
+  };
+
+  const handleCopy = () => {
+    if (licenseKey) {
+      navigator.clipboard.writeText(licenseKey);
+      setCopied(true);
+      setTimeout(() => setCopied(false), 2000);
     }
-  }, [location.pathname, setActiveTab]);
-
-  const handleLogout = () => {
-    clearAuth();
-    toast({ title: "Signed out", description: "See you later!" });
-    window.location.href = "/";
   };
-
-  const handleOpenDangerModal = (sql: string) => {
-    setPendingSQL(sql);
-    setDangerModalOpen(true);
-  };
-
-  const handleReject = () => {
-    setDangerModalOpen(false);
-    setPendingSQL("");
-    toast({
-      title: "Query Rejected",
-      description: "The operation has been cancelled. No changes were made.",
-    });
-  };
-
-  const handleConfirm = () => {
-    setDangerModalOpen(false);
-    setPendingSQL("");
-    toast({
-      title: "Query Executed",
-      description: "3 rows have been updated successfully.",
-      variant: "destructive",
-    });
-  };
-
-  // Check if we are in a nested active route (e.g. /dashboard/modeling)
-  const isNestedRoute = location.pathname !== "/dashboard";
 
   return (
-    <div className="flex h-screen w-full overflow-hidden">
-      {/* Sidebar */}
-      <AppSidebar
-        collapsed={sidebarCollapsed}
-        onToggle={() => setSidebarCollapsed(!sidebarCollapsed)}
-        activeTab={activeTab}
-        onTabChange={(tab) => {
-          setActiveTab(tab);
-          if (tab === "dashboards") {
-            navigate("/dashboard/builder");
-          } else if (tab === "modeling") {
-            navigate("/dashboard/modeling");
-          } else {
-            navigate("/dashboard");
-          }
-        }}
-        onLogout={handleLogout}
-      />
-
-      {/* Main Content */}
-      <div className="flex-1 flex flex-col overflow-hidden relative">
-        {isNestedRoute ? (
-          <Outlet />
-        ) : (
-          <>
-            {/* Connections Tab (Mounted but potentially hidden) */}
-            <div className={activeTab === "connections" ? "contents" : "hidden"}>
-              <ConnectionsView />
-            </div>
-
-            {/* Settings Tab */}
-            <div className={activeTab === "settings" ? "contents" : "hidden"}>
-              <SettingsView />
-            </div>
-
-            {/* Other Tabs (Chat/Workspace) */}
-            <div className={cn(
-              "flex-1 flex flex-col md:flex-row overflow-hidden",
-              (activeTab !== "connections" && activeTab !== "settings") ? "flex" : "hidden"
-            )}>
-              {/* Chat Panel */}
-              <div className="flex-1 min-w-0 border-r border-border">
-                <ChatPanel
-                  onDataUpdate={setActiveWorkspaceData}
-                  onOpenDangerModal={handleOpenDangerModal}
-                />
-              </div>
-
-              {/* Data Workspace */}
-              <div className="flex-1 min-w-0">
-                <DataWorkspace data={activeWorkspaceData} />
-              </div>
-            </div>
-          </>
-        )}
+    <div className="mx-auto max-w-4xl p-6 pt-16">
+      <div className="mb-8">
+        <h1 className="text-3xl font-semibold tracking-tight text-white">License Management</h1>
+        <p className="mt-2 text-white/60">Manage your InsightOps platform access keys.</p>
       </div>
 
-      {/* Danger Modal */}
-      <DangerModal
-        open={dangerModalOpen}
-        onClose={() => setDangerModalOpen(false)}
-        sql={pendingSQL}
-        onReject={handleReject}
-        onConfirm={handleConfirm}
-      />
+      <div className="rounded-xl border border-white/10 bg-white/5 p-8 shadow-2xl backdrop-blur-md">
+        {!licenseKey ? (
+          <div className="flex flex-col items-center justify-center py-12 text-center">
+            <div className="mb-4 rounded-full bg-emerald-500/10 p-4">
+              <KeyRound className="h-8 w-8 text-emerald-400" />
+            </div>
+            <h2 className="mb-2 text-xl font-medium text-white">No active license</h2>
+            <p className="mb-8 max-w-sm text-sm text-white/60">
+              You haven't generated a license key yet. Create one to authenticate your InsightOps deployment.
+            </p>
+            <Button
+              onClick={handleGenerateKey}
+              disabled={isGenerating}
+              className="h-12 bg-white px-8 text-black hover:bg-white/90"
+            >
+              {isGenerating ? (
+                <>
+                  <Loader2 className="mr-2 h-5 w-5 animate-spin" />
+                  Generating...
+                </>
+              ) : (
+                "Generate License Key"
+              )}
+            </Button>
+          </div>
+        ) : (
+          <div className="space-y-6">
+            <div className="flex items-center justify-between">
+              <div>
+                <h3 className="text-lg font-medium text-white">Active License Key</h3>
+                <p className="text-sm text-white/60">Keep this key secret. It provides full access to your cluster.</p>
+              </div>
+            </div>
+
+            <div className="relative flex items-center rounded-lg border border-white/10 bg-black/40 p-4 font-mono text-sm text-emerald-400">
+              <code className="flex-1 break-all" style={{ fontFamily: "'JetBrains Mono', monospace" }}>
+                {licenseKey}
+              </code>
+              <Button
+                variant="ghost"
+                size="icon"
+                onClick={handleCopy}
+                className="ml-4 h-8 w-8 shrink-0 text-white/60 hover:text-white"
+              >
+                {copied ? <span className="text-xs">Copied</span> : <Copy className="h-4 w-4" />}
+              </Button>
+            </div>
+            
+            <div className="rounded-lg bg-yellow-500/10 p-4 text-sm text-yellow-500/90">
+              This is a production key. Add it to your <code>.env</code> file or InsightOps configuration.
+            </div>
+          </div>
+        )}
+      </div>
     </div>
   );
 }

@@ -60,15 +60,19 @@ export default function Auth() {
     const payload = buildMagicLinkPayload(submittedEmail);
     setIsSendingMagicLink(true);
     try {
-      await fetch("/api/v1/auth/magic-link", {
+      const response = await fetch("/api/v1/auth/magic-link", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(payload),
       });
-      setMagicLinkStatus("Magic link dispatched. Check your inbox.");
+      const result = await response.json();
+      if (response.ok) {
+        setMagicLinkStatus(result.message || "Magic link dispatched. Check your inbox.");
+      } else {
+        setMagicLinkStatus(result.error || "Failed to send magic link.");
+      }
     } catch {
-      // Dev/staging fallback while backend endpoint is in progress.
-      setMagicLinkStatus("Magic link queued (staging mode). Payload generated successfully.");
+      setMagicLinkStatus("Failed to send magic link. Please check your connection.");
     } finally {
       setIsSendingMagicLink(false);
       // Keep payload visible to support QA validation.
