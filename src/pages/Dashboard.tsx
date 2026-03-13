@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Copy, KeyRound, Loader2, ShieldCheck, Sparkles, Zap } from "lucide-react";
+import { Copy, Download, KeyRound, Loader2, ShieldCheck, Sparkles } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
@@ -19,7 +19,6 @@ export default function Dashboard() {
 
   const handleCopy = () => {
     if (!licenseKey) return;
-
     navigator.clipboard.writeText(licenseKey);
     setCopied(true);
     setTimeout(() => setCopied(false), 2000);
@@ -29,64 +28,68 @@ export default function Dashboard() {
     <div className="mx-auto w-full max-w-6xl px-6 pb-10 pt-16">
       <div className="mb-8 flex flex-col gap-3 md:flex-row md:items-end md:justify-between">
         <div>
-          <Badge className="border border-emerald-400/30 bg-emerald-400/10 text-emerald-200">Dashboard</Badge>
-          <h1 className="mt-3 text-3xl font-semibold tracking-tight text-white">License Management</h1>
-          <p className="mt-2 text-white/60">Issue and manage deployment keys for your InsightOps instances.</p>
+          <Badge className="border border-teal-400/30 bg-teal-400/10 text-teal-200">License Portal</Badge>
+          <h1 className="mt-3 text-3xl font-semibold tracking-tight text-white">Account & License Management</h1>
+          <p className="mt-2 text-white/60">Manage subscription status, deployment keys, and onboarding assets.</p>
         </div>
+        <Button className="border-0 bg-teal-500 text-[#032321] hover:bg-teal-400">
+          <Download className="mr-2 h-4 w-4" />
+          Download Docker Compose
+        </Button>
       </div>
 
       <div className="mb-6 grid gap-4 md:grid-cols-3">
         <Card className="border-white/10 bg-white/[0.03] backdrop-blur-xl">
           <CardHeader className="pb-3">
-            <CardTitle className="text-sm font-medium text-white/70">Engine</CardTitle>
+            <CardTitle className="text-sm font-medium text-white/70">Active Subscription</CardTitle>
           </CardHeader>
-          <CardContent className="flex items-center gap-2 text-white">
-            <Zap className="h-4 w-4 text-emerald-300" />
-            DuckDB runtime active
+          <CardContent className="text-white">
+            <p className="text-lg font-semibold text-emerald-200">Pro Plan</p>
+            <p className="text-xs text-white/60">$200/month · Renews Apr 14, 2026</p>
           </CardContent>
         </Card>
         <Card className="border-white/10 bg-white/[0.03] backdrop-blur-xl">
           <CardHeader className="pb-3">
-            <CardTitle className="text-sm font-medium text-white/70">Security</CardTitle>
+            <CardTitle className="text-sm font-medium text-white/70">License Status</CardTitle>
           </CardHeader>
           <CardContent className="flex items-center gap-2 text-white">
             <ShieldCheck className="h-4 w-4 text-emerald-300" />
-            Keys are generated server-side
+            Active and verified
           </CardContent>
         </Card>
         <Card className="border-white/10 bg-white/[0.03] backdrop-blur-xl">
           <CardHeader className="pb-3">
-            <CardTitle className="text-sm font-medium text-white/70">AI Layer</CardTitle>
+            <CardTitle className="text-sm font-medium text-white/70">Onboarding</CardTitle>
           </CardHeader>
           <CardContent className="flex items-center gap-2 text-white">
             <Sparkles className="h-4 w-4 text-violet-300" />
-            Query assistant enabled
+            Ready for self-hosted setup
           </CardContent>
         </Card>
       </div>
 
       <Card className="border-white/10 bg-white/[0.04] shadow-2xl backdrop-blur-xl">
         <CardHeader>
-          <CardTitle className="text-white">Deployment Key</CardTitle>
+          <CardTitle className="text-white">License Key</CardTitle>
           <CardDescription className="text-white/60">
-            Generate a production key and store it in your environment configuration.
+            Generate a production key and copy it into your Docker environment variables.
           </CardDescription>
         </CardHeader>
 
         <CardContent>
           {!licenseKey ? (
             <div className="flex flex-col items-center justify-center rounded-xl border border-dashed border-white/15 bg-black/20 px-6 py-14 text-center">
-              <div className="mb-4 rounded-full bg-emerald-500/10 p-4">
-                <KeyRound className="h-8 w-8 text-emerald-400" />
+              <div className="mb-4 rounded-full bg-teal-500/10 p-4">
+                <KeyRound className="h-8 w-8 text-teal-300" />
               </div>
               <h2 className="mb-2 text-xl font-medium text-white">No active key</h2>
               <p className="mb-8 max-w-sm text-sm text-white/60">
-                Create your first license key to activate InsightOps in your Docker deployment.
+                Create your first license key to activate Kuantra in your self-hosted Docker deployment.
               </p>
               <Button
                 onClick={handleGenerateKey}
                 disabled={isGenerating}
-                className="h-11 bg-white px-8 text-black hover:bg-white/90"
+                className="h-11 border-0 bg-teal-500 px-8 text-[#032321] hover:bg-teal-400"
               >
                 {isGenerating ? (
                   <>

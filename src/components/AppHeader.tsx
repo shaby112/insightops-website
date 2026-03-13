@@ -7,14 +7,21 @@ export function AppHeader() {
   const location = useLocation();
   const { isLoaded, isSignedIn } = useAuth();
 
-  const navItems = [
+  const signedOutNav = [
     { name: "Product", path: "/features" },
     { name: "Pricing", path: "/pricing" },
     { name: "Docs", path: "/install" },
     { name: "Blog", path: "/blog" },
   ];
 
-  const showDashboardState = isLoaded && isSignedIn;
+  const signedInNav = [
+    { name: "Docs", path: "/install" },
+    { name: "Blog", path: "/blog" },
+    { name: "Support", path: "/account" },
+  ];
+
+  const signedIn = isLoaded && isSignedIn;
+  const navItems = signedIn ? signedInNav : signedOutNav;
 
   return (
     <header className="sticky top-0 z-50 border-b border-white/[0.08] bg-[#050914]/95 font-sans backdrop-blur-xl supports-[backdrop-filter]:bg-[#050914]/85">
@@ -47,11 +54,11 @@ export function AppHeader() {
         </nav>
 
         <div className="flex items-center gap-3">
-          {showDashboardState ? (
+          {signedIn ? (
             <>
               <Link to="/dashboard">
                 <Button size="sm" className="border-0 bg-teal-500 text-[#032321] hover:bg-teal-400">
-                  Dashboard
+                  Account / License Portal
                 </Button>
               </Link>
               <UserButton
@@ -66,14 +73,14 @@ export function AppHeader() {
             </>
           ) : (
             <>
-              <Link to="/auth">
+              <Link to="/sign-in">
                 <Button variant="ghost" size="sm" className="text-white/70 hover:bg-white/10 hover:text-white">
                   Log In
                 </Button>
               </Link>
-              <Link to="/auth">
+              <Link to="/sign-up">
                 <Button size="sm" className="border-0 bg-teal-500 text-[#032321] hover:bg-teal-400">
-                  Get Started
+                  Start Free
                 </Button>
               </Link>
             </>
