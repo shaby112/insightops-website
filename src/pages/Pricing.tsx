@@ -1,15 +1,6 @@
 import { Link } from "react-router-dom";
-import { SignedIn, SignedOut, UserButton } from "@clerk/clerk-react";
-import { Button } from "@/components/ui/button";
 import { Logo } from "@/components/Logo";
 import { PricingSection } from "@/components/pricing/PricingSection";
-
-const clerkUserButtonAppearance = {
-  elements: {
-    avatarBox: "h-8 w-8 ring-2 ring-violet-500/40",
-    userButtonTrigger: "focus:shadow-none",
-  },
-};
 
 export default function Pricing() {
   return (
