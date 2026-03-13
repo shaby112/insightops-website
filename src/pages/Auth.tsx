@@ -6,17 +6,46 @@ import { AlertCircle, ArrowRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 
-const freemailDomains = ["gmail.com", "yahoo.com", "hotmail.com", "outlook.com", "aol.com"];
+const freemailDomains = [
+  "gmail.com",
+  "googlemail.com",
+  "yahoo.com",
+  "hotmail.com",
+  "outlook.com",
+  "aol.com",
+];
 
-const authSchema = z.object({
-  email: z.string().email("Please enter a valid email address."),
-}).refine((data) => {
-  const domain = data.email.split("@")[1]?.toLowerCase();
-  return !freemailDomains.includes(domain);
-}, {
-  message: "Please use your work email address.",
-  path: ["email"],
-});
+function extractDomain(email: string): string {
+  return email.split("@")[1]?.trim().toLowerCase().replace(/\.+$/, "") || "";
+}
+
+function isKuantraBypassDomain(domain: string): boolean {
+  return domain === "kuantra.io";
+}
+
+function isBlockedFreemailDomain(domain: string): boolean {
+  return freemailDomains.some((blocked) => domain === blocked || domain.endsWith(`.${blocked}`));
+}
+
+const authSchema = z
+  .object({
+    email: z.string().email("Please enter a valid email address."),
+  })
+  .superRefine((data, ctx) => {
+    const domain = extractDomain(data.email);
+
+    if (isKuantraBypassDomain(domain)) {
+      return;
+    }
+
+    if (isBlockedFreemailDomain(domain)) {
+      ctx.addIssue({
+        code: z.ZodIssueCode.custom,
+        message: "Please use your work email address.",
+        path: ["email"],
+      });
+    }
+  });
 
 type AuthFormValues = z.infer<typeof authSchema>;
 
@@ -29,6 +58,10 @@ export default function Auth() {
       email: "",
     },
   });
+
+  const emailValue = form.watch("email");
+  const currentDomain = extractDomain(emailValue || "");
+  const isKuantraBypass = isKuantraBypassDomain(currentDomain);
 
   const onSubmit = async (data: AuthFormValues) => {
     setIsLoading(true);
@@ -66,9 +99,14 @@ export default function Auth() {
               />
             </div>
             {form.formState.errors.email && (
-              <div className="flex items-center gap-2 text-sm text-red-400 mt-2">
+              <div className="mt-2 flex items-center gap-2 text-sm text-red-400">
                 <AlertCircle className="h-4 w-4" />
                 <span>{form.formState.errors.email.message}</span>
+              </div>
+            )}
+            {!form.formState.errors.email && isKuantraBypass && (
+              <div className="mt-2 text-sm text-emerald-300">
+                Kuantra team domain detected. Dev/staging bypass enabled.
               </div>
             )}
           </div>
