@@ -13,8 +13,6 @@ const Pricing = lazy(() => import("./pages/Pricing"));
 const Install = lazy(() => import("./pages/Install"));
 const Blog = lazy(() => import("./pages/Blog"));
 const BlogPost = lazy(() => import("./pages/BlogPost"));
-const SignInPage = lazy(() => import("./pages/SignInPage"));
-const SignUpPage = lazy(() => import("./pages/SignUpPage"));
 const Downloads = lazy(() => import("./pages/Downloads"));
 const Account = lazy(() => import("./pages/Account"));
 const Auth = lazy(() => import("./pages/Auth"));
@@ -69,10 +67,10 @@ const App = () => (
                 <Route path="/blog" element={<Page component={Blog} />} />
                 <Route path="/blog/:slug" element={<Page component={BlogPost} />} />
 
-                <Route path="/sign-in/*" element={<Page component={SignInPage} />} />
-                <Route path="/sign-up/*" element={<Page component={SignUpPage} />} />
-                <Route path="/signin/*" element={<Page component={SignInPage} />} />
-                <Route path="/signup/*" element={<Page component={SignUpPage} />} />
+                <Route path="/sign-in/*" element={<Page component={Auth} />} />
+                <Route path="/sign-up/*" element={<Page component={Auth} />} />
+                <Route path="/signin/*" element={<Page component={Auth} />} />
+                <Route path="/signup/*" element={<Page component={Auth} />} />
 
                 <Route element={<ProtectedRoute />}>
                   <Route path="/downloads" element={<Page component={Downloads} />} />

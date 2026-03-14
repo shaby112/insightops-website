@@ -104,12 +104,12 @@ export function AppHeader() {
             </>
           ) : (
             <>
-              <Link to="/sign-in">
+              <Link to="/auth">
                 <Button variant="ghost" size="sm" className="text-white/70 hover:bg-white/10 hover:text-white">
                   Log In
                 </Button>
               </Link>
-              <Link to="/sign-up">
+              <Link to="/auth">
                 <Button size="sm" className="border-0 bg-teal-500 text-[#032321] hover:bg-teal-400">
                   Start Free
                 </Button>
