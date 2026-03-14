@@ -1,0 +1,38 @@
+<svg width="1024" height="1024" viewBox="0 0 1024 1024" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="prismA" x1="164" y1="112" x2="860" y2="868" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#7FFFD4"/>
+      <stop offset="0.55" stop-color="#00E599"/>
+      <stop offset="1" stop-color="#0F766E"/>
+    </linearGradient>
+    <linearGradient id="prismB" x1="816" y1="196" x2="420" y2="658" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#D1FAE5"/>
+      <stop offset="0.6" stop-color="#14B8A6"/>
+      <stop offset="1" stop-color="#0F172A"/>
+    </linearGradient>
+    <linearGradient id="prismC" x1="194" y1="782" x2="658" y2="236" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#1F2937"/>
+      <stop offset="0.55" stop-color="#0EA5A4"/>
+      <stop offset="1" stop-color="#34D399"/>
+    </linearGradient>
+    <filter id="prismGlow" x="40" y="40" width="944" height="944" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+      <feGaussianBlur stdDeviation="26" result="blur"/>
+      <feColorMatrix in="blur" type="matrix" values="0 0 0 0 0.00 0 0 0 0 0.89 0 0 0 0 0.60 0 0 0 0.34 0" result="mintGlow"/>
+      <feBlend mode="screen" in="SourceGraphic" in2="mintGlow" result="shape"/>
+    </filter>
+  </defs>
+
+  <g filter="url(#prismGlow)">
+    <path d="M512 92L872 782H152L512 92Z" fill="url(#prismA)"/>
+    <path d="M512 92L684 430L498 474L512 92Z" fill="url(#prismB)" fill-opacity="0.92"/>
+    <path d="M684 430L872 782L498 474L684 430Z" fill="url(#prismB)" fill-opacity="0.74"/>
+    <path d="M152 782L498 474L512 92L152 782Z" fill="url(#prismC)" fill-opacity="0.9"/>
+    <path d="M498 474L872 782H152L498 474Z" fill="#0F172A" fill-opacity="0.45"/>
+  </g>
+
+  <g opacity="0.58" stroke="#F5F3FF" stroke-width="8" stroke-linecap="round">
+    <path d="M512 92L498 474"/>
+    <path d="M498 474L152 782"/>
+    <path d="M498 474L872 782"/>
+  </g>
+</svg>

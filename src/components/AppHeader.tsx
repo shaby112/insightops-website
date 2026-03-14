@@ -1,44 +1,72 @@
-import { Link, useLocation } from "react-router-dom";
-import { SignedIn, SignedOut, useUser, UserButton } from "@clerk/clerk-react";
+import { useEffect, useState } from "react";
+import { Link, useLocation, useNavigate } from "react-router-dom";
+import { ChevronDown, LogOut, UserCircle2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { ThemeToggle } from "@/components/ThemeToggle";
 import { Logo } from "@/components/Logo";
-
-const clerkUserButtonAppearance = {
-  elements: {
-    avatarBox: "h-8 w-8 ring-2 ring-violet-500/40",
-    userButtonTrigger: "focus:shadow-none",
-  },
-};
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
+import { clearAuth, getUser, isAuthenticated } from "@/lib/auth";
 
 export function AppHeader() {
-  const { user } = useUser();
   const location = useLocation();
+  const navigate = useNavigate();
+  const [signedIn, setSignedIn] = useState(false);
 
-  const navItems = [
+  useEffect(() => {
+    const syncAuth = () => setSignedIn(isAuthenticated());
+    syncAuth();
+    window.addEventListener("storage", syncAuth);
+    return () => window.removeEventListener("storage", syncAuth);
+  }, []);
+
+  const signedOutNav = [
     { name: "Product", path: "/features" },
+    { name: "Pricing", path: "/pricing" },
+    { name: "Docs", path: "/install" },
     { name: "Blog", path: "/blog" },
-    { name: "Install", path: "/install" },
-    { name: "Pricing", path: "/pricing" }
   ];
 
+  const signedInNav = [
+    { name: "Docs", path: "/install" },
+    { name: "Blog", path: "/blog" },
+    { name: "Support", path: "/account" },
+  ];
+
+  const navItems = signedIn ? signedInNav : signedOutNav;
+  const user = getUser();
+
+  const handleLogout = () => {
+    clearAuth();
+    setSignedIn(false);
+    navigate("/");
+  };
+
   return (
-    <header className="sticky top-0 z-50 border-b border-white/[0.08] bg-[#050914]/95 supports-[backdrop-filter]:bg-[#050914]/85 backdrop-blur-xl font-sans">
+    <header className="sticky top-0 z-50 border-b border-white/[0.08] bg-[#050914]/95 font-sans backdrop-blur-xl supports-[backdrop-filter]:bg-[#050914]/85">
       <div className="mx-auto flex h-16 w-full max-w-7xl items-center justify-between px-6">
-        <Link to="/" className="flex items-center gap-3 hover:opacity-80 transition-opacity">
-          <Logo size="sm" showText={false} />
-          <span className="text-[17px] font-semibold tracking-tight text-white">Kuantra</span>
+        <Link to="/" className="flex items-center gap-3.5 transition-opacity hover:opacity-90">
+          <Logo size="md" showText={false} className="drop-shadow-[0_0_12px_rgba(52,211,153,0.35)]" />
+          <span className="text-[20px] font-semibold tracking-[0.01em] text-white drop-shadow-[0_1px_8px_rgba(0,0,0,0.75)]">
+            Kuantra
+          </span>
         </Link>
 
         <nav className="hidden items-center gap-8 text-sm md:flex">
           {navItems.map((item) => {
-            const isActive = location.pathname === item.path || (item.path === '/blog' && location.pathname.startsWith('/blog/'));
+            const isActive =
+              location.pathname === item.path ||
+              (item.path === "/blog" && location.pathname.startsWith("/blog/"));
+
             return (
               <Link
                 key={item.path}
                 to={item.path}
                 className={`transition-colors duration-200 ${
-                  isActive ? "text-white font-medium" : "text-white/55 hover:text-white"
+                  isActive ? "font-medium text-white" : "text-white/55 hover:text-white"
                 }`}
               >
                 {item.name}
@@ -48,43 +76,46 @@ export function AppHeader() {
         </nav>
 
         <div className="flex items-center gap-3">
-          <ThemeToggle />
-          <SignedOut>
-            <Link to="/sign-in">
-              <Button
-                variant="ghost"
-                size="sm"
-                className="text-white/70 hover:text-white hover:bg-white/10"
-              >
-                Log In
-              </Button>
-            </Link>
-            <Link to="/sign-up">
-              <Button
-                size="sm"
-                className="relative overflow-hidden rounded-lg bg-white/5 px-6 py-3 font-medium text-white backdrop-blur-xl border border-white/10 shadow-[inset_0_1px_1px_rgba(255,255,255,0.15)] transition-all hover:bg-white/10 hover:border-white/20 before:absolute before:-inset-1 before:-z-10 before:bg-gradient-to-r before:from-indigo-500/30 before:via-purple-500/30 before:to-emerald-500/30 before:opacity-50 before:blur-md"
-              >
-                Get Started
-              </Button>
-            </Link>
-          </SignedOut>
-          <SignedIn>
-            <div className="flex items-center gap-4 pl-2 border-l border-white/10">
-              <div className="hidden lg:flex flex-col items-end leading-tight">
-                <span className="text-[10px] text-white/50 uppercase font-bold tracking-wider">Account</span>
-                <span className="text-sm font-bold text-white">{user?.username || user?.firstName || "User"}</span>
-              </div>
-              <Link to="/downloads">
-                <Button
-                  size="sm"
-                  className="bg-violet-600 hover:bg-violet-500 text-white border-0 shadow-lg shadow-violet-900/40"
-                >
-                  Downloads
+          {signedIn ? (
+            <>
+              <Link to="/dashboard">
+                <Button size="sm" className="border-0 bg-teal-500 text-[#032321] hover:bg-teal-400">
+                  Account / License Portal
                 </Button>
               </Link>
-              <UserButton afterSignOutUrl="/" appearance={clerkUserButtonAppearance} />
-            </div>
-          </SignedIn>
+
+              <DropdownMenu>
+                <DropdownMenuTrigger asChild>
+                  <Button variant="ghost" size="sm" className="text-white/80 hover:bg-white/10 hover:text-white">
+                    <UserCircle2 className="mr-1 h-4 w-4" />
+                    {user?.username || "Account"}
+                    <ChevronDown className="ml-1 h-4 w-4" />
+                  </Button>
+                </DropdownMenuTrigger>
+                <DropdownMenuContent align="end" className="w-48 border-white/10 bg-[#0a1127] text-white">
+                  <DropdownMenuItem onClick={() => navigate("/account")}>Account</DropdownMenuItem>
+                  <DropdownMenuItem onClick={() => navigate("/dashboard")}>License Portal</DropdownMenuItem>
+                  <DropdownMenuItem onClick={handleLogout}>
+                    <LogOut className="mr-2 h-4 w-4" />
+                    Logout
+                  </DropdownMenuItem>
+                </DropdownMenuContent>
+              </DropdownMenu>
+            </>
+          ) : (
+            <>
+              <Link to="/auth">
+                <Button variant="ghost" size="sm" className="text-white/70 hover:bg-white/10 hover:text-white">
+                  Log In
+                </Button>
+              </Link>
+              <Link to="/auth">
+                <Button size="sm" className="border-0 bg-teal-500 text-[#032321] hover:bg-teal-400">
+                  Start Free
+                </Button>
+              </Link>
+            </>
+          )}
         </div>
       </div>
     </header>
