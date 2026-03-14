@@ -117,7 +117,7 @@ export default function Auth() {
 
           <Button
             type="submit"
-            className="h-12 w-full border border-white/10 bg-gradient-to-r from-teal-400 via-emerald-400 to-violet-400 font-semibold text-[#041312] shadow-[0_10px_30px_rgba(16,185,129,0.28)] transition-all hover:brightness-105"
+            className="relative h-12 w-full overflow-hidden rounded-lg border border-white/10 bg-white/5 font-medium text-white shadow-[inset_0_1px_1px_rgba(255,255,255,0.15)] backdrop-blur-xl transition-all hover:border-white/20 hover:bg-white/10 before:absolute before:-inset-1 before:-z-10 before:bg-gradient-to-r before:from-indigo-500/30 before:via-purple-500/30 before:to-emerald-500/30 before:opacity-50 before:blur-md"
             disabled={isLoading}
           >
             {isLoading ? "Checking..." : "Continue"}
@@ -127,13 +127,13 @@ export default function Auth() {
         {authRoute === "magic-link-choice" && (
           <div className="space-y-3 rounded-xl border border-white/10 bg-black/30 p-4 shadow-[inset_0_1px_0_rgba(255,255,255,0.06)]">
             <Button
-              className="h-12 w-full justify-center rounded-lg border border-white/20 bg-white/[0.04] text-white/90 hover:bg-white/[0.08]"
+              className="h-12 w-full justify-center rounded-lg border border-white/20 bg-white/[0.04] text-white/85 hover:bg-white/[0.08] hover:text-white"
               variant="ghost"
             >
               Continue with Google
             </Button>
             <Button
-              className="h-12 w-full justify-center rounded-lg border border-teal-300/40 bg-gradient-to-r from-teal-400 via-emerald-400 to-violet-400 font-semibold text-[#041312] shadow-[0_10px_30px_rgba(16,185,129,0.30)] hover:brightness-105"
+              className="relative h-12 w-full justify-center overflow-hidden rounded-lg border border-white/10 bg-white/5 font-medium text-white shadow-[inset_0_1px_1px_rgba(255,255,255,0.15)] backdrop-blur-xl transition-all hover:border-white/20 hover:bg-white/10 before:absolute before:-inset-1 before:-z-10 before:bg-gradient-to-r before:from-indigo-500/30 before:via-purple-500/30 before:to-emerald-500/30 before:opacity-50 before:blur-md"
               onClick={handleSendMagicLink}
               disabled={isSendingMagicLink}
             >
