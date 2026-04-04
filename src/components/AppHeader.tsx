@@ -1,48 +1,23 @@
-import { useEffect, useState } from "react";
-import { Link, useLocation, useNavigate } from "react-router-dom";
-import { ChevronDown, LogOut, UserCircle2 } from "lucide-react";
+import { Link, useLocation } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Logo } from "@/components/Logo";
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
-import { clearAuth, getUser, isAuthenticated } from "@/lib/auth";
 
 export function AppHeader() {
   const location = useLocation();
-  const navigate = useNavigate();
-  const [signedIn, setSignedIn] = useState(false);
 
-  useEffect(() => {
-    const syncAuth = () => setSignedIn(isAuthenticated());
-    syncAuth();
-    window.addEventListener("storage", syncAuth);
-    return () => window.removeEventListener("storage", syncAuth);
-  }, []);
-
-  const signedOutNav = [
+  const navItems = [
     { name: "Product", path: "/features" },
-    { name: "Pricing", path: "/pricing" },
-    { name: "Docs", path: "/install" },
     { name: "Blog", path: "/blog" },
   ];
 
-  const signedInNav = [
-    { name: "Docs", path: "/install" },
-    { name: "Blog", path: "/blog" },
-    { name: "Support", path: "/account" },
-  ];
-
-  const navItems = signedIn ? signedInNav : signedOutNav;
-  const user = getUser();
-
-  const handleLogout = () => {
-    clearAuth();
-    setSignedIn(false);
-    navigate("/");
+  const scrollToWaitlist = (e: React.MouseEvent) => {
+    if (location.pathname === "/") {
+      const form = document.getElementById("waitlist-form");
+      if (form) {
+        form.focus();
+        form.scrollIntoView({ behavior: "smooth", block: "center" });
+      }
+    }
   };
 
   return (
@@ -54,7 +29,7 @@ export function AppHeader() {
             Kuantra
           </span>
         </Link>
-
+        
         <nav className="hidden items-center gap-8 text-sm md:flex">
           {navItems.map((item) => {
             const isActive =
@@ -76,45 +51,23 @@ export function AppHeader() {
         </nav>
 
         <div className="flex items-center gap-3">
-          {signedIn ? (
-            <>
-              <Link to="/dashboard">
-                <Button size="sm" className="border-0 bg-teal-500 text-[#032321] hover:bg-teal-400">
-                  Account / License Portal
-                </Button>
-              </Link>
-
-              <DropdownMenu>
-                <DropdownMenuTrigger asChild>
-                  <Button variant="ghost" size="sm" className="text-white/80 hover:bg-white/10 hover:text-white">
-                    <UserCircle2 className="mr-1 h-4 w-4" />
-                    {user?.username || "Account"}
-                    <ChevronDown className="ml-1 h-4 w-4" />
-                  </Button>
-                </DropdownMenuTrigger>
-                <DropdownMenuContent align="end" className="w-48 border-white/10 bg-[#0a1127] text-white">
-                  <DropdownMenuItem onClick={() => navigate("/account")}>Account</DropdownMenuItem>
-                  <DropdownMenuItem onClick={() => navigate("/dashboard")}>License Portal</DropdownMenuItem>
-                  <DropdownMenuItem onClick={handleLogout}>
-                    <LogOut className="mr-2 h-4 w-4" />
-                    Logout
-                  </DropdownMenuItem>
-                </DropdownMenuContent>
-              </DropdownMenu>
-            </>
+          {location.pathname === "/" ? (
+            <Button
+              onClick={scrollToWaitlist}
+              size="sm"
+              className="relative overflow-hidden border-0 bg-transparent px-5 font-medium text-white shadow-[inset_0_1px_1px_rgba(255,255,255,0.15)] transition-all hover:bg-white/10 before:absolute before:-inset-1 before:-z-10 before:bg-gradient-to-r before:from-indigo-500/40 before:via-purple-500/40 before:to-emerald-500/40 before:opacity-70 before:blur-sm"
+            >
+              Join Waitlist
+            </Button>
           ) : (
-            <>
-              <Link to="/auth">
-                <Button variant="ghost" size="sm" className="text-white/70 hover:bg-white/10 hover:text-white">
-                  Log In
-                </Button>
-              </Link>
-              <Link to="/auth">
-                <Button size="sm" className="border-0 bg-teal-500 text-[#032321] hover:bg-teal-400">
-                  Start Free
-                </Button>
-              </Link>
-            </>
+            <Link to="/">
+               <Button
+                size="sm"
+                className="relative overflow-hidden border-0 bg-transparent px-5 font-medium text-white shadow-[inset_0_1px_1px_rgba(255,255,255,0.15)] transition-all hover:bg-white/10 before:absolute before:-inset-1 before:-z-10 before:bg-gradient-to-r before:from-indigo-500/40 before:via-purple-500/40 before:to-emerald-500/40 before:opacity-70 before:blur-sm"
+              >
+                Join Waitlist
+              </Button>
+            </Link>
           )}
         </div>
       </div>

@@ -3,27 +3,16 @@ import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { BrowserRouter, Outlet, Route, Routes } from "react-router-dom";
+import { BrowserRouter, Route, Routes, Navigate } from "react-router-dom";
 import { HelmetProvider } from "react-helmet-async";
 import { AppHeader } from "@/components/AppHeader";
 
 const Landing = lazy(() => import("./pages/Landing"));
 const Features = lazy(() => import("./pages/Features"));
-const Pricing = lazy(() => import("./pages/Pricing"));
-const Install = lazy(() => import("./pages/Install"));
 const Blog = lazy(() => import("./pages/Blog"));
 const BlogPost = lazy(() => import("./pages/BlogPost"));
-const Downloads = lazy(() => import("./pages/Downloads"));
-const Account = lazy(() => import("./pages/Account"));
-const Auth = lazy(() => import("./pages/Auth"));
-const NotFound = lazy(() => import("./pages/NotFound"));
-const Dashboard = lazy(() => import("./pages/Dashboard"));
 
 const queryClient = new QueryClient();
-
-function ProtectedRoute() {
-  return <Outlet />;
-}
 
 function RouteSkeleton() {
   return (
@@ -49,9 +38,8 @@ const App = () => (
         <Sonner />
         <BrowserRouter>
           <div
-            className="min-h-screen text-white"
+            className="min-h-screen text-white bg-[#0A0A0A]"
             style={{
-              backgroundColor: "#0A0A0A",
               fontFamily: "Geist, Inter, ui-sans-serif, system-ui, sans-serif",
             }}
           >
@@ -60,26 +48,10 @@ const App = () => (
               <AppHeader />
               <Routes>
                 <Route path="/" element={<Page component={Landing} />} />
-                <Route path="/auth" element={<Page component={Auth} />} />
                 <Route path="/features" element={<Page component={Features} />} />
-                <Route path="/pricing" element={<Page component={Pricing} />} />
-                <Route path="/install" element={<Page component={Install} />} />
                 <Route path="/blog" element={<Page component={Blog} />} />
                 <Route path="/blog/:slug" element={<Page component={BlogPost} />} />
-
-                <Route path="/sign-in/*" element={<Page component={Auth} />} />
-                <Route path="/sign-up/*" element={<Page component={Auth} />} />
-                <Route path="/signin/*" element={<Page component={Auth} />} />
-                <Route path="/signup/*" element={<Page component={Auth} />} />
-
-                <Route element={<ProtectedRoute />}>
-                  <Route path="/downloads" element={<Page component={Downloads} />} />
-                  <Route path="/account" element={<Page component={Account} />} />
-                  <Route path="/dashboard" element={<Page component={Dashboard} />} />
-                  <Route path="/license" element={<Page component={Dashboard} />} />
-                </Route>
-
-                <Route path="*" element={<Page component={NotFound} />} />
+                <Route path="*" element={<Navigate to="/" replace />} />
               </Routes>
             </div>
           </div>

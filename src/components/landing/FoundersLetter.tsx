@@ -1,3 +1,5 @@
+import { Logo } from "@/components/Logo";
+
 export function FoundersLetter() {
   return (
     <section className="mx-auto w-full max-w-4xl px-6 py-24 relative">
@@ -7,8 +9,8 @@ export function FoundersLetter() {
         <div className="md:w-1/3 shrink-0">
           <p className="text-xs uppercase tracking-[0.22em] text-white/45 mb-4">From the Founders</p>
           <div className="flex items-center gap-4 mb-6">
-            <div className="w-12 h-12 rounded-full bg-white/10 border border-white/20 overflow-hidden">
-              <img src="/placeholder-avatar.jpg" alt="Founders" className="w-full h-full object-cover opacity-80 mix-blend-luminosity" onError={(e) => { e.currentTarget.style.display = 'none' }} />
+            <div className="flex w-12 h-12 items-center justify-center rounded-full bg-white/5 border border-white/20 overflow-hidden shadow-[inset_0_1px_12px_rgba(255,255,255,0.08)]">
+              <Logo size="sm" showText={false} />
             </div>
             <div>
               <h3 className="text-sm font-semibold text-white">The Kuantra Team</h3>

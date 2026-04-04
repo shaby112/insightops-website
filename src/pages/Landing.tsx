@@ -1,19 +1,14 @@
-import { useMemo } from "react";
-import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
-import { ArrowRight, Calendar, User, Zap, Shield, Database, Gauge, Lock } from "lucide-react";
-import { format } from "date-fns";
+import { Zap, Shield, Database } from "lucide-react";
 
-import { getAllPosts } from "@/lib/blog";
-import { Button } from "@/components/ui/button";
 import { Logo } from "@/components/Logo";
 import { Card } from "@/components/ui/card";
 import { HeroAnimation } from "@/components/landing/HeroAnimation";
-import { LogoMarquee } from "@/components/landing/LogoMarquee";
-import { BenchmarkTable } from "@/components/landing/BenchmarkTable";
 import { FoundersLetter } from "@/components/landing/FoundersLetter";
+import { WaitlistForm } from "@/components/landing/WaitlistForm";
+import { BenchmarkTable } from "@/components/landing/BenchmarkTable";
 
-const antiCompetitor = [
+const features = [
   {
     title: "No JVM wait times",
     body: "DuckDB-native execution keeps interactions instant and predictable.",
@@ -34,16 +29,7 @@ const antiCompetitor = [
   },
 ];
 
-
 export default function Landing() {
-  const latestPosts = useMemo(
-    () =>
-      getAllPosts()
-        .filter((post) => !post.meta.draft && Boolean(post.meta.date))
-        .slice(0, 3),
-    []
-  );
-
   return (
     <div className="dark">
       <style>{`
@@ -60,67 +46,52 @@ export default function Landing() {
       `}</style>
 
       <main
-        className="min-h-screen text-white"
+        className="min-h-screen text-white bg-[#0A0A0A]"
         style={{
-          backgroundColor: "#0A0A0A",
           fontFamily: "Geist, Inter, ui-sans-serif, system-ui, sans-serif",
         }}
       >
         <section className="relative border-b border-white/10">
           <div className="hero-glow pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_20%_0%,rgba(139,92,246,0.20),transparent_38%),radial-gradient(circle_at_80%_0%,rgba(99,102,241,0.14),transparent_30%)]" />
-          <div className="pointer-events-none absolute inset-0 opacity-30 [background-image:linear-gradient(to_right,rgba(255,255,255,0.05)_1px,transparent_1px),linear-gradient(to_bottom,rgba(255,255,255,0.05)_1px,transparent_1px)] [background-size:56px_56px]" />
-
-          <div className="relative mx-auto flex w-full max-w-7xl flex-col px-6 pb-16 pt-24 md:pt-28">
-            <div className="flex flex-col lg:flex-row items-center gap-16 lg:gap-8">
+          
+          <div className="relative mx-auto flex w-full max-w-7xl flex-col px-6 pb-20 pt-24 md:pt-32">
+            <div className="flex flex-col lg:flex-row items-center gap-16 lg:gap-8 xl:gap-16">
               <motion.div
                 initial={{ opacity: 0, y: 12 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.45 }}
-                className="max-w-3xl flex-1"
+                className="max-w-2xl flex-1"
               >
-
-                <h1 className="type-reveal mt-6 text-4xl font-semibold leading-[1.03] tracking-[-0.02em] text-white md:text-7xl">
-                  Zero-Config BI.<br/>Sub-100ms Queries.
+                <h1 className="type-reveal text-5xl font-semibold leading-[1.05] tracking-tight text-white md:text-6xl xl:text-7xl">
+                  Ask your database anything.<br/>No SQL required.
                 </h1>
 
-                <p className="mt-6 max-w-2xl text-base leading-relaxed text-white/70 md:text-lg">
+                <p className="mt-6 max-w-xl text-lg leading-relaxed text-white/70">
                   Stop fighting dbt and waiting on slow JVM engines. Kuantra connects directly to your database and delivers instant AI Text-to-SQL dashboards via DuckDB.
                 </p>
 
-                <div className="mt-10 flex flex-col items-start gap-4 sm:flex-row sm:items-center">
-                  <Link to="/install">
-                    <Button
-                      size="lg"
-                      className="relative overflow-hidden rounded-lg bg-white/5 px-6 py-3 font-medium text-white backdrop-blur-xl border border-white/10 shadow-[inset_0_1px_1px_rgba(255,255,255,0.15)] transition-all hover:bg-white/10 hover:border-white/20 before:absolute before:-inset-1 before:-z-10 before:bg-gradient-to-r before:from-indigo-500/30 before:via-purple-500/30 before:to-emerald-500/30 before:opacity-50 before:blur-md"
-                    >
-                      Deploy via Docker
-                      <ArrowRight className="ml-2 h-4 w-4" />
-                    </Button>
-                  </Link>
-
-                  <Link to="/features" className="text-sm font-medium text-white/70 transition-colors hover:text-white">
-                    Explore product architecture <ArrowRight className="ml-1 inline h-4 w-4" />
-                  </Link>
-                </div>
+                <WaitlistForm />
+                
               </motion.div>
               
               <motion.div
                 initial={{ opacity: 0, scale: 0.95 }}
                 animate={{ opacity: 1, scale: 1 }}
                 transition={{ duration: 0.5, delay: 0.2 }}
-                className="flex-1 w-full lg:w-auto"
+                className="flex-1 w-full max-w-lg lg:w-auto"
               >
                 <HeroAnimation />
               </motion.div>
             </div>
 
+            {/* Feature Bullets */}
             <motion.div
               initial={{ opacity: 0, y: 14 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.45, delay: 0.12 }}
               className="mt-24 grid gap-4 md:grid-cols-3"
             >
-              {antiCompetitor.map((item) => (
+              {features.map((item) => (
                 <Card
                   key={item.title}
                   className="group relative flex flex-col rounded-xl border border-white/10 bg-white/[0.02] p-6 backdrop-blur-2xl shadow-[0_8px_32px_0_rgba(0,0,0,0.5)] shadow-[inset_0_1px_0_0_rgba(255,255,255,0.1)] transition-all duration-300 hover:bg-white/[0.04] hover:border-white/20"
@@ -141,52 +112,32 @@ export default function Landing() {
                 </Card>
               ))}
             </motion.div>
+
+            {/* View container for screen recording */}
+            <motion.div
+              initial={{ opacity: 0, y: 14 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.45, delay: 0.12 }}
+              className="mt-24 mb-16 relative"
+            >
+              <div className="absolute -inset-1 rounded-2xl bg-gradient-to-tr from-white/5 via-white/10 to-white/5 opacity-50 blur-lg" />
+              <div className="relative aspect-video w-full rounded-2xl border border-white/10 bg-black/40 shadow-2xl overflow-hidden ring-1 ring-white/10 backdrop-blur-xl flex items-center justify-center">
+                {/* Placeholder for 90-second screen recording */}
+                <span className="text-white/40 font-medium">90-second Product Demo (Video Placeholder)</span>
+                {/* 
+                  When you have the video, uncomment and use this structure:
+                  <video autoPlay loop muted playsInline className="w-full h-full object-cover">
+                    <source src="/your-demo.mp4" type="video/mp4" />
+                  </video>
+                */}
+              </div>
+            </motion.div>
           </div>
         </section>
 
-        <LogoMarquee />
         <BenchmarkTable />
+
         <FoundersLetter />
-
-        {latestPosts.length > 0 && (
-          <section className="mx-auto w-full max-w-7xl px-6 py-20">
-            <div className="mb-10 flex items-end justify-between gap-4">
-              <div>
-                <p className="text-xs uppercase tracking-[0.22em] text-white/45">Engineering Journal</p>
-                <h2 className="mt-3 text-3xl font-semibold tracking-tight">Latest Insights</h2>
-              </div>
-              <Link to="/blog" className="text-sm text-white/65 transition-colors hover:text-white">
-                Read all posts <ArrowRight className="ml-1 inline h-4 w-4" />
-              </Link>
-            </div>
-
-            <div className="grid gap-5 md:grid-cols-3">
-              {latestPosts.map((post) => (
-                <Link
-                  key={post.slug}
-                  to={`/blog/${post.slug}`}
-                  className="group rounded-2xl border border-white/10 p-6 transition-all hover:-translate-y-0.5 hover:border-white/20"
-                  style={{ backgroundColor: "#171717" }}
-                >
-                  <div className="mb-5 flex items-center gap-4 text-xs text-white/45">
-                    <span className="flex items-center gap-1.5">
-                      <Calendar className="h-3.5 w-3.5" />
-                      {format(new Date(post.meta.date!), "MMM d, yyyy")}
-                    </span>
-                    <span className="flex items-center gap-1.5">
-                      <User className="h-3.5 w-3.5" />
-                      {post.meta.author}
-                    </span>
-                  </div>
-                  <h3 className="text-xl font-semibold leading-tight text-white transition-colors group-hover:text-violet-300">
-                    {post.meta.title}
-                  </h3>
-                  <p className="mt-3 line-clamp-3 text-sm leading-relaxed text-white/60">{post.meta.description}</p>
-                </Link>
-              ))}
-            </div>
-          </section>
-        )}
 
         <footer className="border-t border-white/10 py-8">
           <div className="mx-auto flex w-full max-w-7xl flex-col items-center justify-between gap-3 px-6 text-sm text-white/55 sm:flex-row">
@@ -195,10 +146,8 @@ export default function Landing() {
               <span className="font-medium">© 2026 Kuantra</span>
             </div>
             <div className="flex items-center gap-5">
-              <Link to="/pricing" className="transition-colors hover:text-white/75">Pricing</Link>
-              <Link to="/blog" className="transition-colors hover:text-white/75">Blog</Link>
-              <Link to="/install" className="transition-colors hover:text-white/75">Install</Link>
-              <Link to="/features" className="transition-colors hover:text-white/75">Product</Link>
+              <a href="/features" className="transition-colors hover:text-white/75">Product</a>
+              <a href="/blog" className="transition-colors hover:text-white/75">Blog</a>
             </div>
           </div>
         </footer>
