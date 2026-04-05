@@ -5,7 +5,7 @@ date: "2026-04-05"
 author: "Shahbaz"
 tags: ["kuantra", "business-intelligence", "metabase alternative"]
 description: "Frustrated with Metabase's hidden costs? Discover how small teams get powerful BI for a fraction of the price, without needing SQL."
-image: "/home/shahbaz/.openclaw/workspace-qa-tester/2026-04-05-kuantra-coming-soon-main.png"
+image: "/content/blog/metabase-alternative-banner.png"
 ---
 
 Hook: What if your "free" analytics tool was actually costing your small business more than a full-time hire? Many teams using Metabase unknowingly spend thousands annually on hidden operational costs.
