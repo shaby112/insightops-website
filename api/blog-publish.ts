@@ -7,6 +7,10 @@ function sanitizeSlug(value = "") {
     .replace(/-+/g, "-");
 }
 
+function yamlQuote(value = "") {
+  return JSON.stringify(String(value ?? ""));
+}
+
 export default async function handler(req, res) {
   if (req.method !== "POST") return res.status(405).json({ error: "Method Not Allowed" });
 
@@ -25,7 +29,7 @@ export default async function handler(req, res) {
   if (!finalSlug) return res.status(400).json({ error: "Invalid slug" });
 
   const postDate = date || new Date().toISOString().split("T")[0];
-  const markdown = `---\ntitle: ${title}\ndescription: ${description}\ndate: ${postDate}\nauthor: ${author}\n${ogImage ? `ogImage: ${ogImage}\n` : ""}---\n\n${content}\n`;
+  const markdown = `---\ntitle: ${yamlQuote(title)}\ndescription: ${yamlQuote(description)}\ndate: ${yamlQuote(postDate)}\nauthor: ${yamlQuote(author)}\n${ogImage ? `ogImage: ${yamlQuote(ogImage)}\n` : ""}---\n\n${content}\n`;
 
   const GITHUB_TOKEN = process.env.GITHUB_TOKEN;
   if (!GITHUB_TOKEN) return res.status(500).json({ error: "GitHub token not configured" });

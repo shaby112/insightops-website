@@ -19,18 +19,25 @@ export interface BlogPost {
 const mdFiles = import.meta.glob('/src/content/blog/*.md', { eager: true, query: '?raw' });
 
 export function getAllPosts(): BlogPost[] {
-  const posts = Object.entries(mdFiles).map(([path, module]) => {
-    // Vite's ?raw query returns the string as default export in newer versions, or just the string
-    const rawContent = (module as any).default || module;
-    const parsed = fm<BlogPostMeta>(rawContent as string);
-    const slug = path.split('/').pop()?.replace('.md', '') || '';
-    
-    return {
-      slug,
-      meta: parsed.attributes,
-      content: parsed.body,
-    };
-  });
+  const posts: BlogPost[] = [];
+
+  for (const [path, module] of Object.entries(mdFiles)) {
+    try {
+      // Vite's ?raw query returns the string as default export in newer versions, or just the string
+      const rawContent = (module as any).default || module;
+      const parsed = fm<BlogPostMeta>(rawContent as string);
+      const slug = path.split('/').pop()?.replace('.md', '') || '';
+
+      posts.push({
+        slug,
+        meta: parsed.attributes,
+        content: parsed.body,
+      });
+    } catch (error) {
+      // Never let one malformed markdown/frontmatter crash the whole blog surface.
+      console.error(`Skipping malformed blog file: ${path}`, error);
+    }
+  }
 
   // Sort by date descending (undated posts last)
   return posts.sort((a, b) => {
