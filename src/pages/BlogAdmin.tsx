@@ -1,11 +1,11 @@
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { Link } from "react-router-dom";
 import { ArrowRight, ImagePlus, Loader2, ShieldCheck, Trash2, Upload, PencilLine } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
-import { getAllPosts } from "@/lib/blog";
+import { fetchAllPosts, type BlogPost } from "@/lib/blog";
 
 function toSlug(value: string) {
   return value
@@ -32,9 +32,18 @@ export default function BlogAdmin() {
   const [uploading, setUploading] = useState(false);
   const [message, setMessage] = useState("");
   const [error, setError] = useState("");
+  const [existingPosts, setExistingPosts] = useState<BlogPost[]>([]);
 
   const effectiveSlug = useMemo(() => toSlug(slug || title), [slug, title]);
-  const existingPosts = useMemo(() => getAllPosts().filter((p) => !p.meta.draft), []);
+
+  const refreshPosts = async () => {
+    const posts = await fetchAllPosts();
+    setExistingPosts(posts.filter((p) => !p.meta.draft));
+  };
+
+  useEffect(() => {
+    refreshPosts().catch(() => setExistingPosts([]));
+  }, []);
 
   const loadPostForEdit = (postSlug: string) => {
     const post = existingPosts.find((p) => p.slug === postSlug);
@@ -121,6 +130,7 @@ export default function BlogAdmin() {
       if (!res.ok) throw new Error(data?.error || "Publish failed");
 
       setMessage(`Published successfully: ${data.url}`);
+      await refreshPosts();
     } catch (e: any) {
       setError(e?.message || "Publish failed");
     } finally {
@@ -157,6 +167,7 @@ export default function BlogAdmin() {
       const data = await res.json();
       if (!res.ok) throw new Error(data?.error || "Update failed");
       setMessage(`Updated successfully: ${data.url}`);
+      await refreshPosts();
     } catch (e: any) {
       setError(e?.message || "Update failed");
     } finally {
@@ -189,6 +200,7 @@ export default function BlogAdmin() {
       const data = await res.json();
       if (!res.ok) throw new Error(data?.error || "Delete failed");
       setMessage(`Deleted successfully: ${slugToDelete}`);
+      await refreshPosts();
     } catch (e: any) {
       setError(e?.message || "Delete failed");
     } finally {

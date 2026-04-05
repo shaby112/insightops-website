@@ -1,7 +1,7 @@
-import { useMemo } from "react";
+import { useEffect, useState } from "react";
 import { Helmet } from "react-helmet-async";
 import { useParams, Link } from "react-router-dom";
-import { getPostBySlug } from "@/lib/blog";
+import { fetchPostBySlug, type BlogPost as BlogPostType } from "@/lib/blog";
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
 import { format } from "date-fns";
@@ -9,7 +9,39 @@ import { ArrowLeft, Calendar, User } from "lucide-react";
 
 export default function BlogPost() {
   const { slug } = useParams<{ slug: string }>();
-  const post = useMemo(() => getPostBySlug(slug || ""), [slug]);
+  const [post, setPost] = useState<BlogPostType | null>(null);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    let mounted = true;
+
+    (async () => {
+      try {
+        if (!slug) {
+          if (mounted) setPost(null);
+          return;
+        }
+        const data = await fetchPostBySlug(slug);
+        if (mounted) setPost(data);
+      } catch {
+        if (mounted) setPost(null);
+      } finally {
+        if (mounted) setLoading(false);
+      }
+    })();
+
+    return () => {
+      mounted = false;
+    };
+  }, [slug]);
+
+  if (loading) {
+    return (
+      <div className="min-h-screen bg-[#050914] text-white flex items-center justify-center">
+        <div className="text-center p-8 bg-white/5 border border-white/10 rounded-2xl text-white/70">Loading post...</div>
+      </div>
+    );
+  }
 
   if (!post) {
     return (
