@@ -1,10 +1,11 @@
 import { useMemo, useState } from "react";
 import { Link } from "react-router-dom";
-import { ArrowRight, ImagePlus, Loader2, ShieldCheck, Upload } from "lucide-react";
+import { ArrowRight, ImagePlus, Loader2, ShieldCheck, Trash2, Upload, PencilLine } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
+import { getAllPosts } from "@/lib/blog";
 
 function toSlug(value: string) {
   return value
@@ -26,11 +27,29 @@ export default function BlogAdmin() {
   const [content, setContent] = useState("# Blog Title\n\nWrite your post in markdown here.");
 
   const [publishing, setPublishing] = useState(false);
+  const [updating, setUpdating] = useState(false);
+  const [deleting, setDeleting] = useState(false);
   const [uploading, setUploading] = useState(false);
   const [message, setMessage] = useState("");
   const [error, setError] = useState("");
 
   const effectiveSlug = useMemo(() => toSlug(slug || title), [slug, title]);
+  const existingPosts = useMemo(() => getAllPosts().filter((p) => !p.meta.draft), []);
+
+  const loadPostForEdit = (postSlug: string) => {
+    const post = existingPosts.find((p) => p.slug === postSlug);
+    if (!post) return;
+
+    setTitle(post.meta.title || "");
+    setDescription(post.meta.description || "");
+    setAuthor(post.meta.author || "Kuantra Team");
+    setDate(post.meta.date || new Date().toISOString().slice(0, 10));
+    setSlug(post.slug);
+    setOgImage(post.meta.ogImage || "");
+    setContent(post.content || "");
+    setMessage(`Loaded '${post.slug}' for editing.`);
+    setError("");
+  };
 
   const uploadImage = async (file?: File) => {
     if (!file || !token) return;
@@ -109,16 +128,84 @@ export default function BlogAdmin() {
     }
   };
 
+  const updatePost = async () => {
+    if (!token) return setError("Admin token is required.");
+    if (!effectiveSlug) return setError("Load/select a post first, or set a valid slug.");
+
+    setUpdating(true);
+    setError("");
+    setMessage("");
+
+    try {
+      const res = await fetch("/api/blog-update", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify({
+          title,
+          description,
+          author,
+          date,
+          slug: effectiveSlug,
+          ogImage,
+          content,
+        }),
+      });
+
+      const data = await res.json();
+      if (!res.ok) throw new Error(data?.error || "Update failed");
+      setMessage(`Updated successfully: ${data.url}`);
+    } catch (e: any) {
+      setError(e?.message || "Update failed");
+    } finally {
+      setUpdating(false);
+    }
+  };
+
+  const deletePost = async (targetSlug?: string) => {
+    const slugToDelete = toSlug(targetSlug || effectiveSlug);
+    if (!token) return setError("Admin token is required.");
+    if (!slugToDelete) return setError("Valid slug is required for delete.");
+
+    const ok = window.confirm(`Delete blog post '${slugToDelete}'? This cannot be undone.`);
+    if (!ok) return;
+
+    setDeleting(true);
+    setError("");
+    setMessage("");
+
+    try {
+      const res = await fetch("/api/blog-delete", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify({ slug: slugToDelete }),
+      });
+
+      const data = await res.json();
+      if (!res.ok) throw new Error(data?.error || "Delete failed");
+      setMessage(`Deleted successfully: ${slugToDelete}`);
+    } catch (e: any) {
+      setError(e?.message || "Delete failed");
+    } finally {
+      setDeleting(false);
+    }
+  };
+
   return (
     <main className="min-h-[calc(100vh-64px)] bg-[#0A0A0A] px-6 py-12 text-white">
-      <div className="mx-auto w-full max-w-5xl">
+      <div className="mx-auto w-full max-w-5xl space-y-6">
         <div className="rounded-2xl border border-white/10 bg-white/[0.03] p-8 backdrop-blur-xl">
           <div className="mb-8 flex flex-wrap items-center justify-between gap-3">
             <div>
               <p className="text-xs uppercase tracking-[0.2em] text-white/50">Blog Publisher</p>
-              <h1 className="mt-2 text-3xl font-semibold tracking-tight">Publish a blog post</h1>
+              <h1 className="mt-2 text-3xl font-semibold tracking-tight">Create, edit, and delete blog posts</h1>
             </div>
-            <Link to="/blog" className="text-sm text-white/70 hover:text-white inline-flex items-center gap-2">
+            <Link to="/blog" className="inline-flex items-center gap-2 text-sm text-white/70 hover:text-white">
               View blog <ArrowRight className="h-4 w-4" />
             </Link>
           </div>
@@ -126,7 +213,7 @@ export default function BlogAdmin() {
           <form onSubmit={publish} className="space-y-4">
             <div className="rounded-lg border border-emerald-500/20 bg-emerald-500/10 p-3 text-sm text-emerald-100">
               <div className="flex items-center gap-2 font-medium"><ShieldCheck className="h-4 w-4" /> Protected publisher access</div>
-              <p className="mt-1 text-emerald-100/80">Enter BLOG_ADMIN_TOKEN to publish and upload images.</p>
+              <p className="mt-1 text-emerald-100/80">Enter BLOG_ADMIN_TOKEN to publish, edit, delete, and upload images.</p>
             </div>
 
             <Input
@@ -166,18 +253,47 @@ export default function BlogAdmin() {
                 />
               </label>
 
-              <Button
-                type="submit"
-                disabled={publishing}
-                className="relative overflow-hidden border-0 bg-transparent px-5 text-white before:absolute before:-inset-1 before:-z-10 before:bg-gradient-to-r before:from-indigo-500/40 before:via-purple-500/40 before:to-emerald-500/40 before:opacity-70 before:blur-sm"
-              >
-                {publishing ? <Loader2 className="mr-2 h-4 w-4 animate-spin" /> : <Upload className="mr-2 h-4 w-4" />} Publish post
+              <Button type="submit" disabled={publishing} className="relative overflow-hidden border-0 bg-transparent px-5 text-white before:absolute before:-inset-1 before:-z-10 before:bg-gradient-to-r before:from-indigo-500/40 before:via-purple-500/40 before:to-emerald-500/40 before:opacity-70 before:blur-sm">
+                {publishing ? <Loader2 className="mr-2 h-4 w-4 animate-spin" /> : <Upload className="mr-2 h-4 w-4" />} Publish new
+              </Button>
+
+              <Button type="button" disabled={updating} onClick={updatePost} className="border border-white/15 bg-white/5 text-white hover:bg-white/10">
+                {updating ? <Loader2 className="mr-2 h-4 w-4 animate-spin" /> : <PencilLine className="mr-2 h-4 w-4" />} Update existing
+              </Button>
+
+              <Button type="button" disabled={deleting} onClick={() => deletePost()} className="border border-red-400/30 bg-red-500/10 text-red-200 hover:bg-red-500/20">
+                {deleting ? <Loader2 className="mr-2 h-4 w-4 animate-spin" /> : <Trash2 className="mr-2 h-4 w-4" />} Delete by slug
               </Button>
             </div>
 
             {message && <p className="text-sm text-emerald-300">{message}</p>}
             {error && <p className="text-sm text-red-300">{error}</p>}
           </form>
+        </div>
+
+        <div className="rounded-2xl border border-white/10 bg-white/[0.03] p-6 backdrop-blur-xl">
+          <h2 className="text-lg font-semibold">Existing posts</h2>
+          <p className="mt-1 text-sm text-white/60">Click Edit to load post into form. Delete removes it from website.</p>
+
+          <div className="mt-4 grid gap-3">
+            {existingPosts.map((post) => (
+              <div key={post.slug} className="flex flex-wrap items-center justify-between gap-3 rounded-xl border border-white/10 bg-white/[0.02] p-3">
+                <div>
+                  <p className="text-sm font-medium">{post.meta.title}</p>
+                  <p className="text-xs text-white/55">/{post.slug}</p>
+                </div>
+                <div className="flex items-center gap-2">
+                  <Button type="button" onClick={() => loadPostForEdit(post.slug)} className="border border-white/15 bg-white/5 text-white hover:bg-white/10">
+                    <PencilLine className="mr-2 h-4 w-4" /> Edit
+                  </Button>
+                  <Button type="button" onClick={() => deletePost(post.slug)} className="border border-red-400/30 bg-red-500/10 text-red-200 hover:bg-red-500/20">
+                    <Trash2 className="mr-2 h-4 w-4" /> Delete
+                  </Button>
+                </div>
+              </div>
+            ))}
+            {existingPosts.length === 0 && <p className="text-sm text-white/50">No posts found.</p>}
+          </div>
         </div>
       </div>
     </main>
