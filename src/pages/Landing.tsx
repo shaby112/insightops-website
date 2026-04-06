@@ -7,7 +7,6 @@ import { HeroAnimation } from "@/components/landing/HeroAnimation";
 import { FoundersLetter } from "@/components/landing/FoundersLetter";
 import { Link } from "react-router-dom";
 import { ArrowRight } from "lucide-react";
-import { Button } from "@/components/ui/button";
 import { BenchmarkTable } from "@/components/landing/BenchmarkTable";
 
 const features = [
@@ -73,14 +72,15 @@ export default function Landing() {
                 </p>
 
                 <div className="mt-8">
-                  <Link to="/waitlist">
-                    <Button
-                      size="lg"
-                      className="relative overflow-hidden rounded-lg border-0 bg-transparent px-6 py-3 font-medium text-white shadow-[inset_0_1px_1px_rgba(255,255,255,0.15)] transition-all hover:bg-white/10 before:absolute before:-inset-1 before:-z-10 before:bg-gradient-to-r before:from-indigo-500/40 before:via-purple-500/40 before:to-emerald-500/40 before:opacity-70 before:blur-sm"
-                    >
-                      Join Waitlist
-                      <ArrowRight className="ml-2 h-4 w-4" />
-                    </Button>
+                  <Link
+                    to="/waitlist"
+                    className="group inline-flex items-center gap-2 text-sm font-medium text-white/85 transition-colors hover:text-white"
+                  >
+                    <span className="rounded-full border border-white/20 bg-white/5 px-2 py-0.5 text-[10px] uppercase tracking-[0.18em] text-white/80">
+                      Waitlist Open
+                    </span>
+                    <span>Get early access now</span>
+                    <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5" />
                   </Link>
                 </div>
                 

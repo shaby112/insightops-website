@@ -241,19 +241,14 @@ export default function Features() {
           <h2 className="text-4xl font-semibold tracking-tight md:text-5xl">
             Ready to modernize your analytics workflow?
           </h2>
-          <p className="mx-auto mt-5 max-w-2xl text-lg text-white/65">
-            Start with a focused deployment and scale from ad hoc questions to full dashboard operations.
+          <p className="mx-auto mt-5 max-w-2xl text-base text-white/75">
+            Sign up now for the waitlist to secure early access, launch updates, and early-adopter benefits.
           </p>
           <div className="mt-10 flex flex-col items-center justify-center gap-4 sm:flex-row">
-            <Link to="/sign-up">
+            <Link to="/waitlist">
               <Button size="lg" className="relative h-14 overflow-hidden rounded-lg bg-white/5 px-10 text-lg font-medium text-white backdrop-blur-xl border border-white/10 shadow-[inset_0_1px_1px_rgba(255,255,255,0.15)] transition-all hover:bg-white/10 hover:border-white/20 before:absolute before:-inset-1 before:-z-10 before:bg-gradient-to-r before:from-indigo-500/30 before:via-purple-500/30 before:to-emerald-500/30 before:opacity-50 before:blur-md">
-                Get Started
+                Sign up for Waitlist
                 <ArrowRight className="ml-2 h-5 w-5" />
-              </Button>
-            </Link>
-            <Link to="/pricing">
-              <Button variant="outline" size="lg" className="h-14 border-white/20 bg-white/5 px-10 text-lg text-white hover:bg-white/10">
-                View Pricing
               </Button>
             </Link>
           </div>
