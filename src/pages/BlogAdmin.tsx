@@ -36,13 +36,25 @@ export default function BlogAdmin() {
 
   const effectiveSlug = useMemo(() => toSlug(slug || title), [slug, title]);
 
+  const parseJsonSafe = async (res: Response) => {
+    const text = await res.text();
+    try {
+      return text ? JSON.parse(text) : {};
+    } catch {
+      throw new Error(text || `Request failed (${res.status})`);
+    }
+  };
+
   const refreshPosts = async () => {
     const posts = await fetchAllPosts();
     setExistingPosts(posts.filter((p) => !p.meta.draft));
   };
 
   useEffect(() => {
-    refreshPosts().catch(() => setExistingPosts([]));
+    refreshPosts().catch((e: any) => {
+      setExistingPosts([]);
+      setError(e?.message || "Unable to load existing posts");
+    });
   }, []);
 
   const loadPostForEdit = (postSlug: string) => {
@@ -86,7 +98,7 @@ export default function BlogAdmin() {
         }),
       });
 
-      const data = await res.json();
+      const data = await parseJsonSafe(res);
       if (!res.ok) throw new Error(data?.error || "Image upload failed");
 
       const url = data.path;
@@ -126,7 +138,7 @@ export default function BlogAdmin() {
         }),
       });
 
-      const data = await res.json();
+      const data = await parseJsonSafe(res);
       if (!res.ok) throw new Error(data?.error || "Publish failed");
 
       setMessage(`Published successfully: ${data.url}`);
@@ -164,7 +176,7 @@ export default function BlogAdmin() {
         }),
       });
 
-      const data = await res.json();
+      const data = await parseJsonSafe(res);
       if (!res.ok) throw new Error(data?.error || "Update failed");
       setMessage(`Updated successfully: ${data.url}`);
       await refreshPosts();
@@ -197,7 +209,7 @@ export default function BlogAdmin() {
         body: JSON.stringify({ slug: slugToDelete }),
       });
 
-      const data = await res.json();
+      const data = await parseJsonSafe(res);
       if (!res.ok) throw new Error(data?.error || "Delete failed");
       setMessage(`Deleted successfully: ${slugToDelete}`);
       await refreshPosts();
