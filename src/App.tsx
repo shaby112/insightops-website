@@ -7,12 +7,41 @@ import { BrowserRouter, Route, Routes, Navigate } from "react-router-dom";
 import { HelmetProvider } from "react-helmet-async";
 import { AppHeader } from "@/components/AppHeader";
 
-const Landing = lazy(() => import("./pages/Landing"));
-const Features = lazy(() => import("./pages/Features"));
-const Blog = lazy(() => import("./pages/Blog"));
-const BlogPost = lazy(() => import("./pages/BlogPost"));
-const Waitlist = lazy(() => import("./pages/Waitlist"));
-const BlogAdmin = lazy(() => import("./pages/BlogAdmin"));
+const CHUNK_RELOAD_KEY = "__kuantra_route_chunk_reload__";
+
+function isChunkLoadError(error: unknown) {
+  const message = String((error as any)?.message || error || "").toLowerCase();
+  return (
+    message.includes("failed to fetch dynamically imported module") ||
+    message.includes("loading chunk") ||
+    message.includes("chunkloaderror") ||
+    message.includes("importing a module script failed")
+  );
+}
+
+function lazyWithChunkRecovery(importer: () => Promise<{ default: () => JSX.Element }>) {
+  return lazy(async () => {
+    try {
+      return await importer();
+    } catch (error) {
+      if (typeof window !== "undefined" && isChunkLoadError(error)) {
+        const reloaded = window.sessionStorage.getItem(CHUNK_RELOAD_KEY) === "1";
+        if (!reloaded) {
+          window.sessionStorage.setItem(CHUNK_RELOAD_KEY, "1");
+          window.location.reload();
+        }
+      }
+      throw error;
+    }
+  });
+}
+
+const Landing = lazyWithChunkRecovery(() => import("./pages/Landing"));
+const Features = lazyWithChunkRecovery(() => import("./pages/Features"));
+const Blog = lazyWithChunkRecovery(() => import("./pages/Blog"));
+const BlogPost = lazyWithChunkRecovery(() => import("./pages/BlogPost"));
+const Waitlist = lazyWithChunkRecovery(() => import("./pages/Waitlist"));
+const BlogAdmin = lazyWithChunkRecovery(() => import("./pages/BlogAdmin"));
 
 const queryClient = new QueryClient();
 
