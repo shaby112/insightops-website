@@ -32,27 +32,7 @@ export default async function handler(req, res) {
   }
 
   try {
-    const supabase = getSupabaseAdmin();
-
-    const { error: dbError } = await supabase.from("waitlist_signups").upsert(
-      {
-        email,
-        first_name: firstName,
-        last_name: lastName,
-        business_name: businessName,
-        source: "kuantra-waitlist",
-      },
-      { onConflict: "email" },
-    );
-
-    if (dbError) {
-      return res.status(500).json({
-        error:
-          dbError.message ||
-          "Unable to store waitlist signup. Ensure waitlist_signups table exists and SUPABASE_* vars are set.",
-      });
-    }
-
+    // Primary path: always make sure user is captured in Loops.
     const loopsRes = await fetch("https://app.loops.so/api/v1/contacts/create", {
       method: "POST",
       headers: {
@@ -73,8 +53,33 @@ export default async function handler(req, res) {
     const loopsData = await loopsRes.json().catch(() => ({}));
 
     if (!loopsRes.ok) {
-      const message = loopsData?.message || loopsData?.error || "Saved, but failed to subscribe contact in Loops.";
+      const message = loopsData?.message || loopsData?.error || "Failed to join waitlist.";
       return res.status(502).json({ error: message });
+    }
+
+    // Secondary path: best-effort DB storage (do not block signup if DB config is missing/broken).
+    try {
+      if (process.env.SUPABASE_URL && process.env.SUPABASE_SERVICE_ROLE_KEY) {
+        const supabase = getSupabaseAdmin();
+        const { error: dbError } = await supabase.from("waitlist_signups").upsert(
+          {
+            email,
+            first_name: firstName,
+            last_name: lastName,
+            business_name: businessName,
+            source: "kuantra-waitlist",
+          },
+          { onConflict: "email" },
+        );
+
+        if (dbError) {
+          console.error("waitlist_signups upsert failed:", dbError.message || dbError);
+        }
+      } else {
+        console.warn("Supabase env vars missing; skipping waitlist_signups DB write.");
+      }
+    } catch (dbErr) {
+      console.error("waitlist_signups write error:", dbErr);
     }
 
     return res.status(200).json({ ok: true });
