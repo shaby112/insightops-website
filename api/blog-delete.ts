@@ -1,4 +1,4 @@
-import { requireAdminToken, supabaseRest } from "./_supabase-rest";
+import { requireAdminToken, supabaseRest } from "./_supabase-rest.js";
 
 function sanitizeSlug(value = "") {
   return value

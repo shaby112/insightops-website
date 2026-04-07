@@ -1,4 +1,4 @@
-import { getSupabaseAdmin } from "./_supabase";
+import { getSupabaseAdmin } from "./_supabase.js";
 
 function normalize(value: unknown) {
   return String(value || "").trim();
