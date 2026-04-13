@@ -38,12 +38,13 @@ export default function Waitlist() {
   const [lastName, setLastName] = useState("");
   const [businessName, setBusinessName] = useState("");
   const [email, setEmail] = useState("");
+  const [dataConnectors, setDataConnectors] = useState("");
   const [status, setStatus] = useState<"idle" | "loading" | "success" | "error">("idle");
   const [error, setError] = useState("");
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (!firstName || !lastName || !businessName || !email) return;
+    if (!firstName || !lastName || !businessName || !email || !dataConnectors) return;
 
     setStatus("loading");
     setError("");
@@ -54,7 +55,7 @@ export default function Waitlist() {
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ firstName, lastName, businessName, email }),
+        body: JSON.stringify({ firstName, lastName, businessName, email, dataConnectors }),
       });
 
       const data = await parseJsonSafe(res);
@@ -68,6 +69,7 @@ export default function Waitlist() {
       setLastName("");
       setBusinessName("");
       setEmail("");
+      setDataConnectors("");
     } catch (err: any) {
       setStatus("error");
       setError(err?.message || "Something went wrong. Please try again.");
@@ -132,12 +134,20 @@ export default function Waitlist() {
                   disabled={status === "loading"}
                   className="h-12 border-white/10 bg-white/5 px-4 text-white placeholder:text-white/40 md:col-span-2"
                 />
+                <Input
+                  placeholder="Most used data connectors (e.g. Postgres, MySQL, BigQuery)"
+                  required
+                  value={dataConnectors}
+                  onChange={(e) => setDataConnectors(e.target.value)}
+                  disabled={status === "loading"}
+                  className="h-12 border-white/10 bg-white/5 px-4 text-white placeholder:text-white/40 md:col-span-2"
+                />
               </div>
 
               <div className="pt-1">
                 <Button
                   type="submit"
-                  disabled={status === "loading" || !firstName || !lastName || !businessName || !email}
+                  disabled={status === "loading" || !firstName || !lastName || !businessName || !email || !dataConnectors}
                   className="relative h-11 shrink-0 overflow-hidden rounded-lg bg-transparent px-5 font-medium text-white shadow-[inset_0_1px_1px_rgba(255,255,255,0.15)] transition-all disabled:opacity-50 before:absolute before:-inset-1 before:-z-10 before:bg-gradient-to-r before:from-indigo-500/40 before:via-purple-500/40 before:to-emerald-500/40 before:opacity-70 before:blur-sm"
                 >
                   <span className="relative flex items-center gap-2">

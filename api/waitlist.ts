@@ -22,9 +22,10 @@ export default async function handler(req, res) {
   const lastName = normalize(req.body?.lastName);
   const businessName = normalize(req.body?.businessName);
   const email = normalize(req.body?.email).toLowerCase();
+  const dataConnectors = normalize(req.body?.dataConnectors);
 
-  if (!firstName || !lastName || !businessName || !email) {
-    return res.status(400).json({ error: "firstName, lastName, businessName, and email are required." });
+  if (!firstName || !lastName || !businessName || !email || !dataConnectors) {
+    return res.status(400).json({ error: "firstName, lastName, businessName, email, and dataConnectors are required." });
   }
 
   if (!isValidEmail(email)) {
@@ -47,6 +48,7 @@ export default async function handler(req, res) {
         subscribed: true,
         userGroup: "waitlist",
         businessName,
+        dataConnectors,
       }),
     });
 

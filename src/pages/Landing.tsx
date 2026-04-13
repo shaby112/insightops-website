@@ -33,24 +33,29 @@ const features = [
 
 const faqs = [
   {
-    question: "How does Kuantra protect data privacy?",
+    question: "Is my company’s data safe with Kuantra?",
     answer:
-      "Kuantra is built for private deployment. Your data stays in your environment, with no forced data egress to third-party SaaS infrastructure.",
+      "Absolutely. Kuantra is a self-hosted BI platform, so your data stays on your infrastructure. Our Docker-based deployment gives you private analytics and secure data analysis without forcing sensitive data into a third-party BI cloud.",
   },
   {
-    question: "Is Kuantra actually fast for everyday analytics?",
+    question: "What makes Kuantra dashboards and queries so fast?",
     answer:
-      "Yes. Kuantra is DuckDB-native and optimized for sub-100ms query interactions where possible, so dashboards and AI-assisted exploration feel instant.",
+      "Kuantra is engineered for high-performance BI with a DuckDB-native analytics engine that delivers real-time, sub-second query performance. This keeps dashboards responsive and removes the lag common in traditional BI tools.",
   },
   {
-    question: "Do I have to use Kuantra-hosted AI, or can I bring my own key?",
+    question: "How does Kuantra AI work, and what about BYOK or local models?",
     answer:
-      "You can run with local AI setups or bring your own model/API key path depending on your deployment requirements, so you stay in control of cost and governance.",
+      "Kuantra uses our in-house model, Kuantra AI, to provide fast and accurate text-to-SQL results. We are actively implementing Bring Your Own Key (BYOK) and local Ollama integration. For BYOK flows, only database schema metadata like column names is sent to the model, never row-level data.",
   },
   {
-    question: "Is Kuantra in testing right now?",
+    question: "When can I start testing Kuantra?",
     answer:
-      "Yes, Kuantra is currently in active testing with early users. We are iterating quickly and improving stability, UX, and connector coverage each cycle.",
+      "We are launching the Kuantra beta very soon. Join the waitlist now to be one of the first teams to get access, onboard early, and help shape upcoming releases.",
+  },
+  {
+    question: "What data connectors does Kuantra support?",
+    answer:
+      "Our initial release includes core connectors for popular databases and warehouses, and we are actively adding more native data connectors based on user demand and feedback.",
   },
 ];
 
